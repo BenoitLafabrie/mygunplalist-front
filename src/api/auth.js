@@ -1,6 +1,6 @@
 const login = async (email, password) => {
   const body = { email, password };
-  const request = await fetch(`${import.meta.env.VITE_APP_URL}/auth/login`, {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
