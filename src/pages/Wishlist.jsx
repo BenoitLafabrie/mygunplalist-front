@@ -10,6 +10,7 @@ import {
   Center,
   Heading,
   Image,
+  SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
 import { Link as ChakraLink } from "@chakra-ui/react";
@@ -32,7 +33,11 @@ export default function Wishlist() {
         <Heading my="0.5em" textTransform="uppercase" size="md">
           La wishlist de {userData.username}
         </Heading>
-        <Stack spacing={8}>
+        <SimpleGrid
+          spacing={8}
+          columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+          mx="auto"
+        >
           {myWishlist?.Items?.map((item) => (
             <Card key={item.item_id}>
               <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
@@ -66,7 +71,7 @@ export default function Wishlist() {
               )}
             </Card>
           ))}
-        </Stack>
+        </SimpleGrid>
         <Stack alignItems="center">
           <Pagination
             totalItems={filteredItems.length}

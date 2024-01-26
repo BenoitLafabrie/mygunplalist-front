@@ -49,39 +49,58 @@ export default function Register() {
       gender,
     };
 
-    const response = await fetch(`${import.meta.env.VITE_APP_URL}/users/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    console.log("Submitting user data:", userData);
 
-    if (response.ok) {
-      toast({
-        title: "Compte créé",
-        description: "Bienvenue!",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
+    try {
+      const response = await fetch(`${import.meta.env.VITE_APP_URL}/users/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
       });
-      createCollection();
+
       if (response.ok) {
-        navigate("/users/me");
+        console.log("User creation successful. Server response:", response);
+
+        toast({
+          title: "Compte créé",
+          description: "Bienvenue!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+
+        createCollection();
+
+        if (response.ok) {
+          navigate("/users/me");
+        } else {
+          console.error("Error creating collection");
+        }
       } else {
-        console.error("Error creating collection");
+        console.error("Error creating user. Server response:", response);
+
+        try {
+          const errorDetails = await response.json();
+          console.error("Server error details:", errorDetails);
+        } catch (jsonError) {
+          console.error("Error parsing JSON:", jsonError);
+        }
+
+        toast({
+          title: "Inscription échouée",
+          description: "Réessayez plus tard",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       }
-    } else {
-      console.error("Error creating user");
-      toast({
-        title: "Inscription échouée",
-        description: "Réessayez plus tard",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+    } catch (error) {
+      console.error("Unexpected error:", error);
     }
   };
+
   return (
     <div
       style={{

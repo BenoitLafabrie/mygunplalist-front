@@ -136,8 +136,8 @@ export default function BackOffice() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      m="2em"
       w="100%"
+      minH="calc(93vh - 66px)"
     >
       <Stack w="50%">
         <InputGroup borderColor="#314095">
