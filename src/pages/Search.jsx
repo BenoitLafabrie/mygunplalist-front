@@ -16,6 +16,7 @@ import {
   InputRightElement,
   Select,
   Stack,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
@@ -23,49 +24,55 @@ import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
 import AddToWishlistButton from "../components/AddToWishlistButton";
 import AddToCollectionButton from "../components/AddToCollectionButton";
 import Pagination from "../components/Pagination";
+import { getAllItems } from "../api/item";
 
 export default function Search() {
   const { userData, userToken } = useContext(UserContext);
 
   const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]); // items filtered by search
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortDirection, setSortDirection] = useState("asc");
+  const [sortType, setSortType] = useState("name");
   const itemsPerPage = 10;
+
+  const fetchAllItems = async () => {
+    const allItems = await getAllItems();
+    if (allItems) {
+      setItems(allItems);
+    }
+  };
 
   // Fetch the items when the component mounts
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_URL}/kits`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des kits");
-        }
-        return response.json();
-      })
-      .then((items) => {
-        fetch(`${import.meta.env.VITE_APP_URL}/kits-images`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Erreur lors de la récupération des images");
-            }
-            return response.json();
-          })
-          .then((images) => {
-            const itemsWithImages = items.map((item) => ({
-              ...item,
-              images: images.filter((image) => image.item_id === item.item_id),
-            }));
-            setItems(itemsWithImages);
-          });
-      })
-      .catch((error) => {
-        console.error("Erreur:", error);
-      });
+    try {
+      fetchAllItems();
+    } catch (error) {
+      console.error("Erreur:", error);
+    }
   }, []);
 
-  const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filterFunction = () => {
+    if (sortType === "name") {
+      const itemsFiltering = items.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredItems(itemsFiltering);
+    } else if (sortType !== "name") {
+      const itemsFiltering = items.filter(
+        (item) => item.Items_props.grade === sortType
+      );
+      const itemsSearched = itemsFiltering.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredItems(itemsSearched);
+    }
+  };
+
+  useEffect(() => {
+    filterFunction();
+  }, [sortType, items, search]);
 
   useEffect(() => {
     const topElement = document.getElementById("search-page");
@@ -76,9 +83,17 @@ export default function Search() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
+  if (!currentItems) {
+    <p>Loading</p>;
+  }
   return (
-    <Box w="80%" id="search-page">
-      <Stack direction="column" spacing={4} my="2em">
+    <Box w="80%" id="search-page" minH="calc(93vh - 66px)">
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={4}
+        my="2em"
+        minH="100%"
+      >
         <InputGroup>
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="gray.300" />
@@ -107,23 +122,40 @@ export default function Search() {
           <option value="asc">Croissant</option>
           <option value="desc">Décroissant</option>
         </Select>
+        <Select value={sortType} onChange={(e) => setSortType(e.target.value)}>
+          <option value="name">Tous</option>
+          <option value="Entry Grade">Entry Grade</option>
+          <option value="High Grade">High Grade</option>
+          <option value="Real Grade">Real Grade</option>
+          <option value="SD/BB Grade">SD/BB Grade</option>
+          <option value="Master Grade">Master Grade</option>
+          <option value="Perfect Grade">Perfect Grade</option>
+        </Select>
       </Stack>
-      <Stack spacing={8}>
+      <SimpleGrid
+        spacing={8}
+        columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+        mx="auto"
+      >
         {currentItems.map((item) => (
-          <Card key={item.item_id} align="center">
+          <Card
+            key={item.item_id}
+            align="center"
+            justifyContent="space-between"
+          >
             <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
               <CardBody>
                 {/* Render the first image of the item if it exists */}
-                {item.images && item.images.length > 0 ? (
+                {item.Items_images && item.Items_images.length > 0 ? (
                   <Image
-                    src={item.images[0].image_path}
+                    src={item.Items_images[0].image_path}
                     alt={item.name}
                     borderRadius="lg"
                   />
                 ) : (
                   <p>Aucune image pour ce gunpla</p>
                 )}
-                <Heading size="xs" pt="2">
+                <Heading size="xs" pt="2" textAlign="center">
                   {item.name}
                 </Heading>
               </CardBody>
@@ -145,7 +177,7 @@ export default function Search() {
             </CardFooter>
           </Card>
         ))}
-      </Stack>
+      </SimpleGrid>
       <Stack alignItems="center">
         <Pagination
           totalItems={filteredItems.length}

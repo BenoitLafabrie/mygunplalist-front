@@ -172,13 +172,13 @@ export default function KitPage() {
         >
           <AddToCollectionButton
             token={userToken}
-            id={userData.user_id}
+            id={userData?.user_id}
             item_id={item.item_id}
             variant={item.ROG_Url ? "outline" : "solid"}
           />
           <AddToWishlistButton
             token={userToken}
-            id={userData.user_id}
+            id={userData?.user_id}
             item_id={item.item_id}
           />
         </Stack>

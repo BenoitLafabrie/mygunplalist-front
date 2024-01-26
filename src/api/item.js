@@ -15,4 +15,15 @@ const addToCollection = async (email, password) => {
   return token;
 };
 
-export { addToCollection };
+const getAllItems = async (token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const response = await request.json();
+  return response;
+};
+
+export { addToCollection, getAllItems };

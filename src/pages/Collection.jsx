@@ -8,6 +8,7 @@ import {
   Center,
   Heading,
   Image,
+  SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
 import { Link as ChakraLink } from "@chakra-ui/react";
@@ -25,12 +26,16 @@ export default function Collection() {
   }
 
   return (
-    <Box w="80%" mb="1em">
+    <Box w="80%" mb="1em" minH="calc(93vh - 82px)">
       <Center flexDirection="column">
         <Heading my="0.5em" textTransform="uppercase" size="md">
           La gunplalist de {userData.username}
         </Heading>
-        <Stack spacing={8}>
+        <SimpleGrid
+          spacing={8}
+          columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+          mx="auto"
+        >
           {myGunplaList?.Items?.map((item) => (
             <Card key={item.item_id}>
               <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
@@ -44,14 +49,14 @@ export default function Collection() {
                   ) : (
                     <p>Aucune image pour ce gunpla</p>
                   )}
-                  <Heading size="xs" pt="2">
+                  <Heading size="xs" pt="2" textAlign="center">
                     {item.name}
                   </Heading>
                 </CardBody>
               </ChakraLink>
             </Card>
           ))}
-        </Stack>
+        </SimpleGrid>
         <Stack alignItems="center">
           <Pagination
             totalItems={filteredItems.length}

@@ -2,7 +2,7 @@ import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useBreakpointValue } from "@chakra-ui/react";
-import Footer_Background from "../assets/Footer_Background.svg";
+import Footer_Background from "../assets/footer/Footer_Background.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
@@ -20,7 +20,7 @@ export default function Footer() {
     <Box
       display={{ base: "grid", md: "flex" }}
       w="100%"
-      h={{ base: "28%", md: "14%" }}
+      h={{ base: "28%", md: "7vh" }}
       flexDirection={{ md: "column" }}
       position={{ md: "relative" }}
       bottom={{ base: "0", md: "unset" }}
