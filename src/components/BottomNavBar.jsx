@@ -2,7 +2,7 @@ import { Box, Image, List, ListItem } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import Add_Kit_Icon from "../assets/bottomNavBar/add_kit_icon.svg";
-import Collection_Icon from "../assets/bottomNavBar/collection_icon.svg";
+import Collection_Icon from "src/assets/bottomNavBar/collection_icon.svg";
 import Profile_Icon from "../assets/bottomNavBar/profile_icon.svg";
 import Search_Icon from "../assets/bottomNavBar/search_icon.svg";
 import Wishlist_Icon from "../assets/bottomNavBar/wishlist_icon.svg";
