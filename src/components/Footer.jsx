@@ -2,16 +2,16 @@ import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useBreakpointValue } from "@chakra-ui/react";
-import Footer_Background from "../assets/footer/Footer_Background.svg";
+import Footer_Background from "../assets/footer/footer_background.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
-import FaceBookIcon from "../assets/icons/FaceBookIcon.svg";
-import InstagramIcon from "../assets/icons/InstagramIcon.svg";
-import TwitterIcon from "../assets/icons/TwitterIcon.svg";
-import DiscordIcon from "../assets/icons/DiscordIcon.svg";
+import FaceBookIcon from "../assets/icons/facebookIcon.svg";
+import InstagramIcon from "../assets/icons/instagramIcon.svg";
+import TwitterIcon from "../assets/icons/twitterIcon.svg";
+import DiscordIcon from "../assets/icons/discordIcon.svg";
 import TiktokIcon from "../assets/icons/tiktok_icon.svg";
-import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
+import YoutubeIcon from "../assets/icons/youtubeIcon.svg";
 
 export default function Footer() {
   const bgImage = useBreakpointValue({ base: Footer_Background, md: "none" });

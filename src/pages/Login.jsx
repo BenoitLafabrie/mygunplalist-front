@@ -12,7 +12,7 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
+import ButtonIconLogo from "../assets/icons/buttonIconLogo.svg";
 
 import { login } from "../api/auth";
 
