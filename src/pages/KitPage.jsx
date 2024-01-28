@@ -16,8 +16,8 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import AddToCollectionButton from "../../../mygunplalist-front/src/components/AddToCollectionButton";
-import AddToWishlistButton from "../../../mygunplalist-front/src/components/AddToWishlistButton";
+import AddToCollectionButton from "../components/AddToCollectionButton";
+import AddToWishlistButton from "../components/AddToWishlistButton";
 
 export default function KitPage() {
   const [item, setItem] = useState(null);

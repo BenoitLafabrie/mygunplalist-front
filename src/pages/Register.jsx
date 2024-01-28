@@ -49,8 +49,6 @@ export default function Register() {
       gender,
     };
 
-    console.log("Submitting user data:", userData);
-
     try {
       const response = await fetch(`${import.meta.env.VITE_APP_URL}/users/`, {
         method: "POST",
@@ -59,7 +57,7 @@ export default function Register() {
         },
         body: JSON.stringify(userData),
       });
-
+      console.log("Server response:", response.body);
       if (response.ok) {
         console.log("User creation successful. Server response:", response);
 
@@ -82,10 +80,19 @@ export default function Register() {
         console.error("Error creating user. Server response:", response);
 
         try {
+          // Consume the response body as JSON
           const errorDetails = await response.json();
           console.error("Server error details:", errorDetails);
         } catch (jsonError) {
           console.error("Error parsing JSON:", jsonError);
+
+          // If parsing as JSON fails, attempt to read the response body as text
+          try {
+            const errorText = await response.text();
+            console.error("Server error body (text):", errorText);
+          } catch (textError) {
+            console.error("Error reading response body as text:", textError);
+          }
         }
 
         toast({
