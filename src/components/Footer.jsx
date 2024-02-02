@@ -1,8 +1,6 @@
 import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import { useBreakpointValue } from "@chakra-ui/react";
-import Footer_Background from "../assets/footer/footer_background.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
@@ -14,8 +12,6 @@ import TiktokIcon from "../assets/icons/tiktok_icon.svg";
 import YoutubeIcon from "../assets/icons/youtubeIcon.svg";
 
 export default function Footer() {
-  const bgImage = useBreakpointValue({ base: Footer_Background, md: "none" });
-
   return (
     <Box
       as="footer"
@@ -29,8 +25,7 @@ export default function Footer() {
       pb={{ base: "unset", md: "0.5em" }}
       alignItems={{ base: "center", md: "start" }}
       alignContent={{ base: "unset", md: "start" }}
-      backgroundImage={bgImage}
-      bgColor={{ base: "transparent", md: "brand.500" }}
+      backgroundColor="brand.500"
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
     >
