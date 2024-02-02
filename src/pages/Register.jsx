@@ -13,7 +13,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
+import ButtonIconLogo from "../assets/icons/buttonIconLogo.svg";
 import { createCollection } from "../api/myGunplaList";
 
 export default function Register() {
