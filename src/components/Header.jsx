@@ -28,8 +28,8 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <Box w="100%">
-      <ChakraLink as={ReactRouterLink} to="/home" w="100vw">
+    <Box as="header" w="100%">
+      <ChakraLink as={ReactRouterLink} to="/" w="100vw">
         <Box
           h="108px"
           position="sticky"
@@ -44,17 +44,17 @@ export default function Header() {
         display={{ base: "none", md: "flex" }}
         bgColor="brand.500"
       >
-        <HStack>
+        <ChakraLink
+          as={ReactRouterLink}
+          to="/"
+          display="flex"
+          gap={2}
+          maxW="400px"
+        >
           <Image src={MyGunplaListLogo} boxSize="7.5%" ml="1em" />
           <Image src={BrandLogo} />
-        </HStack>
-        <ButtonGroup
-          spacing={3}
-          variant="ghost"
-          size="md"
-          ml="-20%"
-          gap={{ md: "1em", lg: "2em" }}
-        >
+        </ChakraLink>
+        <ButtonGroup spacing={3} variant="ghost" size="md" gap="1em">
           <ChakraLink as={ReactRouterLink} to="/admin">
             <Button color="white" _hover={{ bg: "#314095" }}>
               Dashboard

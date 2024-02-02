@@ -18,6 +18,7 @@ export default function Footer() {
 
   return (
     <Box
+      as="footer"
       display={{ base: "grid", md: "flex" }}
       w="100%"
       h={{ base: "28%", md: "7vh" }}

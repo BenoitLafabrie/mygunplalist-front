@@ -12,6 +12,7 @@ import ButtonLogo from "./ButtonLogo";
 export default function HomeHeader() {
   return (
     <Box
+      as="header"
       w="100%"
       h="660px"
       position="sticky"
@@ -34,9 +35,11 @@ export default function HomeHeader() {
         <Box
           display="flex"
           flexDirection="column"
+          flexWrap="wrap"
           px="2em"
           pt="1em"
           justifyContent="center"
+          alignContent="center"
         >
           <Image src={MyGunplaListLogo} pb="2em" />
           <Text

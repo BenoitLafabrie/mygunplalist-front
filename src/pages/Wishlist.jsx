@@ -28,7 +28,7 @@ export default function Wishlist() {
   }
 
   return (
-    <Box w="80%" mb="1em">
+    <Box w="80%" mb="1em" minH="calc(93vh - 82px)">
       <Center flexDirection="column">
         <Heading my="0.5em" textTransform="uppercase" size="md">
           La wishlist de {userData.username}

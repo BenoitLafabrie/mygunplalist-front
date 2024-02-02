@@ -50,7 +50,7 @@ export default function Register() {
     };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_APP_URL}/users/`, {
+      const response = await fetch(`${import.meta.env.VITE_APP_URL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
