@@ -403,7 +403,7 @@ export default function Register() {
           </Button>
         </form>
         <Text my="1em">
-          Déja membre?{" "}
+          Déjà membre?{" "}
           <ChakraLink as={ReactRouterLink} to="/login" color="brand.500">
             Connectez-vous
           </ChakraLink>

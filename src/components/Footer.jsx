@@ -43,7 +43,7 @@ export default function Footer() {
           align="center"
           textColor={{ base: "auto", md: "white" }}
         >
-          Les Logos, produits et noms de sociétés mentionnnés sont la propriété
+          Les logos, produits et noms de sociétés mentionnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024
         </Text>
       </Box>

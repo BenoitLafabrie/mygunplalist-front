@@ -1,6 +1,6 @@
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import "@fontsource/rubik";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.jsx";
 import { UserContextProvider } from "./context/User.jsx";
 import About from "./pages/About.jsx";
