@@ -1,5 +1,4 @@
-import { useColorMode } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import { Button, useColorMode } from "@chakra-ui/react";
 
 export default function ThemeToggleButton() {
   const { colorMode, toggleColorMode } = useColorMode();

@@ -1,14 +1,13 @@
-import { Box, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Link as ChakraLink, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import BrandLogo from "../assets/header/BrandLogo.svg";
-import Tagline from "../assets/header/Tagline.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
+import Tagline from "../assets/header/Tagline.svg";
+import DiscordIcon from "../assets/icons/discordIcon.svg";
 import FaceBookIcon from "../assets/icons/facebookIcon.svg";
 import InstagramIcon from "../assets/icons/instagramIcon.svg";
-import TwitterIcon from "../assets/icons/twitterIcon.svg";
-import DiscordIcon from "../assets/icons/discordIcon.svg";
 import TiktokIcon from "../assets/icons/tiktok_icon.svg";
+import TwitterIcon from "../assets/icons/twitterIcon.svg";
 import YoutubeIcon from "../assets/icons/youtubeIcon.svg";
 
 export default function Footer() {

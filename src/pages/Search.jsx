@@ -1,30 +1,30 @@
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../context/User";
+import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
 import {
   Box,
   ButtonGroup,
   Card,
-  CardFooter,
   CardBody,
+  CardFooter,
+  Link as ChakraLink,
   Divider,
   Heading,
-  Image,
   IconButton,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   Select,
-  Stack,
   SimpleGrid,
+  Stack,
 } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
-import AddToWishlistButton from "../components/AddToWishlistButton";
-import AddToCollectionButton from "../components/AddToCollectionButton";
-import Pagination from "../components/Pagination";
 import { getAllItems } from "../api/item";
+import AddToCollectionButton from "../components/AddToCollectionButton";
+import AddToWishlistButton from "../components/AddToWishlistButton";
+import Pagination from "../components/Pagination";
+import { UserContext } from "../context/User";
 
 export default function Search() {
   const { userData, userToken } = useContext(UserContext);

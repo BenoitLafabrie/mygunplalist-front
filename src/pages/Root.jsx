@@ -1,7 +1,7 @@
-import BottomNavBar from "../components/BottomNavBar";
 import { Outlet, useLocation } from "react-router-dom";
-import Header from "../components/Header";
+import BottomNavBar from "../components/BottomNavBar";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import HomeHeader from "../components/HomeHeader";
 
 export default function Root() {

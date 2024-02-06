@@ -1,6 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { UserContext } from "../context/User";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Card,
@@ -9,15 +7,17 @@ import {
   IconButton,
   Image,
   Modal,
-  ModalOverlay,
-  ModalContent,
   ModalBody,
-  Text,
+  ModalContent,
+  ModalOverlay,
   Stack,
+  Text,
 } from "@chakra-ui/react";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import AddToCollectionButton from "../components/AddToCollectionButton";
 import AddToWishlistButton from "../components/AddToWishlistButton";
+import { UserContext } from "../context/User";
 
 export default function KitPage() {
   const [item, setItem] = useState(null);

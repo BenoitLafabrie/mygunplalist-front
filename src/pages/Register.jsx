@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { useToast } from "@chakra-ui/react";
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import {
   Button,
+  Link as ChakraLink,
   FormControl,
   FormLabel,
   Image,
@@ -12,9 +9,12 @@ import {
   Stack,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
-import ButtonIconLogo from "../assets/icons/buttonIconLogo.svg";
+import { useState } from "react";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { createCollection } from "../api/myGunplaList";
+import ButtonIconLogo from "../assets/icons/buttonIconLogo.svg";
 
 export default function Register() {
   const [username, setUsername] = useState("");

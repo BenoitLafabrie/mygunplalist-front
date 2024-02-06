@@ -4,16 +4,15 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Link as ChakraLink,
   Heading,
   Image,
   Text,
 } from "@chakra-ui/react";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { UserContext } from "../context/User";
+import { useContext, useEffect } from "react";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import LogoutButton from "../components/LogoutButton";
+import { UserContext } from "../context/User";
 
 export default function Profile() {
   const navigate = useNavigate();

@@ -1,10 +1,9 @@
-import { Box, Button, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Link as ChakraLink, Image, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import Home_Header_ROG from "../assets/header/Home_Header_ROG.svg";
-import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
-import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
+import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
+import Home_Header_ROG from "../assets/header/Home_Header_ROG.svg";
+import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
 import ButtonLogo from "./ButtonLogo";
 

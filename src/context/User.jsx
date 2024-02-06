@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { getUserData } from "../api/user";
+import { createContext, useEffect, useState } from "react";
 import { getMygunplalistById } from "../api/myGunplaList";
 import { getWishlistById } from "../api/myWishlist";
+import { getUserData } from "../api/user";
 
 const UserContext = createContext({});
 
@@ -82,4 +82,4 @@ UserContextProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export { UserContextProvider, UserContext };
+export { UserContext, UserContextProvider };

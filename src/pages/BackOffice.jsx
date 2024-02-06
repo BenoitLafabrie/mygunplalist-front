@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CloseIcon,
+  Search2Icon,
+} from "@chakra-ui/icons";
 import {
   Box,
+  Link as ChakraLink,
   IconButton,
   Image,
   Input,
@@ -10,22 +16,16 @@ import {
   InputRightElement,
   Stack,
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  CloseIcon,
-  Search2Icon,
-} from "@chakra-ui/icons";
 import Pagination from "../components/Pagination";
 
 export default function BackOffice() {

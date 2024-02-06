@@ -15,13 +15,13 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { Search2Icon } from "@chakra-ui/icons";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { BiLogOut } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
-import Header_Icon from "../assets/header/Header_Icon.svg";
-import { Search2Icon } from "@chakra-ui/icons";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import BrandLogo from "../assets/header/BrandLogo.svg";
+import Header_Icon from "../assets/header/Header_Icon.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 
 export default function Header() {

@@ -1,32 +1,32 @@
-import { useState, useRef, useEffect, useContext } from "react";
-import { useZxing } from "react-zxing";
 import {
   Box,
   Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  Link as ChakraLink,
+  Divider,
+  HStack,
+  Heading,
+  Image,
   List,
   ListItem,
   Text,
   VStack,
-  HStack,
-  Image,
-  Card,
-  CardBody,
-  Heading,
-  Divider,
-  CardFooter,
-  ButtonGroup,
   useToast,
 } from "@chakra-ui/react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import AddToCollectionButton from "./AddToCollectionButton";
-import { UserContext } from "../context/User";
-import AddToWishlistButton from "./AddToWishlistButton";
+import { useZxing } from "react-zxing";
 import {
   getMygunplalistById,
   updateMygunplalistById,
 } from "../api/myGunplaList";
 import { getWishlistById, updateWishlistById } from "../api/myWishlist";
+import { UserContext } from "../context/User";
+import AddToCollectionButton from "./AddToCollectionButton";
+import AddToWishlistButton from "./AddToWishlistButton";
 
 export default function BarcodeReader() {
   // Define state variables for the last result and all scanned barcodes
