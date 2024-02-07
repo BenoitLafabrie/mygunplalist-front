@@ -69,7 +69,7 @@ export default function Register() {
           isClosable: true,
         });
 
-        createCollection();
+        await createCollection();
 
         if (response.ok) {
           navigate("/users/me");
