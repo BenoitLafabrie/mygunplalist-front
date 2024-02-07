@@ -1,6 +1,3 @@
-import BottomNavBar from "../components/BottomNavBar";
-import Footer from "../components/Footer";
-import HomeHeader from "../components/HomeHeader";
 import HomePage from "../components/HomePage";
 
 export default function Home() {
@@ -13,10 +10,7 @@ export default function Home() {
         overflow: "auto",
       }}
     >
-      <HomeHeader />
       <HomePage />
-      <Footer />
-      <BottomNavBar />
     </div>
   );
 }

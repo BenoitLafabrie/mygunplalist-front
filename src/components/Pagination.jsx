@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
-import { Button, ButtonGroup, IconButton, Stack } from "@chakra-ui/react";
 import {
   ArrowBackIcon,
   ArrowForwardIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
 } from "@chakra-ui/icons";
+import { Button, ButtonGroup, IconButton, Stack } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
 const Pagination = ({
   totalItems,

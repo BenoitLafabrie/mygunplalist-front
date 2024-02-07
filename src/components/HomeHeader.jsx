@@ -1,21 +1,20 @@
-import { Box, Button, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Link as ChakraLink, Image, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import Home_Header_Background from "../assets/header/Home_Header_Background.svg";
-import Home_Header_ROG from "../assets/header/Home_Header_ROG.svg";
-import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
-import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
+import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
+import Home_Header_ROG from "../assets/header/Home_Header_ROG.svg";
+import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
 import ButtonLogo from "./ButtonLogo";
 
 export default function HomeHeader() {
   return (
     <Box
+      as="header"
       w="100%"
       h="660px"
       position="sticky"
-      backgroundImage={Home_Header_Background}
+      backgroundColor="brand.500"
     >
       <ChakraLink
         as={ReactRouterLink}
@@ -34,9 +33,11 @@ export default function HomeHeader() {
         <Box
           display="flex"
           flexDirection="column"
+          flexWrap="wrap"
           px="2em"
           pt="1em"
           justifyContent="center"
+          alignContent="center"
         >
           <Image src={MyGunplaListLogo} pb="2em" />
           <Text

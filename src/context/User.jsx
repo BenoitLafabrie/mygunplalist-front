@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { getUserData } from "../api/user";
+import { createContext, useEffect, useState } from "react";
 import { getMygunplalistById } from "../api/myGunplaList";
 import { getWishlistById } from "../api/myWishlist";
+import { getUserData } from "../api/user";
 
 const UserContext = createContext({});
 
@@ -11,11 +11,14 @@ const UserContextProvider = (props) => {
   const [userData, setUserData] = useState(null);
   const [myGunplaList, setMyGunplaList] = useState(null);
   const [myWishlist, setMyWishlist] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserData = async (token) => {
+    setIsLoading(true);
     const userData = await getUserData(token);
     if (userData) {
       setUserData(userData);
+      setIsLoading(false);
     }
   };
 
@@ -71,6 +74,8 @@ const UserContextProvider = (props) => {
     setMyGunplaList,
     myWishlist,
     setMyWishlist,
+    isLoading,
+    setIsLoading,
   };
 
   return (
@@ -82,4 +87,4 @@ UserContextProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export { UserContextProvider, UserContext };
+export { UserContext, UserContextProvider };

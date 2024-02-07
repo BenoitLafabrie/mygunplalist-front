@@ -1,18 +1,18 @@
-import { useState, useContext } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { UserContext } from "../context/User";
 import {
   Box,
   Card,
   CardBody,
   Center,
+  Link as ChakraLink,
   Heading,
   Image,
   SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
-import { Link as ChakraLink } from "@chakra-ui/react";
+import { useContext, useState } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import { UserContext } from "../context/User";
 
 export default function Collection() {
   const { userData, myGunplaList } = useContext(UserContext);

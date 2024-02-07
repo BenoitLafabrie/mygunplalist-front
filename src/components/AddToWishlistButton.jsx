@@ -2,8 +2,8 @@ import { Button, useToast } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { getWishlistById, updateWishlistById } from "../api/myWishlist.js";
 
-import { UserContext } from "../context/User.jsx";
 import { useContext } from "react";
+import { UserContext } from "../context/User.jsx";
 
 const AddToWishlistButton = ({ token, id, item_id }) => {
   const { setMyWishlist } = useContext(UserContext);

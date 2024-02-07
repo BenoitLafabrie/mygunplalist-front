@@ -1,23 +1,19 @@
-import { Box, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Link as ChakraLink, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import { useBreakpointValue } from "@chakra-ui/react";
-import Footer_Background from "../assets/footer/Footer_Background.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
-import Tagline from "../assets/header/Tagline.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
-import FaceBookIcon from "../assets/icons/FaceBookIcon.svg";
-import InstagramIcon from "../assets/icons/InstagramIcon.svg";
-import TwitterIcon from "../assets/icons/TwitterIcon.svg";
-import DiscordIcon from "../assets/icons/DiscordIcon.svg";
+import Tagline from "../assets/header/Tagline.svg";
+import DiscordIcon from "../assets/icons/discordIcon.svg";
+import FaceBookIcon from "../assets/icons/facebookIcon.svg";
+import InstagramIcon from "../assets/icons/instagramIcon.svg";
 import TiktokIcon from "../assets/icons/tiktok_icon.svg";
-import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
+import TwitterIcon from "../assets/icons/twitterIcon.svg";
+import YoutubeIcon from "../assets/icons/youtubeIcon.svg";
 
 export default function Footer() {
-  const bgImage = useBreakpointValue({ base: Footer_Background, md: "none" });
-
   return (
     <Box
+      as="footer"
       display={{ base: "grid", md: "flex" }}
       w="100%"
       h={{ base: "28%", md: "7vh" }}
@@ -28,8 +24,7 @@ export default function Footer() {
       pb={{ base: "unset", md: "0.5em" }}
       alignItems={{ base: "center", md: "start" }}
       alignContent={{ base: "unset", md: "start" }}
-      backgroundImage={bgImage}
-      bgColor={{ base: "transparent", md: "brand.500" }}
+      backgroundColor="brand.500"
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
     >
@@ -48,7 +43,7 @@ export default function Footer() {
           align="center"
           textColor={{ base: "auto", md: "white" }}
         >
-          Les Logos, produits et noms de sociétés mentionnnés sont la propriété
+          Les logos, produits et noms de sociétés mentionnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024
         </Text>
       </Box>
