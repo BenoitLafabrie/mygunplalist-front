@@ -12,6 +12,7 @@ const UserContextProvider = (props) => {
   const [myGunplaList, setMyGunplaList] = useState(null);
   const [myWishlist, setMyWishlist] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [connected, setConnected] = useState(false);
 
   const fetchUserData = async (token) => {
     setIsLoading(true);
@@ -51,15 +52,22 @@ const UserContextProvider = (props) => {
   useEffect(() => {
     if (userToken) {
       localStorage.setItem("userToken", userToken);
-      fetchUserData(userToken);
+      setConnected(true);
     } else {
       setUserData(null);
+      setConnected(false);
       localStorage.setItem("userToken", "");
     }
   }, [userToken]);
 
   useEffect(() => {
-    if (userData) {
+    if (connected && userToken) {
+      fetchUserData(userToken);
+    }
+  }, [connected, userToken]);
+
+  useEffect(() => {
+    if (userData && userToken) {
       fetchMyGunplaList(userToken, userData.user_id);
       fetchWishlist(userToken, userData.user_id);
     }
@@ -76,6 +84,8 @@ const UserContextProvider = (props) => {
     setMyWishlist,
     isLoading,
     setIsLoading,
+    connected,
+    setConnected,
   };
 
   return (
