@@ -60,7 +60,7 @@ export default function Login() {
         duration: 3000,
         isClosable: true,
       });
-      console.log(error);
+      console.error(error);
     }
   };
 

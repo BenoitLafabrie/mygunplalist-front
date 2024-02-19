@@ -16,10 +16,13 @@ import { UserContext } from "../context/User";
 
 export default function Collection() {
   const { userData, myGunplaList } = useContext(UserContext);
-  console.log(myGunplaList);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const filteredItems = myGunplaList?.Items;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = filteredItems.slice(startIndex, endIndex);
 
   if (!userData || !myGunplaList) {
     return <p>loading</p>;
@@ -36,7 +39,7 @@ export default function Collection() {
           columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
           mx="auto"
         >
-          {myGunplaList?.Items?.map((item) => (
+          {currentItems.map((item) => (
             <Card key={item.item_id}>
               <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
                 <CardBody>

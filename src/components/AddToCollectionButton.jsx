@@ -13,9 +13,9 @@ const AddToCollectionButton = ({ token, id, item_id, ...props }) => {
   const toast = useToast();
 
   const handleClick = async () => {
-    const collection = await updateMygunplalistById(token, id, item_id);
+    const gunplalist = await updateMygunplalistById(token, id, item_id);
 
-    console.log("Collection:", collection);
+    console.log("Gunplalist:", gunplalist);
 
     const updatedGunplaList = await getMygunplalistById(token, id);
 

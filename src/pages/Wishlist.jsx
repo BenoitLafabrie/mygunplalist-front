@@ -22,6 +22,9 @@ export default function Wishlist() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const filteredItems = myWishlist?.Items;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = filteredItems.slice(startIndex, endIndex);
 
   const navigate = useNavigate();
 
@@ -49,7 +52,7 @@ export default function Wishlist() {
             columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
             mx="auto"
           >
-            {myWishlist?.Items?.map((item) => (
+            {currentItems.map((item) => (
               <Card key={item.item_id}>
                 <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
                   <CardBody>
