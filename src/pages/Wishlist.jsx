@@ -13,18 +13,18 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { UserContext } from "../context/User";
 
 export default function Wishlist() {
-  const { userData, myWishlist, userToken, isLoading } =
-    useContext(UserContext);
+  const { userData, myWishlist, userToken } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const filteredItems = myWishlist?.Items;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, endIndex);
+  const currentItems = filteredItems?.slice(startIndex, endIndex);
 
   const navigate = useNavigate();
 
@@ -38,8 +38,8 @@ export default function Wishlist() {
     return () => clearTimeout(timeoutId);
   }, [userToken, navigate]);
 
-  if (!userData || !myWishlist || isLoading) {
-    return <p>loading</p>;
+  if (!userData || !myWishlist || myWishlist.length === 0) {
+    return <Loading />;
   } else {
     return (
       <Box w="80%" mb="1em" minH="calc(93vh - 82px)">

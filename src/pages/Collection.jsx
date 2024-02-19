@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { UserContext } from "../context/User";
 
@@ -22,10 +23,10 @@ export default function Collection() {
   const filteredItems = myGunplaList?.Items;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, endIndex);
+  const currentItems = filteredItems?.slice(startIndex, endIndex);
 
-  if (!userData || !myGunplaList) {
-    return <p>loading</p>;
+  if (!userData || !myGunplaList || myGunplaList.length === 0) {
+    return <Loading />;
   }
 
   return (

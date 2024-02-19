@@ -11,27 +11,35 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 import LogoutButton from "../components/LogoutButton";
 import { UserContext } from "../context/User";
 
 export default function Profile() {
   const navigate = useNavigate();
 
-  const { userData, myGunplaList, myWishlist } = useContext(UserContext);
+  const { userData, myGunplaList, myWishlist, isLoading } =
+    useContext(UserContext);
 
   useEffect(() => {
-    if (!userData) {
+    if (!userData && !isLoading) {
       navigate("/login");
     }
-  }, [userData, navigate]);
+  }, [userData, navigate, isLoading]);
 
   const createdAt = new Date(userData?.createdAt);
   const now = new Date();
   const diffInTime = now.getTime() - createdAt.getTime();
   const diffInDays = Math.floor(diffInTime / (1000 * 60 * 60 * 24));
 
-  if (!userData || !myGunplaList || !myWishlist) {
-    <p>loading</p>;
+  if (
+    !userData ||
+    !myGunplaList ||
+    myGunplaList.length === 0 ||
+    !myWishlist ||
+    myWishlist.length === 0
+  ) {
+    return <Loading />;
   }
 
   return (

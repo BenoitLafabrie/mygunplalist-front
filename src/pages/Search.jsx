@@ -23,11 +23,12 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { getAllItems } from "../api/item";
 import AddToCollectionButton from "../components/AddToCollectionButton";
 import AddToWishlistButton from "../components/AddToWishlistButton";
+import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { UserContext } from "../context/User";
 
 export default function Search() {
-  const { userData, userToken } = useContext(UserContext);
+  const { userData, userToken, isLoading } = useContext(UserContext);
 
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]); // items filtered by search
@@ -76,15 +77,17 @@ export default function Search() {
 
   useEffect(() => {
     const topElement = document.getElementById("search-page");
-    topElement.scrollIntoView({ behavior: "smooth" });
+    if (topElement) {
+      topElement.scrollIntoView({ behavior: "smooth" });
+    }
   }, [currentPage]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
-  if (!currentItems) {
-    <p>Loading</p>;
+  if (isLoading) {
+    return <Loading />;
   }
   return (
     <Box w="80%" id="search-page" minH="calc(93vh - 66px)">

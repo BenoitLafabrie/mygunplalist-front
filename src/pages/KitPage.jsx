@@ -15,14 +15,16 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getItemById } from "../api/item";
 import AddToCollectionButton from "../components/AddToCollectionButton";
 import AddToWishlistButton from "../components/AddToWishlistButton";
+import Loading from "../components/Loading";
 import { UserContext } from "../context/User";
 
 export default function KitPage() {
   const [item, setItem] = useState(null);
   const { id } = useParams();
-  const { userData, userToken } = useContext(UserContext);
+  const { userData, userToken, isLoading } = useContext(UserContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -37,12 +39,15 @@ export default function KitPage() {
   };
 
   const handleNext = () => {
-    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % item.images.length);
+    setSelectedImageIndex(
+      (prevIndex) => (prevIndex + 1) % item.Items_images.length
+    );
   };
 
   const handlePrev = () => {
     setSelectedImageIndex(
-      (prevIndex) => (prevIndex - 1 + item.images.length) % item.images.length
+      (prevIndex) =>
+        (prevIndex - 1 + item.Items_images.length) % item.Items_images.length
     );
   };
 
@@ -52,52 +57,21 @@ export default function KitPage() {
     [];
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_URL}/kits/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération du kit");
-        }
-        return response.json();
-      })
-      .then((item) => {
-        fetch(`${import.meta.env.VITE_APP_URL}/kits-images`)
-          .then((imagesResponse) => {
-            if (!imagesResponse.ok) {
-              throw new Error(
-                "Erreur lors de la récupération des images du kit"
-              );
-            }
-            return imagesResponse.json();
-          })
-          .then((images) => {
-            const itemImages = images.filter(
-              (image) => image.item_id === item.item_id
-            );
-            fetch(`${import.meta.env.VITE_APP_URL}/kits-props/${item.item_id}`)
-              .then((propsResponse) => {
-                if (!propsResponse.ok) {
-                  throw new Error(
-                    "Erreur lors de la récupération des propriétés du kit"
-                  );
-                }
-                return propsResponse.json();
-              })
-              .then((props) => {
-                setItem({
-                  ...item,
-                  images: itemImages,
-                  props,
-                });
-              });
-          });
-      })
-      .catch((error) => {
+    const fetchItem = async () => {
+      try {
+        const item = await getItemById(id, userToken);
+        setItem(item);
+        console.log(item);
+      } catch (error) {
         console.error("Erreur:", error);
-      });
-  }, [id]);
+      }
+    };
 
-  if (!item) {
-    return <div>Chargement...</div>;
+    fetchItem();
+  }, [id, userToken]);
+
+  if (isLoading || !item) {
+    return <Loading />;
   }
 
   return (
@@ -112,7 +86,7 @@ export default function KitPage() {
         {item.name}
       </Heading>
       <Box display="flex" overflowX="auto" w="100%" gap={4} py="1em">
-        {item.images.map((image, index) => (
+        {item.Items_images.map((image, index) => (
           <Card
             key={index}
             minW="200px"
@@ -137,7 +111,7 @@ export default function KitPage() {
         <ModalContent w="95%">
           <ModalBody>
             <Image
-              src={item.images[selectedImageIndex].image_path}
+              src={item.Items_images[selectedImageIndex].image_path}
               alt="Selected"
               objectFit="contain"
               w="100%"
@@ -183,9 +157,9 @@ export default function KitPage() {
           />
         </Stack>
         <Stack display="flex" flexDirection="column" gap={0}>
-          <Text>Grade: {item.props.grade}</Text>
-          <Text>Échelle: {item.props.scale}</Text>
-          <Text>Série: {item.props.series}</Text>
+          <Text>Grade: {item.Items_props.grade}</Text>
+          <Text>Échelle: {item.Items_props.scale}</Text>
+          <Text>Série: {item.Items_props.series}</Text>
         </Stack>
       </Box>
       <Box pb="2em">
