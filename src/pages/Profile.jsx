@@ -37,7 +37,8 @@ export default function Profile() {
     !myGunplaList ||
     myGunplaList.length === 0 ||
     !myWishlist ||
-    myWishlist.length === 0
+    myWishlist.length === 0 ||
+    isLoading
   ) {
     return <Loading />;
   }

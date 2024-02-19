@@ -18,7 +18,7 @@ import Pagination from "../components/Pagination";
 import { UserContext } from "../context/User";
 
 export default function Wishlist() {
-  const { userData, myWishlist } = useContext(UserContext);
+  const { userData, myWishlist, isLoading } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const filteredItems = myWishlist?.Items;
@@ -26,7 +26,7 @@ export default function Wishlist() {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredItems?.slice(startIndex, endIndex);
 
-  if (!userData || !myWishlist || myWishlist.length === 0) {
+  if (!userData || !myWishlist || myWishlist.length === 0 || isLoading) {
     return <Loading />;
   } else {
     return (
