@@ -12,6 +12,7 @@ const LogoutButton = () => {
   const handleLogout = () => {
     setUserToken("");
     setUserData(null);
+    localStorage.removeItem("userToken");
 
     toast({
       title: "Déconnexion réussie",
