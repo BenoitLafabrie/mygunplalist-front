@@ -61,7 +61,6 @@ export default function KitPage() {
       try {
         const item = await getItemById(id, userToken);
         setItem(item);
-        console.log(item);
       } catch (error) {
         console.error("Erreur:", error);
       }
