@@ -2,7 +2,7 @@ import { Button, useToast } from "@chakra-ui/react";
 import { BiLogOut } from "react-icons/bi";
 
 import { useContext } from "react";
-import { UserContext } from "../context/User";
+import { UserContext } from "../../context/User";
 
 const LogoutButton = () => {
   const toast = useToast();

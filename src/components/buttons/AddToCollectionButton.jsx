@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import {
   getMygunplalistById,
   updateMygunplalistById,
-} from "../api/myGunplaList";
+} from "../../api/myGunplaList.js";
 
 import { useContext } from "react";
-import { UserContext } from "../context/User.jsx";
+import { UserContext } from "../../context/User.jsx";
 
 const AddToCollectionButton = ({ token, id, item_id, ...props }) => {
   const { setMyGunplaList } = useContext(UserContext);

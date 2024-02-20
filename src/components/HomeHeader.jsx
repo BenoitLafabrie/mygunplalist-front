@@ -5,7 +5,7 @@ import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import Home_Header_ROG from "../assets/header/Home_Header_ROG.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
-import ButtonLogo from "./ButtonLogo";
+import ButtonLogo from "../components/buttons/ButtonLogo";
 
 export default function HomeHeader() {
   return (

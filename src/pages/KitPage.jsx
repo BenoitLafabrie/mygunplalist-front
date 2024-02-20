@@ -16,9 +16,9 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getItemById } from "../api/item";
-import AddToCollectionButton from "../components/AddToCollectionButton";
-import AddToWishlistButton from "../components/AddToWishlistButton";
 import Loading from "../components/Loading";
+import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
+import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
 
 export default function KitPage() {

@@ -1,18 +1,15 @@
 import {
   Avatar,
   Box,
-  Card,
-  CardBody,
-  CardFooter,
   Link as ChakraLink,
   Heading,
-  Image,
   Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import LogoutButton from "../components/LogoutButton";
+import { ProfileCard } from "../components/ProfileKitCard";
+import LogoutButton from "../components/buttons/LogoutButton";
 import { UserContext } from "../context/User";
 
 export default function Profile() {
@@ -85,41 +82,14 @@ export default function Profile() {
       </Box>
       <Box display="flex" overflowX="auto" w="90%" gap={4} py="1em">
         {myGunplaList?.Items?.map((item) => (
-          <Card
+          <ProfileCard
             key={item.item_id}
+            item={item}
             minW="150px"
             minH="150px"
             transition="transform 0.2s"
             _hover={{ transform: "scale(1.05)" }}
-          >
-            <CardBody p={0}>
-              <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-                {item.Items_images && item.Items_images.length > 0 ? (
-                  <Image
-                    src={item.Items_images[0].image_path}
-                    alt={item.name}
-                    borderRadius="md"
-                    fit="cover"
-                    h="100%"
-                    w="100%"
-                  />
-                ) : (
-                  <p>Aucune image pour ce gunpla</p>
-                )}
-              </ChakraLink>
-            </CardBody>
-            <CardFooter>
-              <Text
-                fontSize={14}
-                textAlign="center"
-                textOverflow="ellipsis"
-                whiteSpace="nowrap"
-                overflow="hidden"
-              >
-                {item.name}
-              </Text>
-            </CardFooter>
-          </Card>
+          />
         ))}
       </Box>
       <Box
@@ -138,35 +108,14 @@ export default function Profile() {
       </Box>
       <Box display="flex" overflowX="auto" w="90%" gap={4} py="1em">
         {myWishlist?.Items?.map((item) => (
-          <Card key={item.item_id} minW="150px" minH="150px">
-            <CardBody p={0}>
-              <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-                {item.Items_images && item.Items_images.length > 0 ? (
-                  <Image
-                    src={item.Items_images[0].image_path}
-                    alt={item.name}
-                    borderRadius="lg"
-                    fit="cover"
-                    h="100%"
-                    w="100%"
-                  />
-                ) : (
-                  <p>Aucune image pour ce gunpla</p>
-                )}
-              </ChakraLink>
-            </CardBody>
-            <CardFooter>
-              <Text
-                fontSize={14}
-                textAlign="center"
-                textOverflow="ellipsis"
-                whiteSpace="nowrap"
-                overflow="hidden"
-              >
-                {item.name}
-              </Text>
-            </CardFooter>
-          </Card>
+          <ProfileCard
+            key={item.item_id}
+            item={item}
+            minW="150px"
+            minH="150px"
+            transition="transform 0.2s"
+            _hover={{ transform: "scale(1.05)" }}
+          />
         ))}
       </Box>
       <LogoutButton />

@@ -56,15 +56,14 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  console.log("Before UserContextProvider");
   return (
-    <>
-      <UserContextProvider>
-        <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <RouterProvider router={router} />
-        </ChakraProvider>
-      </UserContextProvider>
-    </>
+    <UserContextProvider>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </UserContextProvider>
   );
 }
 

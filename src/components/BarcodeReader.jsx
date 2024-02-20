@@ -19,25 +19,26 @@ import {
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { useZxing } from "react-zxing";
+import { getAllItems } from "../api/item"; // replace with actual path to item.js
 import {
   getMygunplalistById,
   updateMygunplalistById,
 } from "../api/myGunplaList";
 import { getWishlistById, updateWishlistById } from "../api/myWishlist";
+import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
+import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
-import AddToCollectionButton from "./AddToCollectionButton";
-import AddToWishlistButton from "./AddToWishlistButton";
 
 export default function BarcodeReader() {
   // Define state variables for the last result and all scanned barcodes
-  const [result, setResult] = useState("");
+  const [, setResult] = useState("");
   const [scannedBarcodes, setScannedBarcodes] = useState([]);
-  const [uniqueBarcodes, setUniqueBarcodes] = useState(new Set());
+  const [, setUniqueBarcodes] = useState(new Set());
   const toast = useToast();
   const [snapshotOpacity, setSnapshotOpacity] = useState(0);
   const [guideOpacity, setGuideOpacity] = useState(1);
   const [imgOpacity, setImgOpacity] = useState(0);
-  const [scanner, setScanner] = useState(true);
+  const [, setScanner] = useState(true);
 
   const { userData, userToken, setMyGunplaList, setMyWishlist } =
     useContext(UserContext);
@@ -53,28 +54,9 @@ export default function BarcodeReader() {
 
   // Fetch the items when the component mounts
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_URL}/kits`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des kits");
-        }
-        return response.json();
-      })
+    getAllItems()
       .then((items) => {
-        fetch(`${import.meta.env.VITE_APP_URL}/kits-images`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Erreur lors de la récupération des images");
-            }
-            return response.json();
-          })
-          .then((images) => {
-            const itemsWithImages = items.map((item) => ({
-              ...item,
-              images: images.filter((image) => image.item_id === item.item_id),
-            }));
-            setItems(itemsWithImages);
-          });
+        setItems(items);
       })
       .catch((error) => {
         console.error("Erreur:", error);
@@ -322,13 +304,13 @@ export default function BarcodeReader() {
                   >
                     <CardBody>
                       {/* Render the first image of the item if it exists */}
-                      {scannedItems[scannedItems.length - 1].images &&
-                      scannedItems[scannedItems.length - 1].images.length >
-                        0 ? (
+                      {scannedItems[scannedItems.length - 1].Items_images &&
+                      scannedItems[scannedItems.length - 1].Items_images
+                        .length > 0 ? (
                         <Image
                           src={
-                            scannedItems[scannedItems.length - 1].images[0]
-                              .image_path
+                            scannedItems[scannedItems.length - 1]
+                              .Items_images[0].image_path
                           }
                           alt={scannedItems[scannedItems.length - 1].name}
                           borderRadius="lg"

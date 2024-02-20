@@ -21,10 +21,10 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { getAllItems } from "../api/item";
-import AddToCollectionButton from "../components/AddToCollectionButton";
-import AddToWishlistButton from "../components/AddToWishlistButton";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
+import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
+import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
 
 export default function Search() {

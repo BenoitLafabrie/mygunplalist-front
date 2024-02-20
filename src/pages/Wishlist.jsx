@@ -1,20 +1,16 @@
 import {
   Box,
-  Button,
-  Card,
-  CardBody,
   CardFooter,
   Center,
-  Link as ChakraLink,
   Heading,
-  Image,
   SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { KitCard } from "../components/KitCard";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
+import BuyButton from "../components/buttons/BuyButton";
 import { UserContext } from "../context/User";
 
 export default function Wishlist() {
@@ -41,37 +37,13 @@ export default function Wishlist() {
             mx="auto"
           >
             {currentItems.map((item) => (
-              <Card key={item.item_id}>
-                <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-                  <CardBody>
-                    {item.Items_images && item.Items_images.length > 0 ? (
-                      <Image
-                        src={item.Items_images[0].image_path}
-                        alt={item.name}
-                        borderRadius="lg"
-                      />
-                    ) : (
-                      <p>Aucune image pour ce gunpla</p>
-                    )}
-                    <Heading size="xs" pt="2" textAlign="center">
-                      {item.name}
-                    </Heading>
-                  </CardBody>
-                </ChakraLink>
+              <KitCard key={item.item_id} item={item}>
                 {item.ROG_Url && (
                   <CardFooter justifyContent="center">
-                    <ChakraLink
-                      as={ReactRouterLink}
-                      to={`${item.ROG_Url}`}
-                      isExternal
-                    >
-                      <Button variant="solid" colorScheme="red">
-                        Acheter
-                      </Button>
-                    </ChakraLink>
+                    <BuyButton url={item.ROG_Url} />
                   </CardFooter>
                 )}
-              </Card>
+              </KitCard>
             ))}
           </SimpleGrid>
           <Stack alignItems="center">
