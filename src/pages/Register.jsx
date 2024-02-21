@@ -51,16 +51,13 @@ export default function Register() {
 
     try {
       const response = await fetch(`${import.meta.env.VITE_APP_URL}/users`, {
-         method: "POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
-      console.log("Server response:", response.body);
       if (response.ok) {
-        console.log("User creation successful. Server response:", response);
-
         toast({
           title: "Compte créé",
           description: "Bienvenue!",

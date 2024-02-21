@@ -56,7 +56,6 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  console.log("Before UserContextProvider");
   return (
     <UserContextProvider>
       <ChakraProvider theme={theme}>

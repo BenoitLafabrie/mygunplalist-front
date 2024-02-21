@@ -7,7 +7,6 @@ import { getUserData } from "../api/user";
 const UserContext = createContext({});
 
 const UserContextProvider = (props) => {
-  console.log("UserContextProvider called");
   const [userToken, setUserToken] = useState("");
   const [userData, setUserData] = useState(null);
   const [myGunplaList, setMyGunplaList] = useState(null);
@@ -38,17 +37,14 @@ const UserContextProvider = (props) => {
   };
 
   useEffect(() => {
-    console.log("useEffect called");
     if (
       localStorage.getItem("userToken") &&
       localStorage.getItem("userToken").length > 0
     ) {
       const token = localStorage.getItem("userToken");
       setUserToken(token);
-      console.log("token", token);
     } else {
       localStorage.setItem("userToken", "");
-      console.log("No token found");
     }
   }, []);
 

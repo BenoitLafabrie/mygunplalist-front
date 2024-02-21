@@ -5,7 +5,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { ProfileCard } from "../components/ProfileKitCard";
@@ -18,11 +18,9 @@ export default function Profile() {
   const { userData, myGunplaList, myWishlist, isLoading } =
     useContext(UserContext);
 
-  useEffect(() => {
-    if (!userData && !isLoading) {
-      navigate("/login");
-    }
-  }, [userData, navigate, isLoading]);
+  if (!userData) {
+    navigate("/login");
+  }
 
   const createdAt = new Date(userData?.createdAt);
   const now = new Date();
