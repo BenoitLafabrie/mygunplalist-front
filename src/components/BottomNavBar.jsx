@@ -4,6 +4,7 @@ import {
   Image,
   List,
   ListItem,
+  Text,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import Add_Kit_Icon from "../assets/bottomNavBar/add_kit_icon.svg";
@@ -51,7 +52,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Recherche
+              <Text fontWeight="400">RECHERCHER</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -72,7 +73,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Collection
+              <Text fontWeight="400">COLLECTION</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -93,7 +94,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Wishlist
+              <Text fontWeight="400">WISHLIST</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -114,7 +115,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Ajouter
+              <Text fontWeight="400">SCAN</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -135,7 +136,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Profil
+              <Text fontWeight="400">PROFIL</Text>
             </ListItem>
           </ChakraLink>
         </Box>

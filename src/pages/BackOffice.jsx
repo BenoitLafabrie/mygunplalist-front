@@ -26,6 +26,7 @@ import {
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { getAllItems } from "../api/item";
 import Pagination from "../components/Pagination";
 
 export default function BackOffice() {
@@ -35,52 +36,24 @@ export default function BackOffice() {
   const itemsPerPage = 10; // Changer le nombre d'items par page pour
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_URL}/kits`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des kits");
-        }
-        return response.json();
-      })
-      .then((items) => {
-        fetch(`${import.meta.env.VITE_APP_URL}/kits-images`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Erreur lors de la récupération des images");
-            }
-            return response.json();
-          })
-          .then((images) => {
-            const itemsWithImages = items.map((item) => ({
-              ...item,
-              images: images.filter((image) => image.item_id === item.item_id),
-            }));
-            return itemsWithImages;
-          })
-          .then((itemsWithImages) => {
-            fetch(`${import.meta.env.VITE_APP_URL}/kits-props`)
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(
-                    "Erreur lors de la récupération des propriétés"
-                  );
-                }
-                return response.json();
-              })
-              .then((props) => {
-                const itemsWithImagesAndProps = itemsWithImages.map((item) => ({
-                  ...item,
-                  props: props.filter((prop) => prop.item_id === item.item_id),
-                }));
-                setItems(itemsWithImagesAndProps);
-              });
-          });
-      });
+    const fetchAllItems = async () => {
+      const allItems = await getAllItems();
+      if (allItems) {
+        setItems(allItems);
+      }
+    };
+
+    try {
+      fetchAllItems();
+    } catch (error) {
+      console.error("Erreur:", error);
+    }
   }, []);
 
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
+  console.log(filteredItems);
 
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
@@ -104,8 +77,10 @@ export default function BackOffice() {
 
   const sortedItems = [...filteredItems].sort((a, b) => {
     if (sortDirection === "none") return 0;
-    const aValue = sortField === "name" ? a[sortField] : a.props[0][sortField];
-    const bValue = sortField === "name" ? b[sortField] : b.props[0][sortField];
+    const aValue =
+      sortField === "name" ? a[sortField] : a.Items_props?.[sortField];
+    const bValue =
+      sortField === "name" ? b[sortField] : b.Items_props?.[sortField];
 
     if (aValue < bValue) {
       return sortDirection === "asc" ? -1 : 1;
@@ -139,7 +114,7 @@ export default function BackOffice() {
       w="100%"
       minH="calc(93vh - 66px)"
     >
-      <Stack w="50%">
+      <Stack w="50%" py="1.5em">
         <InputGroup borderColor="#314095">
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="#314095" />
@@ -226,31 +201,31 @@ export default function BackOffice() {
                       </ChakraLink>
                     </Td>
                     <Td>
-                      {item.images && item.images[0] ? (
+                      {item.Items_images && item.Items_images[0] ? (
                         <Image
-                          src={item.images[0].image_path}
+                          src={item.Items_images[0].image_path}
                           alt={item.name}
                           boxSize="50px"
                           objectFit="cover"
                           borderRadius="sm"
                         />
                       ) : (
-                        "No Image"
+                        "Pas d'image"
                       )}
                     </Td>
                     <Td>
-                      {item.props && item.props[0] && item.props[0].grade
-                        ? item.props[0].grade
+                      {item.Items_props && item.Items_props.grade
+                        ? item.Items_props.grade
                         : "Pas de grade indiqué"}
                     </Td>
                     <Td>
-                      {item.props && item.props[0] && item.props[0].scale
-                        ? item.props[0].scale
+                      {item.Items_props && item.Items_props.scale
+                        ? item.Items_props.scale
                         : "Aucune échelle indiquée"}
                     </Td>
                     <Td>
-                      {item.props && item.props[0] && item.props[0].series
-                        ? item.props[0].series
+                      {item.Items_props && item.Items_props.series
+                        ? item.Items_props.series
                         : "Aucune série indiquée"}
                     </Td>
                     <Td textAlign="center">

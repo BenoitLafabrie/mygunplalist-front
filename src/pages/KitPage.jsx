@@ -81,7 +81,7 @@ export default function KitPage() {
       alignItems="center"
       w="80%"
     >
-      <Heading size="md" textAlign="center" py="1em">
+      <Heading size="md" textAlign="center" py="1em" fontWeight="500">
         {item.name}
       </Heading>
       <Box display="flex" overflowX="auto" w="100%" gap={4} py="1em">
@@ -162,10 +162,12 @@ export default function KitPage() {
         </Stack>
       </Box>
       <Box pb="2em">
-        <Heading fontSize="18px" pb="0.5em">
+        <Heading fontSize="18px" pb="0.5em" fontWeight="500">
           Description
         </Heading>
-        <Text textAlign="justify">{item.description}</Text>
+        <Text textAlign="justify" style={{ hyphens: "auto" }}>
+          {item.description}
+        </Text>
       </Box>
     </Box>
   );

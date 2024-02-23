@@ -26,6 +26,17 @@ const getAllItems = async (token) => {
   return response;
 };
 
+const getLatestItems = async (token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits/latest`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const response = await request.json();
+  return response;
+};
+
 const getItemById = async (id, token) => {
   const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits/${id}`, {
     headers: {
@@ -37,4 +48,4 @@ const getItemById = async (id, token) => {
   return response;
 };
 
-export { addToCollection, getAllItems, getItemById };
+export { addToCollection, getAllItems, getItemById, getLatestItems };

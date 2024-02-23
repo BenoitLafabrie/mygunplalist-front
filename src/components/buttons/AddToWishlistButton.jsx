@@ -27,7 +27,12 @@ const AddToWishlistButton = ({ token, id, item_id }) => {
   };
   return (
     <>
-      <Button variant="outline" colorScheme="red" onClick={handleClick}>
+      <Button
+        variant="outline"
+        colorScheme="red"
+        onClick={handleClick}
+        fontWeight="400"
+      >
         Wishlist
       </Button>
     </>

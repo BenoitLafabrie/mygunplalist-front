@@ -212,8 +212,8 @@ export default function BarcodeReader() {
   };
   return (
     <Box minH="87.9vh" id="BarcodeReader">
-      <Text mt="1.25em" fontSize="xl" align="center">
-        Ajoutons un kit à votre collection !
+      <Text my="1.25em" fontSize="xl" align="center" fontWeight="500">
+        AJOUTONS DES KITS À VOTRE COLLECTION!
       </Text>
       <VStack overflowY="auto">
         <Box
@@ -279,11 +279,21 @@ export default function BarcodeReader() {
               </Box>
             </Box>
             <HStack>
-              <Button colorScheme="teal" onClick={startScan}>
-                Démarrer le scan
+              <Button
+                colorScheme="teal"
+                onClick={startScan}
+                fontWeight="400"
+                size="sm"
+              >
+                DÉMARRER LE SCAN
               </Button>
-              <Button colorScheme="red" onClick={stopScan}>
-                Arrêter le scan
+              <Button
+                colorScheme="brand"
+                onClick={stopScan}
+                fontWeight="400"
+                size="sm"
+              >
+                ARRÊTER LE SCAN
               </Button>
             </HStack>
           </Box>
@@ -323,7 +333,7 @@ export default function BarcodeReader() {
                       </Heading>
                     </CardBody>
                   </ChakraLink>
-                  <Divider color="red" />
+                  <Divider color="brand" />
                   <CardFooter justifyContent="center">
                     <ButtonGroup spacing={12}>
                       <AddToCollectionButton
@@ -331,8 +341,8 @@ export default function BarcodeReader() {
                         id={userData.user_id}
                         item_id={scannedItems[scannedItems.length - 1].item_id}
                       />
-                      <Button variant="outline" colorScheme="red">
-                        Wishlist
+                      <Button variant="outline" colorScheme="brand">
+                        WISHLIST
                       </Button>
                     </ButtonGroup>
                   </CardFooter>
@@ -343,24 +353,27 @@ export default function BarcodeReader() {
             </Box>
 
             <Box
-              gap={2}
+              gap={4}
               display="flex"
               flexDirection="column"
+              my="1em"
               // alignItems="center"
             >
               <Button
                 variant="solid"
-                colorScheme="red"
+                colorScheme="brand"
                 onClick={addAllToCollection}
+                fontWeight="400"
               >
-                Ajouter tous les kits scannés à la collection
+                TOUT AJOUTER À LA COLLECTION
               </Button>
               <Button
                 variant="solid"
-                colorScheme="red"
+                colorScheme="brand"
                 onClick={addAllToWishlist}
+                fontWeight="400"
               >
-                Ajouter tous les kits scannés à la wishlist
+                TOUT AJOUTER À LA WISHLIST
               </Button>
             </Box>
 

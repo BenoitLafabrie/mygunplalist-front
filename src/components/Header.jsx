@@ -17,14 +17,17 @@ import {
 
 import { Search2Icon } from "@chakra-ui/icons";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import { useContext } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Header_Icon from "../assets/header/Header_Icon.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
+import { UserContext } from "../context/User";
 
 export default function Header() {
+  const { userData } = useContext(UserContext);
   const navigate = useNavigate();
 
   return (
@@ -56,27 +59,27 @@ export default function Header() {
         </ChakraLink>
         <ButtonGroup spacing={3} variant="ghost" size="md" gap="1em">
           <ChakraLink as={ReactRouterLink} to="/admin">
-            <Button color="white" _hover={{ bg: "#314095" }}>
+            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
               Dashboard
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/add_kit">
-            <Button color="white" _hover={{ bg: "#314095" }}>
+            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
               Ajouter
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/collection">
-            <Button color="white" _hover={{ bg: "#314095" }}>
+            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
               Collection
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/wishlist">
-            <Button color="white" _hover={{ bg: "#314095" }}>
+            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
               Wishlist
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/search">
-            <Button color="white" _hover={{ bg: "#314095" }}>
+            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
               Recherche
             </Button>
           </ChakraLink>
@@ -95,15 +98,16 @@ export default function Header() {
             <MenuButton>
               <Avatar
                 size="md"
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
+                name={`${userData?.firstname} ${userData?.lastname}`}
                 mr="1em"
+                fontWeight="400"
               />
             </MenuButton>
             <MenuList>
               <MenuItem
                 icon={<HiOutlineUser />}
                 onClick={() => navigate("/users/me")}
+                fontWeight="400"
               >
                 Profil
               </MenuItem>
@@ -111,6 +115,7 @@ export default function Header() {
                 icon={<BiLogOut />}
                 textColor="brand.500"
                 //onClick={logout}
+                fontWeight="400"
               >
                 Déconnexion
               </MenuItem>

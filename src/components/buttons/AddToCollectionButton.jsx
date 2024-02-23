@@ -34,6 +34,7 @@ const AddToCollectionButton = ({ token, id, item_id, ...props }) => {
         variant="solid"
         colorScheme="red"
         onClick={handleClick}
+        fontWeight="400"
         {...props}
       >
         Ajouter

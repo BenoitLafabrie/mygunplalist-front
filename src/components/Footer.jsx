@@ -16,7 +16,7 @@ export default function Footer() {
       as="footer"
       display={{ base: "grid", md: "flex" }}
       w="100%"
-      h={{ base: "28%", md: "7vh" }}
+      h={{ base: "28%", md: "25%" }}
       flexDirection={{ md: "column" }}
       position={{ md: "relative" }}
       bottom={{ base: "0", md: "unset" }}
@@ -39,9 +39,9 @@ export default function Footer() {
       >
         <Text
           fontSize="60%"
-          fontWeight={{ base: "normal", md: "bold" }}
+          fontWeight={{ base: "normal", md: "400" }}
           align="center"
-          textColor={{ base: "auto", md: "white" }}
+          textColor={{ base: "white", md: "white" }}
         >
           Les logos, produits et noms de sociétés mentionnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024
@@ -78,24 +78,18 @@ export default function Footer() {
           gap={{ base: "0.5em", md: "1.5em" }}
           fontSize={{ base: "85%", md: "90%" }}
           textColor="white"
-          fontWeight="bold"
         >
           <ChakraLink as={ReactRouterLink} to="/about">
-            À propos
+            <Text fontWeight="400">À propos</Text>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/terms-of-use">
-            Conditions d&apos;utilisation
+            <Text fontWeight="400">Conditions d&apos;utilisation</Text>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/privacy-policy">
-            Politique de confidentialité
+            <Text fontWeight="400">Politique de confidentialité</Text>
           </ChakraLink>
         </Box>
         <Stack display={{ base: "grid", md: "flex" }} flexDirection="row">
-          <Box display={{ base: "none", md: "flex" }} px="1em">
-            <Text textColor="white" fontWeight="bold">
-              Retrouvez-nous sur les réseaux sociaux :
-            </Text>
-          </Box>
           <Box
             display="flex"
             flexDirection="row"
@@ -104,6 +98,7 @@ export default function Footer() {
             alignItems={{ base: "center" }}
             px={{ base: "0", md: "1em" }}
             gap={{ base: "1.25em", md: "1.5em" }}
+            pb={{ base: "auto", md: "0.5em" }}
           >
             <ChakraLink
               as={ReactRouterLink}

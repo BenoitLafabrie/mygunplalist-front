@@ -25,16 +25,18 @@ const LogoutButton = () => {
 
   return (
     <Button
-      leftIcon={<BiLogOut size={18} />}
+      leftIcon={<BiLogOut size={24} />}
       borderColor="brand.500"
       textColor="brand.500"
+      fontSize="20px"
+      fontWeight="500"
       onClick={handleLogout}
       display={{ base: "flex", md: "none" }}
       alignItems="center"
       justifyContent="center"
       variant="outline"
-      m="1rem"
-      p="1rem"
+      m="1.5rem"
+      p="1.5rem"
     >
       Déconnexion
     </Button>

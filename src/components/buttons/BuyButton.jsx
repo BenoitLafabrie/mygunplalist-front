@@ -4,7 +4,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 export default function BuyButton(url) {
   return (
     <ChakraLink as={ReactRouterLink} to={url} isExternal>
-      <Button variant="solid" colorScheme="red">
+      <Button variant="solid" colorScheme="red" fontWeight="400">
         Acheter
       </Button>
     </ChakraLink>

@@ -158,7 +158,7 @@ export default function Search() {
                 ) : (
                   <p>Aucune image pour ce gunpla</p>
                 )}
-                <Heading size="xs" pt="2" textAlign="center">
+                <Heading size="xs" pt="2" textAlign="center" fontWeight="500">
                   {item.name}
                 </Heading>
               </CardBody>

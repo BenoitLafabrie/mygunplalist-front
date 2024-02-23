@@ -50,9 +50,10 @@ export default function Profile() {
       <Avatar
         size="xl"
         name={`${userData?.firstname} ${userData?.lastname}`}
-        mb="1rem"
+        my="1rem"
+        fontWeight="400"
       />
-      <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem">
+      <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem" fontWeight="400">
         {userData?.username}
       </Heading>
       <Text fontSize={{ base: "sm", md: "lg" }} as="em" opacity="50%" mb="1rem">
@@ -71,14 +72,21 @@ export default function Profile() {
         alignItems="flex-end"
         w="90%"
       >
-        <Heading size={{ base: "md", md: "lg" }}>Ma Gunplalist</Heading>
+        <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
+          Ma Gunplalist
+        </Heading>
         <ChakraLink as={ReactRouterLink} to="/collection">
-          <Text casing="uppercase" fontSize="14px" color="brand.500">
+          <Text
+            casing="uppercase"
+            fontSize="14px"
+            color="brand.500"
+            fontWeight="400"
+          >
             tout voir
           </Text>
         </ChakraLink>
       </Box>
-      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1em">
+      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1.5em">
         {myGunplaList?.Items?.map((item) => (
           <ProfileCard
             key={item.item_id}
@@ -86,7 +94,7 @@ export default function Profile() {
             minW="150px"
             minH="150px"
             transition="transform 0.2s"
-            _hover={{ transform: "scale(1.05)" }}
+            _hover={{ transform: "scale(1.05)", textDecoration: "none" }}
           />
         ))}
       </Box>
@@ -97,14 +105,21 @@ export default function Profile() {
         alignItems="flex-end"
         w="90%"
       >
-        <Heading size={{ base: "md", md: "lg" }}>Ma Wishlist</Heading>
+        <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
+          Ma Wishlist
+        </Heading>
         <ChakraLink as={ReactRouterLink} to="/wishlist">
-          <Text casing="uppercase" fontSize="14px" color="brand.500">
+          <Text
+            casing="uppercase"
+            fontSize="14px"
+            color="brand.500"
+            fontWeight="400"
+          >
             tout voir
           </Text>
         </ChakraLink>
       </Box>
-      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1em">
+      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1.5em">
         {myWishlist?.Items?.map((item) => (
           <ProfileCard
             key={item.item_id}

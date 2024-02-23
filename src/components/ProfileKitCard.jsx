@@ -31,6 +31,7 @@ export const ProfileCard = ({ item, ...props }) => {
       <CardFooter>
         <Text
           fontSize={14}
+          fontWeight="500"
           textAlign="center"
           textOverflow="ellipsis"
           whiteSpace="nowrap"

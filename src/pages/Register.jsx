@@ -162,6 +162,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Pseudo
             </FormLabel>
@@ -188,6 +189,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Nom
             </FormLabel>
@@ -213,6 +215,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Prénom
             </FormLabel>
@@ -239,6 +242,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               E-Mail
             </FormLabel>
@@ -265,6 +269,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Mot de passe
             </FormLabel>
@@ -286,6 +291,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Date de naissance
             </FormLabel>
@@ -307,6 +313,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Adresse
             </FormLabel>
@@ -332,6 +339,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Code Postal
             </FormLabel>
@@ -353,6 +361,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Ville
             </FormLabel>
@@ -374,6 +383,7 @@ export default function Register() {
               pointerEvents="none"
               _focus={{ top: "-35%", fontSize: "0.875em" }}
               zIndex={2}
+              fontWeight="400"
             >
               Pays
             </FormLabel>
@@ -395,13 +405,24 @@ export default function Register() {
               <option>Gunpla</option>
             </Select>
           </FormControl>
-          <Button colorScheme="red" variant="outline" mt="1em" type="submit">
+          <Button
+            colorScheme="red"
+            variant="outline"
+            mt="1em"
+            type="submit"
+            fontWeight="400"
+          >
             S&apos;ENREGISTRER
           </Button>
         </form>
         <Text my="1em">
           Déjà membre?{" "}
-          <ChakraLink as={ReactRouterLink} to="/login" color="brand.500">
+          <ChakraLink
+            as={ReactRouterLink}
+            to="/login"
+            color="brand.500"
+            fontWeight="400"
+          >
             Connectez-vous
           </ChakraLink>
         </Text>

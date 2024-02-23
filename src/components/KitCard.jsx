@@ -11,7 +11,16 @@ import { Link as ReactRouterLink } from "react-router-dom";
 export const KitCard = ({ item, children }) => {
   return (
     <Card key={item.item_id}>
-      <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
+      <ChakraLink
+        as={ReactRouterLink}
+        to={`/kits/${item.item_id}`}
+        transition="transform 0.2s"
+        _hover={{
+          transform: "scale(1.05)",
+          textDecoration: "none",
+          color: "inherit",
+        }}
+      >
         <CardBody>
           {item.Items_images && item.Items_images.length > 0 ? (
             <Image
@@ -22,7 +31,7 @@ export const KitCard = ({ item, children }) => {
           ) : (
             <p>Aucune image pour ce gunpla</p>
           )}
-          <Heading size="xs" pt="2" textAlign="center">
+          <Heading size="xs" pt="2" textAlign="center" fontWeight="500">
             {item.name}
           </Heading>
         </CardBody>
