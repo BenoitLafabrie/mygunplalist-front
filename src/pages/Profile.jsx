@@ -46,25 +46,38 @@ export default function Profile() {
       justifyContent={{ base: "center" }}
       alignItems={{ base: "center" }}
       w="100%"
+      ml={{ base: "unset", md: "4em" }}
     >
-      <Avatar
-        size="xl"
-        name={`${userData?.firstname} ${userData?.lastname}`}
-        my="1rem"
-        fontWeight="400"
-      />
-      <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem" fontWeight="400">
-        {userData?.username}
-      </Heading>
-      <Text fontSize={{ base: "sm", md: "lg" }} as="em" opacity="50%" mb="1rem">
-        Membre depuis le{" "}
-        {new Date(userData?.createdAt).toLocaleDateString("fr-FR", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}{" "}
-        ({diffInDays} jour(s))
-      </Text>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Avatar
+          size="xl"
+          name={`${userData?.firstname} ${userData?.lastname}`}
+          my="1rem"
+          fontWeight="400"
+        />
+        <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem" fontWeight="400">
+          {userData?.username}
+        </Heading>
+        <Text
+          fontSize={{ base: "sm", md: "lg" }}
+          as="em"
+          opacity="50%"
+          mb="1rem"
+        >
+          Membre depuis le{" "}
+          {new Date(userData?.createdAt).toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}{" "}
+          ({diffInDays} jour(s))
+        </Text>
+      </Box>
       <Box
         display="flex"
         flexDirection="row"
@@ -119,7 +132,14 @@ export default function Profile() {
           </Text>
         </ChakraLink>
       </Box>
-      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1.5em">
+      <Box
+        display="flex"
+        overflowX="auto"
+        w="90%"
+        gap={4}
+        py="1.5em"
+        mb={{ base: "unset", md: "1.5em" }}
+      >
         {myWishlist?.Items?.map((item) => (
           <ProfileCard
             key={item.item_id}

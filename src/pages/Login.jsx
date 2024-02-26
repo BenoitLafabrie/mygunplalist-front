@@ -99,7 +99,7 @@ export default function Login() {
           }}
         >
           <FormControl id="email" isRequired borderColor="#314095" w="80%">
-            <FormLabel>E-mail</FormLabel>
+            <FormLabel fontWeight="400">E-mail</FormLabel>
             <Input
               autoComplete="email"
               name="email"
@@ -109,7 +109,7 @@ export default function Login() {
             />
           </FormControl>
           <FormControl id="password" isRequired borderColor="#314095" w="80%">
-            <FormLabel>Mot de passe</FormLabel>
+            <FormLabel fontWeight="400">Mot de passe</FormLabel>
             <Input
               autoComplete="current-password"
               name="password"
@@ -123,13 +123,20 @@ export default function Login() {
             type="submit"
             mt="1em"
             w={{ sm: "40%", md: "20%" }}
+            fontWeight="500"
           >
             CONNEXION
           </Button>
         </form>
         <Text>
           Pas encore inscrit?{" "}
-          <ChakraLink as={ReactRouterLink} to="/register" color="brand.500">
+          <ChakraLink
+            as={ReactRouterLink}
+            to="/register"
+            color="brand.500"
+            _hover={{ textDecoration: "none", textColor: "brand.700" }}
+            fontWeight="400"
+          >
             C&apos;est par ici
           </ChakraLink>
         </Text>

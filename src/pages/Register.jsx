@@ -410,7 +410,7 @@ export default function Register() {
             variant="outline"
             mt="1em"
             type="submit"
-            fontWeight="400"
+            fontWeight="500"
           >
             S&apos;ENREGISTRER
           </Button>

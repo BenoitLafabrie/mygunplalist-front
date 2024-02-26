@@ -13,6 +13,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  useToast,
 } from "@chakra-ui/react";
 
 import { Search2Icon } from "@chakra-ui/icons";
@@ -27,8 +28,23 @@ import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import { UserContext } from "../context/User";
 
 export default function Header() {
-  const { userData } = useContext(UserContext);
+  const toast = useToast();
+  const { userData, setUserData, setUserToken } = useContext(UserContext);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUserToken("");
+    setUserData(null);
+    localStorage.removeItem("userToken");
+
+    toast({
+      title: "Déconnexion réussie",
+      description: "Vous avez été déconnecté :(",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
 
   return (
     <Box as="header" w="100%">
@@ -114,7 +130,7 @@ export default function Header() {
               <MenuItem
                 icon={<BiLogOut />}
                 textColor="brand.500"
-                //onClick={logout}
+                onClick={handleLogout}
                 fontWeight="400"
               >
                 Déconnexion
