@@ -21,9 +21,9 @@ export default function Footer() {
       position={{ md: "relative" }}
       bottom={{ base: "0", md: "unset" }}
       mb={{ base: "7.5vh", md: "unset" }}
-      pb={{ base: "unset", md: "0.5em" }}
+      pb={{ md: "0.5em" }}
       alignItems={{ base: "center", md: "start" }}
-      alignContent={{ base: "unset", md: "start" }}
+      alignContent={{ md: "start" }}
       backgroundColor="brand.500"
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
@@ -32,10 +32,10 @@ export default function Footer() {
         w={{ base: "80%", md: "100%" }}
         display="flex"
         justifySelf="center"
-        px={{ base: "unset", md: "1em" }}
-        mt={{ base: "unset", md: "0.5em" }}
+        px={{ md: "1em" }}
+        mt={{ md: "0.5em" }}
         mb={{ base: "auto", md: "0.5em" }}
-        justifyContent={{ base: "unset", md: "center" }}
+        justifyContent={{ md: "center" }}
       >
         <Text
           fontSize="60%"
@@ -48,105 +48,167 @@ export default function Footer() {
         </Text>
       </Box>
       <Box
-        display={{ base: "flex", md: "none" }}
-        justifyContent="center"
-        alignItems="center"
-        flexWrap={{ base: "wrap" }}
-        h="70%"
-      >
-        <Image src={MyGunplaListLogo} w="20%" h="100%" />
-        <Box display="flex" flexDirection="column" h="50%" w="70%">
-          <Image src={BrandLogo} pb="0.25em" />
-          <Image src={Tagline} />
-        </Box>
-      </Box>
-      <Box
-        alignContent="center"
-        alignItems="center"
-        justifyItems="center"
-        marginBottom={{ base: "auto", md: "0" }}
-        display={{ base: "grid", md: "flex" }}
-        gridTemplateColumns="1fr 1fr"
-        gridTemplateRows="1fr"
-        w={{ base: "100%", md: "100%" }}
-        justifyContent={{ base: "center", md: "space-around" }}
+        display={{ md: "flex" }}
+        alignItems={{ md: "center" }}
+        justifyContent={{ md: "center" }}
+        w={{ md: "100%" }}
       >
         <Box
           display="flex"
-          px={{ base: "unset", md: "1em" }}
-          flexDirection={{ base: "column", md: "row" }}
-          gap={{ base: "0.5em", md: "1.5em" }}
-          fontSize={{ base: "85%", md: "90%" }}
-          textColor="white"
+          justifyContent="center"
+          alignItems="center"
+          flexWrap={{ base: "wrap" }}
+          h="70%"
+          gap={{ md: "0.5em" }}
         >
-          <ChakraLink as={ReactRouterLink} to="/about">
-            <Text fontWeight="400">À propos</Text>
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/terms-of-use">
-            <Text fontWeight="400">Conditions d&apos;utilisation</Text>
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/privacy-policy">
-            <Text fontWeight="400">Politique de confidentialité</Text>
-          </ChakraLink>
-        </Box>
-        <Stack display={{ base: "grid", md: "flex" }} flexDirection="row">
+          <Image
+            src={MyGunplaListLogo}
+            alt="Logo MyGunplaList"
+            w={{ base: "20%", md: "10%" }}
+            h={{ base: "100%", md: "80%" }}
+          />
           <Box
             display="flex"
-            flexDirection="row"
-            flexWrap={{ base: "wrap" }}
-            justifyContent={{ base: "center" }}
-            alignItems={{ base: "center" }}
-            px={{ base: "0", md: "1em" }}
-            gap={{ base: "1.25em", md: "1.5em" }}
-            pb={{ base: "auto", md: "0.5em" }}
+            flexDirection="column"
+            h={{ base: "50%", md: "80%" }}
+            w={{ base: "70%", md: "60%" }}
           >
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.facebook.com/riseofgunpla"
-            >
-              <Image src={FaceBookIcon} boxSize={{ base: "32px" }} />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.instagram.com/riseofgunpla"
-            >
-              <Image
-                src={InstagramIcon}
-                mt="0.1em"
-                boxSize={{ base: "32px" }}
-              />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://twitter.com/Riseofgunpla"
-            >
-              <Image
-                src={TwitterIcon}
-                mt={{ base: "0", md: "0.25em" }}
-                boxSize={{ base: "32px" }}
-              />
-            </ChakraLink>
-            <ChakraLink as={ReactRouterLink} to="https://discord.gg/J2VYmbd">
-              <Image src={DiscordIcon} boxSize={{ base: "32px" }} />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.tiktok.com/@riseofgunpla"
-            >
-              <Image src={TiktokIcon} boxSize={{ base: "32px" }} />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
-            >
-              <Image
-                src={YoutubeIcon}
-                mt={{ base: "0", md: "0.25em" }}
-                boxSize={{ base: "32px" }}
-              />
-            </ChakraLink>
+            <Image
+              src={BrandLogo}
+              alt="Logo texte : MyGunplaList"
+              pb="0.25em"
+            />
+            <Image
+              src={Tagline}
+              alt="Logo texte : Backlog & Collection showcase by Rise Of Gunpla"
+            />
           </Box>
-        </Stack>
+        </Box>
+        <Box
+          alignContent="center"
+          alignItems="center"
+          justifyItems="center"
+          marginBottom={{ base: "auto", md: "0" }}
+          display={{ base: "grid", md: "flex" }}
+          gridTemplateColumns="1fr 1fr"
+          gridTemplateRows="1fr"
+          w={{ base: "100%", md: "100%" }}
+          justifyContent={{ base: "center", md: "space-around" }}
+        >
+          <Box
+            display="flex"
+            flexDirection={{ base: "row", md: "row-reverse" }}
+            justifyContent={{ base: "center", md: "space-between" }}
+          >
+            <Box
+              display="flex"
+              px={{ md: "1em" }}
+              flexDirection="column"
+              alignItems={{ md: "flex-end" }}
+              gap={{ base: "0.5em", md: "0" }}
+              fontSize={{ base: "85%", md: "90%" }}
+              textColor="white"
+            >
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/about"
+                _hover={{ textDecoration: "none", textColor: "white" }}
+              >
+                <Text fontWeight="400">À propos</Text>
+              </ChakraLink>
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/terms-of-use"
+                _hover={{ textDecoration: "none", textColor: "white" }}
+              >
+                <Text fontWeight="400">Conditions d&apos;utilisation</Text>
+              </ChakraLink>
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/privacy-policy"
+                _hover={{ textDecoration: "none", textColor: "white" }}
+              >
+                <Text fontWeight="400">Politique de confidentialité</Text>
+              </ChakraLink>
+            </Box>
+            <Stack display={{ base: "grid", md: "flex" }} flexDirection="row">
+              <Box
+                display="flex"
+                flexDirection="row"
+                flexWrap={{ base: "wrap" }}
+                justifyContent={{ base: "center" }}
+                alignItems={{ base: "center" }}
+                px={{ base: "0", md: "1em" }}
+                gap={{ base: "1.25em", md: "1.5em" }}
+                pb={{ base: "auto", md: "0.5em" }}
+              >
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.facebook.com/riseofgunpla"
+                >
+                  <Image
+                    src={FaceBookIcon}
+                    alt="Icône FaceBook"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.instagram.com/riseofgunpla"
+                >
+                  <Image
+                    src={InstagramIcon}
+                    alt="Icône Instagram"
+                    mt="0.1em"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://twitter.com/Riseofgunpla"
+                >
+                  <Image
+                    src={TwitterIcon}
+                    alt="Icône Twitter"
+                    mt={{ base: "0", md: "0.25em" }}
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://discord.gg/J2VYmbd"
+                >
+                  <Image
+                    src={DiscordIcon}
+                    alt="Icône Discord"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.tiktok.com/@riseofgunpla"
+                >
+                  <Image
+                    src={TiktokIcon}
+                    alt="Icône TikTok"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
+                >
+                  <Image
+                    src={YoutubeIcon}
+                    alt="Icône YouTube"
+                    mt={{ base: "0", md: "0.25em" }}
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+              </Box>
+            </Stack>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

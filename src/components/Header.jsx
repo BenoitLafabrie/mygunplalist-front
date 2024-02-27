@@ -70,8 +70,13 @@ export default function Header() {
           gap={2}
           maxW="400px"
         >
-          <Image src={MyGunplaListLogo} boxSize="7.5%" ml="1em" />
-          <Image src={BrandLogo} />
+          <Image
+            src={MyGunplaListLogo}
+            alt="Logo MyGunplaList"
+            boxSize="7.5%"
+            ml="1em"
+          />
+          <Image src={BrandLogo} alt="Logo texte : MyGunplaList" />
         </ChakraLink>
         <ButtonGroup spacing={3} variant="ghost" size="md" gap="1em">
           <ChakraLink as={ReactRouterLink} to="/admin">
@@ -117,6 +122,7 @@ export default function Header() {
                 name={`${userData?.firstname} ${userData?.lastname}`}
                 mr="1em"
                 fontWeight="400"
+                border="none"
               />
             </MenuButton>
             <MenuList>

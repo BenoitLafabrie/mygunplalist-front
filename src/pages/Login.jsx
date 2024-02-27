@@ -81,7 +81,11 @@ export default function Login() {
         alignItems="center"
         mt="1em"
       >
-        <Image src={ButtonIconLogo} boxSize="18px" />
+        <Image
+          src={ButtonIconLogo}
+          alt="Logo triangulaire rouge"
+          boxSize="18px"
+        />
         <Text align="center" textColor="brand.500" fontSize="lg">
           DE RETOUR? CONNECTEZ-VOUS
         </Text>

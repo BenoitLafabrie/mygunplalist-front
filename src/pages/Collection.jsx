@@ -22,13 +22,13 @@ export default function Collection() {
   return (
     <Box w="80%" mb="1em" minH="calc(93vh - 82px)">
       <Center flexDirection="column">
-        <Heading my="0.5em" textTransform="uppercase" size="md">
+        <Heading my="1.5em" textTransform="uppercase" size="md">
           La gunplalist de {userData.username}
         </Heading>
         <SimpleGrid
-          spacing={8}
-          columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
-          mx="auto"
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+          mb="1em"
         >
           {currentItems.map((item) => (
             <KitCard key={item.item_id} item={item} />

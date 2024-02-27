@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardBody,
   CardFooter,
@@ -11,9 +12,22 @@ import { Link as ReactRouterLink } from "react-router-dom";
 
 export const ProfileCard = ({ item, ...props }) => {
   return (
-    <Card key={item.item_id} {...props}>
+    <Card
+      key={item.item_id}
+      bgColor="#F4F9FB"
+      justifyContent="center"
+      transition="transform 0.2s"
+      _hover={{
+        transform: "scale(1.05)",
+      }}
+      {...props}
+    >
       <CardBody p={0}>
-        <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
+        <ChakraLink
+          as={ReactRouterLink}
+          to={`/kits/${item.item_id}`}
+          _hover={{ textDecoration: "none", color: "inherit" }}
+        >
           {item.Items_images && item.Items_images.length > 0 ? (
             <Image
               src={item.Items_images[0].image_path}
@@ -28,10 +42,11 @@ export const ProfileCard = ({ item, ...props }) => {
           )}
         </ChakraLink>
       </CardBody>
-      <CardFooter>
+      <CardFooter display="flex" flexDirection="column">
         <Text
           fontSize={14}
-          fontWeight="500"
+          fontWeight="400"
+          textTransform="uppercase"
           textAlign="center"
           textOverflow="ellipsis"
           whiteSpace="nowrap"
@@ -39,6 +54,19 @@ export const ProfileCard = ({ item, ...props }) => {
         >
           {item.name}
         </Text>
+        <Box
+          as="span"
+          fontSize="12px"
+          fontWeight="400"
+          textTransform="uppercase"
+          opacity="0.5"
+          _before={{
+            content: '"• "',
+            color: "currentColor",
+          }}
+        >
+          {item.Items_props.grade}
+        </Box>
       </CardFooter>
     </Card>
   );
@@ -52,6 +80,9 @@ ProfileCard.propTypes = {
         image_path: PropTypes.string.isRequired,
       })
     ),
+    Items_props: PropTypes.shape({
+      grade: PropTypes.string.isRequired,
+    }),
     name: PropTypes.string.isRequired,
   }).isRequired,
 };

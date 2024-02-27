@@ -111,7 +111,7 @@ export default function KitPage() {
           <ModalBody>
             <Image
               src={item.Items_images[selectedImageIndex].image_path}
-              alt="Selected"
+              alt="Image sélectionnée"
               objectFit="contain"
               w="100%"
               h="50vh"

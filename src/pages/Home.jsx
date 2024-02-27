@@ -64,10 +64,9 @@ export default function Home() {
         </ChakraLink>
       </Flex>
       <SimpleGrid
-        spacing={{ base: 3, md: 8 }}
-        columns={{ base: 2, md: 3, lg: 5, xl: 7, "2xl": 9 }}
-        mx={{ base: "1em", md: "3em" }}
-        w={{ base: "90%" }}
+        spacing={4}
+        templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+        mx="2em"
       >
         {latestItems.map((item) => (
           <KitCard key={item.item_id} item={item} />

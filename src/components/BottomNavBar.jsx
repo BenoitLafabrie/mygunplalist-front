@@ -48,7 +48,7 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Search_Icon}
-                alt="Search icon"
+                alt="Icône Rechercher"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
@@ -69,7 +69,7 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Collection_Icon}
-                alt="Collection icon"
+                alt="Icône Collection"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
@@ -90,7 +90,7 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Wishlist_Icon}
-                alt="Wishlist icon"
+                alt="Icône Wishlist"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
@@ -111,7 +111,7 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Add_Kit_Icon}
-                alt="Add a kit icon"
+                alt="Icône Ajouter un kit"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
@@ -132,7 +132,7 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Profile_Icon}
-                alt="Profile icon"
+                alt="Icône Profil"
                 boxSize="24px"
                 marginBottom="0.5em"
               />

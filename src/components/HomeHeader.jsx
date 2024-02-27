@@ -31,7 +31,7 @@ export default function HomeHeader() {
           to="/"
           _hover={{ textDecoration: "none" }}
         >
-          <Image src={Header_Mobile_Logo} />
+          <Image src={Header_Mobile_Logo} alt="Image du header pour mobile" />
         </ChakraLink>
 
         <ChakraLink
@@ -54,7 +54,7 @@ export default function HomeHeader() {
         justifyContent="center"
         alignContent="center"
       >
-        <Image src={MyGunplaListLogo} pb="2em" />
+        <Image src={MyGunplaListLogo} alt="Logo MyGunplaList" pb="2em" />
         <Text
           color="white"
           align="center"
@@ -65,7 +65,7 @@ export default function HomeHeader() {
         >
           BIENVENUE SUR
         </Text>
-        <Image src={BrandLogo} pb="0.25em" />
+        <Image src={BrandLogo} alt="Logo texte : MyGunplaList" pb="0.25em" />
         <Box my={{ base: "1.5em", md: "2.5em" }}>
           <Text
             color="white"
