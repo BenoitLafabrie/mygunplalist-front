@@ -94,6 +94,8 @@ KitCard.propTypes = {
     ),
     Items_props: PropTypes.shape({
       grade: PropTypes.string.isRequired,
+      scale: PropTypes.string.isRequired,
+      series: PropTypes.string.isRequired,
     }),
     name: PropTypes.string.isRequired,
   }).isRequired,

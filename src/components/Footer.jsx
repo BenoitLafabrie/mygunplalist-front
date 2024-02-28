@@ -34,7 +34,7 @@ export default function Footer() {
         justifySelf="center"
         px={{ md: "1em" }}
         mt={{ md: "0.5em" }}
-        mb={{ base: "auto", md: "0.5em" }}
+        mb={{ base: "0.75em", md: "0.5em" }}
         justifyContent={{ md: "center" }}
       >
         <Text
@@ -55,16 +55,17 @@ export default function Footer() {
       >
         <Box
           display="flex"
-          justifyContent="center"
+          justifyContent={{ base: "space-evenly", md: "center" }}
           alignItems="center"
           flexWrap={{ base: "wrap" }}
           h="70%"
           gap={{ md: "0.5em" }}
+          mb={{ base: "1em" }}
         >
           <Image
             src={MyGunplaListLogo}
             alt="Logo MyGunplaList"
-            w={{ base: "20%", md: "10%" }}
+            w={{ base: "18%", md: "10%" }}
             h={{ base: "100%", md: "80%" }}
           />
           <Box
@@ -90,22 +91,26 @@ export default function Footer() {
           justifyItems="center"
           marginBottom={{ base: "auto", md: "0" }}
           display={{ base: "grid", md: "flex" }}
-          gridTemplateColumns="1fr 1fr"
+          gridTemplateColumns="2fr"
           gridTemplateRows="1fr"
           w={{ base: "100%", md: "100%" }}
           justifyContent={{ base: "center", md: "space-around" }}
         >
           <Box
-            display="flex"
+            display={{ base: "grid", md: "flex" }}
             flexDirection={{ base: "row", md: "row-reverse" }}
             justifyContent={{ base: "center", md: "space-between" }}
+            alignItems={{ base: "center" }}
+            gridTemplateColumns="1fr 1fr"
+            pb={{ base: "0.5em" }}
           >
             <Box
               display="flex"
               px={{ md: "1em" }}
+              pl={{ base: "0.5em" }}
               flexDirection="column"
               alignItems={{ md: "flex-end" }}
-              gap={{ base: "0.5em", md: "0" }}
+              gap={{ base: "0.75em", md: "0" }}
               fontSize={{ base: "85%", md: "90%" }}
               textColor="white"
             >
@@ -131,15 +136,20 @@ export default function Footer() {
                 <Text fontWeight="400">Politique de confidentialité</Text>
               </ChakraLink>
             </Box>
-            <Stack display={{ base: "grid", md: "flex" }} flexDirection="row">
+            <Stack
+              display={{ base: "grid", md: "flex" }}
+              flexDirection={{ md: "row" }}
+              gridTemplateColumns="1fr"
+              gridTemplateRows="2fr"
+            >
               <Box
                 display="flex"
-                flexDirection="row"
+                flexDirection={{ md: "row" }}
                 flexWrap={{ base: "wrap" }}
                 justifyContent={{ base: "center" }}
-                alignItems={{ base: "center" }}
+                alignItems={{ base: "baseline" }}
                 px={{ base: "0", md: "1em" }}
-                gap={{ base: "1.25em", md: "1.5em" }}
+                gap={{ base: "1.5em", md: "1.5em" }}
                 pb={{ base: "auto", md: "0.5em" }}
               >
                 <ChakraLink

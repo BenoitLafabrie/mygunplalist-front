@@ -32,7 +32,7 @@ export default function BottomNavBar() {
           justifyContent="space-around"
           w="100%"
           color="white"
-          fontSize="0.75rem"
+          fontSize="0.73em"
         >
           <ChakraLink
             as={ReactRouterLink}
@@ -115,7 +115,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              <Text fontWeight="400">SCAN</Text>
+              <Text fontWeight="400">SCANNER</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -136,7 +136,7 @@ export default function BottomNavBar() {
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              <Text fontWeight="400">PROFIL</Text>
+              <Text fontWeight="400">MON PROFIL</Text>
             </ListItem>
           </ChakraLink>
         </Box>

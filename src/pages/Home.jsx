@@ -49,7 +49,7 @@ export default function Home() {
         justifyContent={{ base: "space-around", md: "unset" }}
         gap={{ base: "unset", md: "4" }}
         mx={{ base: "auto", md: "3em" }}
-        my="2em"
+        mb="2em"
         w={{ base: "100%" }}
       >
         <Text fontWeight="700">LES DERNIERS GUNPLA</Text>
