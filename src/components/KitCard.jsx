@@ -20,6 +20,7 @@ export const KitCard = ({ item, children }) => {
       _hover={{
         transform: "scale(1.05)",
       }}
+      p={0}
     >
       <ChakraLink
         as={ReactRouterLink}
@@ -27,8 +28,15 @@ export const KitCard = ({ item, children }) => {
         _hover={{ textDecoration: "none", color: "inherit" }}
       >
         <CardBody p="0">
-          <Grid templateRows="2fr 1fr" alignItems="center">
-            <Box position="relative" p="0" overflow="hidden">
+          <Grid templateRows="2fr 1fr" alignItems="center" p={0}>
+            <Box
+              w="100%"
+              h="0"
+              pb="100%"
+              position="relative"
+              overflow="hidden"
+              zIndex="0"
+            >
               <Box
                 position="absolute"
                 top="0"
@@ -37,6 +45,7 @@ export const KitCard = ({ item, children }) => {
                 right="0"
                 bgImage={item.Items_images[0].image_path}
                 bgSize="contain"
+                bgRepeat="no-repeat"
                 filter="blur(2px)"
                 zIndex={-1}
               />
@@ -45,13 +54,18 @@ export const KitCard = ({ item, children }) => {
                   src={item.Items_images[0].image_path}
                   alt={item.name}
                   borderRadius="lg"
-                  p="1.25em"
+                  position="absolute"
+                  w="100%"
+                  h="100%"
+                  objectFit="contain"
+                  objectPosition="center center"
+                  p="1em"
                 />
               ) : (
                 <p>Aucune image pour ce gunpla</p>
               )}
             </Box>
-            <Box bgColor="#F4F9FB">
+            <Box bgColor="#F4F9FB" p={0}>
               <Heading
                 size="xs"
                 pt="1em"

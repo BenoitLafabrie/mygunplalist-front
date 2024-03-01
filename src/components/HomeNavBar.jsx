@@ -57,7 +57,7 @@ export default function HomeNavBar() {
             AJOUTER
           </Button>
         </ChakraLink>
-        <ChakraLink as={ReactRouterLink} to="/profile">
+        <ChakraLink as={ReactRouterLink} to="/users/me">
           <Button
             color="brand.500"
             leftIcon={<BiUser size={20} />}

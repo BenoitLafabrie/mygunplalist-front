@@ -57,15 +57,15 @@ export default function Search() {
   const filterFunction = () => {
     if (sortType === "name") {
       const itemsFiltering = items.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+        item?.name?.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredItems(itemsFiltering);
     } else if (sortType !== "name") {
       const itemsFiltering = items.filter(
-        (item) => item.Items_props.grade === sortType
+        (item) => item?.Items_props?.grade === sortType
       );
       const itemsSearched = itemsFiltering.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+        item?.name?.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredItems(itemsSearched);
     }
@@ -163,7 +163,7 @@ export default function Search() {
                 </Heading>
               </CardBody>
             </ChakraLink>
-            <Divider color="red" />
+            <Divider color="brand.500" />
             <CardFooter justifyContent="center">
               <ButtonGroup spacing={12}>
                 <AddToCollectionButton
