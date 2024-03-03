@@ -6,6 +6,7 @@ import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import ButtonLogo from "../components/buttons/ButtonLogo";
 import WhiteButtonIconLogo from "../components/buttons/WhiteButtonIconLogo";
+import RedCorner from "../assets/footer/separator_curve-r.svg";
 
 export default function HomeHeader() {
   const [hoveredButton, setHoveredButton] = useState(null);
@@ -14,10 +15,45 @@ export default function HomeHeader() {
     <Box
       as="header"
       w="100%"
-      h="660px"
+      h="698px"
       position="sticky"
       backgroundColor="brand.500"
+      _before={{
+        backgroundImage: `url(${RedCorner})`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        left: "0",
+        bottom: "0",
+        zIndex: "-1",
+        transform: "scaleX(-1) scaleY(-1)",
+      }}
+      _after={{
+        backgroundImage: `url(${RedCorner})`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        right: "0",
+        bottom: "0",
+        zIndex: "-1",
+        transform: "scaleY(-1)",
+      }}
     >
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
+        zIndex="-2"
+      />
       <Box
         display="flex"
         px={{ base: "1em", md: "3em" }}

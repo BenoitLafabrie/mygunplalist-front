@@ -1,5 +1,6 @@
 import { Box, Link as ChakraLink, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import RedCorner from "../assets/footer/separator_curve-r.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
@@ -27,7 +28,42 @@ export default function Footer() {
       backgroundColor="brand.500"
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
+      _before={{
+        backgroundImage: `url(${RedCorner})`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        left: "0",
+        bottom: { base: "278", md: "110" },
+        zIndex: "-1",
+        transform: "scaleX(-1)",
+      }}
+      _after={{
+        backgroundImage: `url(${RedCorner})`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        right: "0",
+        bottom: { base: "278", md: "110" },
+        zIndex: "-1",
+      }}
     >
+      <Box
+        as="footer-gradient-div"
+        position="absolute"
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
+        zIndex="-2"
+      />
       <Box
         w={{ base: "80%", md: "100%" }}
         display="flex"

@@ -15,7 +15,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 
 export default function HomeNavBar() {
   return (
-    <HStack py="1em" display={{ base: "none", md: "flex" }}>
+    <HStack pb="3em" display={{ base: "none", md: "flex" }}>
       <ButtonGroup spacing={3} variant="ghost" size="sm" gap="1em">
         <ChakraLink as={ReactRouterLink} to="/search">
           <Button

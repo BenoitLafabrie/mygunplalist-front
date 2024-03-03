@@ -13,6 +13,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
   useToast,
 } from "@chakra-ui/react";
 
@@ -23,9 +24,10 @@ import { BiLogOut } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import BrandLogo from "../assets/header/BrandLogo.svg";
-import Header_Icon from "../assets/header/Header_Icon.svg";
+import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import { UserContext } from "../context/User";
+import RedCorner from "../assets/footer/separator_curve-r.svg";
 
 export default function Header() {
   const toast = useToast();
@@ -47,15 +49,73 @@ export default function Header() {
   };
 
   return (
-    <Box as="header" w="100%">
-      <ChakraLink as={ReactRouterLink} to="/" w="100vw">
-        <Box
-          h="108px"
-          position="sticky"
-          backgroundImage={Header_Icon}
-          display={{ base: "flex", md: "none" }}
-        />
-      </ChakraLink>
+    <Box
+      as="header"
+      w="100%"
+      h="65px"
+      backgroundColor="brand.500"
+      _before={{
+        backgroundImage: `url(${RedCorner})`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        top: "65",
+        left: "0",
+        bottom: "0",
+        transform: "scaleX(-1) scaleY(-1)",
+      }}
+      _after={{
+        backgroundImage: `url(${RedCorner})`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        top: "65",
+        right: "0",
+        bottom: "0",
+        transform: "scaleY(-1)",
+      }}
+    >
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
+        zIndex="-2"
+      />
+      <Box
+        display={{ base: "flex", md: "none" }}
+        px={{ base: "1em", md: "3em" }}
+        py="0.5em"
+        justifyContent="space-between"
+        alignContent="center"
+        alignItems="center"
+      >
+        <ChakraLink
+          as={ReactRouterLink}
+          to="/"
+          _hover={{ textDecoration: "none" }}
+        >
+          <Image src={Header_Mobile_Logo} alt="Image du header pour mobile" />
+        </ChakraLink>
+
+        <ChakraLink
+          as={ReactRouterLink}
+          to="https://www.riseofgunpla.com"
+          _hover={{ textDecoration: "none" }}
+        >
+          <Text color="white" fontWeight="400" fontSize="12px">
+            BY RISEOFGUNPLA.COM
+          </Text>
+        </ChakraLink>
+      </Box>
       <Flex
         alignItems="center"
         justifyContent="space-between"

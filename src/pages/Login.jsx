@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
+import ButtonIconLogo from "../assets/icons/buttonIconLogo.svg";
 
 import { login } from "../api/auth";
 
