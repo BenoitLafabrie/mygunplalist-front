@@ -262,7 +262,7 @@ export default function BarcodeReader() {
               <Box
                 position="absolute"
                 left={0}
-                w={{ base: "100%", md: "50%" }}
+                w="100%"
                 h={"100%"}
                 top="0"
                 opacity={imgOpacity}
@@ -272,7 +272,11 @@ export default function BarcodeReader() {
               >
                 <Image
                   position={"absolute"}
-                  top="-30px"
+                  top="0"
+                  left="0"
+                  width="100%"
+                  height="100%"
+                  objectFit="cover"
                   src="https://riseofgunpla.com/wp-content/uploads/2022/12/1000183861_1_6SUf2xWmjHXvIa0Ub4uZoDPhtvMQoKGC-1000x1000.webp"
                   alt="gundam camera"
                 />
