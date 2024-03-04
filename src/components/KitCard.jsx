@@ -44,7 +44,7 @@ export const KitCard = ({ item, children }) => {
                 left="0"
                 right="0"
                 bgImage={item.Items_images[0].image_path}
-                bgSize="contain"
+                bgSize="cover"
                 bgRepeat="no-repeat"
                 filter="blur(2px)"
                 zIndex={-1}
