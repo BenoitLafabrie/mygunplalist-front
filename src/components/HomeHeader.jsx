@@ -6,7 +6,6 @@ import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import ButtonLogo from "../components/buttons/ButtonLogo";
 import WhiteButtonIconLogo from "../components/buttons/WhiteButtonIconLogo";
-import RedCorner from "../assets/footer/separator_curve-r.svg";
 
 export default function HomeHeader() {
   const [hoveredButton, setHoveredButton] = useState(null);
@@ -19,7 +18,7 @@ export default function HomeHeader() {
       position="sticky"
       backgroundColor="brand.500"
       _before={{
-        backgroundImage: `url(${RedCorner})`,
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
         bgSize: "100% 38px, 100% 76px",
         bgRepeat: "no-repeat",
         content: '""',
@@ -32,7 +31,7 @@ export default function HomeHeader() {
         transform: "scaleX(-1) scaleY(-1)",
       }}
       _after={{
-        backgroundImage: `url(${RedCorner})`,
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
         bgSize: "100% 38px, 100% 76px",
         bgRepeat: "no-repeat",
         content: '""',

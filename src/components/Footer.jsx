@@ -1,6 +1,5 @@
 import { Box, Link as ChakraLink, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import RedCorner from "../assets/footer/separator_curve-r.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
@@ -29,7 +28,7 @@ export default function Footer() {
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
       _before={{
-        backgroundImage: `url(${RedCorner})`,
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
         bgSize: "100% 38px, 100% 76px",
         bgRepeat: "no-repeat",
         content: '""',
@@ -42,7 +41,7 @@ export default function Footer() {
         transform: "scaleX(-1)",
       }}
       _after={{
-        backgroundImage: `url(${RedCorner})`,
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
         bgSize: "100% 38px, 100% 76px",
         bgRepeat: "no-repeat",
         content: '""',

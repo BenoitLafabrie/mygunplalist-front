@@ -27,7 +27,6 @@ import BrandLogo from "../assets/header/BrandLogo.svg";
 import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import { UserContext } from "../context/User";
-import RedCorner from "../assets/footer/separator_curve-r.svg";
 
 export default function Header() {
   const toast = useToast();
@@ -55,7 +54,7 @@ export default function Header() {
       h="65px"
       backgroundColor="brand.500"
       _before={{
-        backgroundImage: `url(${RedCorner})`,
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
         bgSize: "100% 38px, 100% 76px",
         bgRepeat: "no-repeat",
         content: '""',
@@ -68,7 +67,7 @@ export default function Header() {
         transform: "scaleX(-1) scaleY(-1)",
       }}
       _after={{
-        backgroundImage: `url(${RedCorner})`,
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
         bgSize: "100% 38px, 100% 76px",
         bgRepeat: "no-repeat",
         content: '""',
