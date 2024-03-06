@@ -2,14 +2,8 @@ import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
 import {
   Box,
   ButtonGroup,
-  Card,
-  CardBody,
   CardFooter,
-  Link as ChakraLink,
-  Divider,
-  Heading,
   IconButton,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -19,13 +13,13 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
 import { getAllItems } from "../api/item";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
 import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
+import { KitCard } from "../components/KitCard";
 
 export default function Search() {
   const { userData, userToken, isLoading } = useContext(UserContext);
@@ -136,36 +130,14 @@ export default function Search() {
         </Select>
       </Stack>
       <SimpleGrid
-        spacing={8}
-        columns={{ base: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
-        mx="auto"
+        spacing={4}
+        templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+        mx="2em"
       >
         {currentItems.map((item) => (
-          <Card
-            key={item.item_id}
-            align="center"
-            justifyContent="space-between"
-          >
-            <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-              <CardBody>
-                {/* Render the first image of the item if it exists */}
-                {item.Items_images && item.Items_images.length > 0 ? (
-                  <Image
-                    src={item.Items_images[0].image_path}
-                    alt={item.name}
-                    borderRadius="lg"
-                  />
-                ) : (
-                  <p>Aucune image pour ce gunpla</p>
-                )}
-                <Heading size="xs" pt="2" textAlign="center" fontWeight="500">
-                  {item.name}
-                </Heading>
-              </CardBody>
-            </ChakraLink>
-            <Divider color="brand.500" />
+          <KitCard key={item.item_id} item={item}>
             <CardFooter justifyContent="center">
-              <ButtonGroup spacing={12}>
+              <ButtonGroup spacing={4}>
                 <AddToCollectionButton
                   token={userToken}
                   id={userData?.user_id}
@@ -178,7 +150,7 @@ export default function Search() {
                 />
               </ButtonGroup>
             </CardFooter>
-          </Card>
+          </KitCard>
         ))}
       </SimpleGrid>
       <Stack alignItems="center">

@@ -1,20 +1,30 @@
-import { useState } from "react";
-import { Box, Button, Link as ChakraLink, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Link as ChakraLink,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import ButtonLogo from "../components/buttons/ButtonLogo";
 import WhiteButtonIconLogo from "../components/buttons/WhiteButtonIconLogo";
+import { UserContext } from "../context/User";
+import HomeNavBar from "./HomeNavBar";
 
 export default function HomeHeader() {
   const [hoveredButton, setHoveredButton] = useState(null);
+  const { userToken } = useContext(UserContext);
 
   return (
     <Box
       as="header"
       w="100%"
-      h="698px"
+      h={!userToken ? "698px" : "568px"}
       position="sticky"
       backgroundColor="brand.500"
       _before={{
@@ -26,7 +36,7 @@ export default function HomeHeader() {
         width: "70px",
         height: "38px",
         left: "0",
-        bottom: "0",
+        bottom: { base: "-10px", md: "-7px" },
         zIndex: "-1",
         transform: "scaleX(-1) scaleY(-1)",
       }}
@@ -37,9 +47,9 @@ export default function HomeHeader() {
         content: '""',
         position: "absolute",
         width: "70px",
-        height: "38px",
+        height: "39px",
         right: "0",
-        bottom: "0",
+        bottom: { base: "-10px", md: "-7px" },
         zIndex: "-1",
         transform: "scaleY(-1)",
       }}
@@ -48,7 +58,7 @@ export default function HomeHeader() {
         position="absolute"
         top={0}
         left={0}
-        bottom={0}
+        bottom={{ base: "-1", md: "0" }}
         right={0}
         bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
         zIndex="-2"
@@ -124,68 +134,73 @@ export default function HomeHeader() {
         </Box>
       </Box>
 
-      <Box
-        display="flex"
-        h="80px"
-        justifyContent="center"
-        alignItems="center"
-        mx={{ base: "1em" }}
-      >
-        <ChakraLink
-          as={ReactRouterLink}
-          to="/register"
-          onMouseEnter={() => setHoveredButton("register")}
-          onMouseLeave={() => setHoveredButton(null)}
-          _hover={{ textDecoration: "none" }}
+      {!userToken ? (
+        <Box
+          display="flex"
+          h="80px"
+          justifyContent="center"
+          alignItems="center"
+          mx={{ base: "1em" }}
         >
-          <Button
-            textColor={hoveredButton === "login" ? "brand.100" : "brand.500"}
-            leftIcon={
-              hoveredButton === "login" ? (
-                <WhiteButtonIconLogo />
-              ) : (
-                <ButtonLogo />
-              )
-            }
-            boxShadow={
-              hoveredButton === "login"
-                ? "none"
-                : "5px 5px 50px 0px rgba(7,29,38,0.25)"
-            }
-            p="1.5em"
-            fontWeight="400"
-            variant={hoveredButton === "login" ? "outline" : "solid"}
-            transition="all 0.3s ease"
+          <ChakraLink
+            as={ReactRouterLink}
+            to="/register"
+            onMouseEnter={() => setHoveredButton("register")}
+            onMouseLeave={() => setHoveredButton(null)}
+            _hover={{ textDecoration: "none" }}
           >
-            JE M&apos;INSCRIS
-          </Button>
-        </ChakraLink>
-        <ChakraLink
-          as={ReactRouterLink}
-          to="/login"
-          onMouseEnter={() => setHoveredButton("login")}
-          onMouseLeave={() => setHoveredButton(null)}
-          _hover={{ textDecoration: "none" }}
-        >
-          <Button
-            textColor={hoveredButton === "login" ? "brand.500" : "brand.100"}
-            variant={hoveredButton === "login" ? "solid" : "outline"}
-            ml="-0.5em"
-            px="2.5em"
-            py="1.5em"
-            boxShadow={
-              hoveredButton === "login"
-                ? "5px 5px 50px 0px rgba(7,29,38,0.25)"
-                : "none"
-            }
-            fontWeight="400"
-            zIndex={hoveredButton === "login" ? "2" : "-1"}
-            transition="all 0.3s ease"
+            <Button
+              textColor={hoveredButton === "login" ? "brand.100" : "brand.500"}
+              leftIcon={
+                hoveredButton === "login" ? (
+                  <WhiteButtonIconLogo />
+                ) : (
+                  <ButtonLogo />
+                )
+              }
+              boxShadow={
+                hoveredButton === "login"
+                  ? "none"
+                  : "5px 5px 50px 0px rgba(7,29,38,0.25)"
+              }
+              p="1.5em"
+              fontWeight="400"
+              variant={hoveredButton === "login" ? "outline" : "solid"}
+              transition="all 0.3s ease"
+            >
+              JE M&apos;INSCRIS
+            </Button>
+          </ChakraLink>
+          <ChakraLink
+            as={ReactRouterLink}
+            to="/login"
+            onMouseEnter={() => setHoveredButton("login")}
+            onMouseLeave={() => setHoveredButton(null)}
+            _hover={{ textDecoration: "none" }}
           >
-            CONNEXION
-          </Button>
-        </ChakraLink>
-      </Box>
+            <Button
+              textColor={hoveredButton === "login" ? "brand.500" : "brand.100"}
+              variant={hoveredButton === "login" ? "solid" : "outline"}
+              ml="-0.5em"
+              px="2.5em"
+              py="1.5em"
+              boxShadow={
+                hoveredButton === "login"
+                  ? "5px 5px 50px 0px rgba(7,29,38,0.25)"
+                  : "none"
+              }
+              fontWeight="400"
+              zIndex={hoveredButton === "login" ? "2" : "-1"}
+              transition="all 0.3s ease"
+            >
+              CONNEXION
+            </Button>
+          </ChakraLink>
+        </Box>
+      ) : null}
+      <Center mt="-0.5em">
+        <HomeNavBar />
+      </Center>
     </Box>
   );
 }

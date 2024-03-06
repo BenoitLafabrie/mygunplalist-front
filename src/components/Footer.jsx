@@ -36,7 +36,7 @@ export default function Footer() {
         width: "70px",
         height: "38px",
         left: "0",
-        bottom: { base: "278", md: "110" },
+        bottom: { base: "256", md: "84" },
         zIndex: "-1",
         transform: "scaleX(-1)",
       }}
@@ -49,7 +49,7 @@ export default function Footer() {
         width: "70px",
         height: "38px",
         right: "0",
-        bottom: { base: "278", md: "110" },
+        bottom: { base: "256", md: "84" },
         zIndex: "-1",
       }}
     >
@@ -68,15 +68,14 @@ export default function Footer() {
         display="flex"
         justifySelf="center"
         px={{ md: "1em" }}
-        mt={{ md: "0.5em" }}
-        mb={{ base: "0.75em", md: "0.5em" }}
+        mt={{ base: "-2.25em", md: "-1.75em" }}
+        mb={{ base: "0.75em" }}
         justifyContent={{ md: "center" }}
       >
         <Text
-          fontSize="60%"
-          fontWeight={{ base: "normal", md: "400" }}
+          fontSize={{ base: "55%", md: "85%" }}
+          fontWeight="400"
           align="center"
-          textColor={{ base: "white", md: "white" }}
         >
           Les logos, produits et noms de sociétés mentionnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024
@@ -95,7 +94,7 @@ export default function Footer() {
           flexWrap={{ base: "wrap" }}
           h="70%"
           gap={{ md: "0.5em" }}
-          mb={{ base: "1em" }}
+          my={{ base: "1em" }}
         >
           <Image
             src={MyGunplaListLogo}

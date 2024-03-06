@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { getLatestItems } from "../api/item";
-import HomeNavBar from "../components/HomeNavBar";
 import { KitCard } from "../components/KitCard";
 import ROGButton from "../components/buttons/ROGButton";
 
@@ -40,15 +39,13 @@ export default function Home() {
       overflow="auto"
       flexDirection="column"
     >
-      <Center>
-        <HomeNavBar />
-      </Center>
       <Flex
         flexDirection="row"
         alignItems="baseline"
         justifyContent={{ base: "space-around", md: "unset" }}
         gap={{ base: "unset", md: "4" }}
         mx={{ base: "auto", md: "3em" }}
+        mt={{ base: "1em", md: "2.5em" }}
         mb="2em"
         w={{ base: "100%" }}
       >

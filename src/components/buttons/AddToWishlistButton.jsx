@@ -5,7 +5,7 @@ import { getWishlistById, updateWishlistById } from "../../api/myWishlist.js";
 import { useContext } from "react";
 import { UserContext } from "../../context/User.jsx";
 
-const AddToWishlistButton = ({ token, id, item_id }) => {
+const AddToWishlistButton = ({ token, id, item_id, ...props }) => {
   const { setMyWishlist } = useContext(UserContext);
   const toast = useToast();
 
@@ -32,6 +32,7 @@ const AddToWishlistButton = ({ token, id, item_id }) => {
         colorScheme="red"
         onClick={handleClick}
         fontWeight="400"
+        {...props}
       >
         Wishlist
       </Button>

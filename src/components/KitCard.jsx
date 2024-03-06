@@ -10,17 +10,18 @@ import {
 import PropTypes from "prop-types";
 import { Link as ReactRouterLink } from "react-router-dom";
 
-export const KitCard = ({ item, children }) => {
+export const KitCard = ({ item, children, ...props }) => {
   return (
     <Card
       key={item.item_id}
       bgColor="#F4F9FB"
       justifyContent="center"
-      transition="transform 0.2s"
+      transition="transform 0.15s"
       _hover={{
         transform: "scale(1.05)",
       }}
       p={0}
+      {...props}
     >
       <ChakraLink
         as={ReactRouterLink}
@@ -43,10 +44,14 @@ export const KitCard = ({ item, children }) => {
                 bottom="0"
                 left="0"
                 right="0"
+                bgColor="white"
                 bgImage={item.Items_images[0].image_path}
-                bgSize="cover"
+                bgSize="contain"
                 bgRepeat="no-repeat"
+                bgPosition="center center"
+                transform="scale(1.9)"
                 filter="blur(2px)"
+                opacity="0.225"
                 zIndex={-1}
               />
               {item.Items_images && item.Items_images.length > 0 ? (
@@ -59,7 +64,9 @@ export const KitCard = ({ item, children }) => {
                   h="100%"
                   objectFit="contain"
                   objectPosition="center center"
-                  p="1em"
+                  p="0"
+                  mixBlendMode="multiply"
+                  filter="brightness(1.15)"
                 />
               ) : (
                 <p>Aucune image pour ce gunpla</p>
@@ -69,8 +76,9 @@ export const KitCard = ({ item, children }) => {
               <Heading
                 size="xs"
                 pt="1em"
-                pl="1em"
+                px="1em"
                 fontWeight="400"
+                fontSize="12px"
                 textTransform="uppercase"
               >
                 {item.name}

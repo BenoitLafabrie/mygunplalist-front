@@ -28,6 +28,7 @@ export default function Collection() {
         <SimpleGrid
           spacing={4}
           templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+          mx="1em"
           mb="1em"
         >
           {currentItems.map((item) => (

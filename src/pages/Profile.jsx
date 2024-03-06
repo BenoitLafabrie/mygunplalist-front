@@ -8,7 +8,7 @@ import {
 import { useContext } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import { ProfileCard } from "../components/ProfileKitCard";
+import { KitCard } from "../components/KitCard";
 import LogoutButton from "../components/buttons/LogoutButton";
 import { UserContext } from "../context/User";
 
@@ -101,14 +101,7 @@ export default function Profile() {
       </Box>
       <Box display="flex" overflowX="auto" w="90%" gap={4} py="1.5em">
         {myGunplaList?.Items?.map((item) => (
-          <ProfileCard
-            key={item.item_id}
-            item={item}
-            minW="150px"
-            minH="150px"
-            transition="transform 0.2s"
-            _hover={{ transform: "scale(1.05)", textDecoration: "none" }}
-          />
+          <KitCard key={item.item_id} item={item} minW="150px" minH="150px" />
         ))}
       </Box>
       <Box
@@ -141,14 +134,7 @@ export default function Profile() {
         mb={{ base: "unset", md: "1.5em" }}
       >
         {myWishlist?.Items?.map((item) => (
-          <ProfileCard
-            key={item.item_id}
-            item={item}
-            minW="150px"
-            minH="150px"
-            transition="transform 0.2s"
-            _hover={{ transform: "scale(1.05)" }}
-          />
+          <KitCard key={item.item_id} item={item} minW="150px" minH="150px" />
         ))}
       </Box>
       <LogoutButton />
