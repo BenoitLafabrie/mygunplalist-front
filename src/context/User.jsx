@@ -11,6 +11,7 @@ const UserContextProvider = (props) => {
   const [userData, setUserData] = useState(null);
   const [myGunplaList, setMyGunplaList] = useState(null);
   const [myWishlist, setMyWishlist] = useState(null);
+  const [statusUpdated, setStatusUpdated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserData = async (token) => {
@@ -61,8 +62,9 @@ const UserContextProvider = (props) => {
     if (userData && userToken) {
       fetchMyGunplaList(userToken, userData.user_id);
       fetchWishlist(userToken, userData.user_id);
+      setStatusUpdated(false);
     }
-  }, [userToken, userData]);
+  }, [userToken, userData, statusUpdated]);
 
   const value = {
     userData,
@@ -74,6 +76,8 @@ const UserContextProvider = (props) => {
     myWishlist,
     setMyWishlist,
     isLoading,
+    statusUpdated,
+    setStatusUpdated,
   };
 
   return (

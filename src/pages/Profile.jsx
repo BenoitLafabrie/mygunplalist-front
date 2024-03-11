@@ -7,9 +7,10 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import Loading from "../components/Loading";
 import { KitCard } from "../components/KitCard";
+import Loading from "../components/Loading";
 import LogoutButton from "../components/buttons/LogoutButton";
+import ProfileChart from "../components/ProfileChart";
 import { UserContext } from "../context/User";
 
 export default function Profile() {
@@ -54,12 +55,21 @@ export default function Profile() {
         justifyContent="center"
         alignItems="center"
       >
-        <Avatar
-          size="xl"
-          name={`${userData?.firstname} ${userData?.lastname}`}
-          my="1rem"
-          fontWeight="400"
-        />
+        <Box
+          position="relative"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          my="1em"
+        >
+          <ProfileChart />
+          <Avatar
+            size="xl"
+            name={`${userData?.firstname} ${userData?.lastname}`}
+            fontWeight="400"
+            style={{ position: "absolute" }}
+          />
+        </Box>
         <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem" fontWeight="400">
           {userData?.username}
         </Heading>
