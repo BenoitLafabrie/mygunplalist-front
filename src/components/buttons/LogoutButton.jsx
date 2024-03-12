@@ -4,7 +4,7 @@ import { BiLogOut } from "react-icons/bi";
 import { useContext } from "react";
 import { UserContext } from "../../context/User";
 
-const LogoutButton = () => {
+const LogoutButton = (props) => {
   const toast = useToast();
 
   const { setUserToken, setUserData } = useContext(UserContext);
@@ -37,6 +37,7 @@ const LogoutButton = () => {
       variant="outline"
       m="1.5rem"
       p="1.5rem"
+      {...props}
     >
       Déconnexion
     </Button>

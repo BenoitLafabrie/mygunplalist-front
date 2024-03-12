@@ -86,7 +86,11 @@ export default function Login() {
           alt="Logo triangulaire rouge"
           boxSize="18px"
         />
-        <Text align="center" textColor="brand.500" fontSize="lg">
+        <Text
+          align="center"
+          textColor="brand.500"
+          fontSize={{ base: "md", md: "lg" }}
+        >
           DE RETOUR? CONNECTEZ-VOUS
         </Text>
       </Stack>

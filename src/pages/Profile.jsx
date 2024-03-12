@@ -147,7 +147,7 @@ export default function Profile() {
           <KitCard key={item.item_id} item={item} minW="150px" minH="150px" />
         ))}
       </Box>
-      <LogoutButton />
+      <LogoutButton mb="3em" />
     </Box>
   );
 }

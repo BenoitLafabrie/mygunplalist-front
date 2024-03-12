@@ -125,14 +125,14 @@ export default function Register() {
           alt="Logo triangulaire rouge"
           boxSize="18px"
         />
-        <Text align="center" textColor="brand.500" fontSize="lg">
-          CRÉER VOTRE COMPTE
+        <Text align="center" textColor="brand.500" fontSize="xl">
+          CRÉEZ VOTRE COMPTE
         </Text>
       </Stack>
       <VStack
         minH="100vh"
         w="80%"
-        mt="2em"
+        my={{ base: "3em", md: "2em" }}
         mx="auto"
         spacing={3}
         textColor="brand.400"
@@ -412,14 +412,14 @@ export default function Register() {
           <Button
             colorScheme="red"
             variant="outline"
-            mt="1em"
+            mt={{ base: "0.5em", md: "1em" }}
             type="submit"
             fontWeight="500"
           >
             S&apos;ENREGISTRER
           </Button>
         </form>
-        <Text my="1em">
+        <Text mt={{ base: "0.5em", md: "1em" }}>
           Déjà membre?{" "}
           <ChakraLink
             as={ReactRouterLink}

@@ -36,7 +36,9 @@ export default function HomeHeader() {
         width: "70px",
         height: "38px",
         left: "0",
-        bottom: { base: "-3px", md: "0px" },
+        bottom: !userToken
+          ? { base: "-3px", md: "0px" }
+          : { base: "-10px", md: "-7px" },
         zIndex: "-1",
         transform: "scaleX(-1) scaleY(-1)",
       }}
@@ -49,7 +51,9 @@ export default function HomeHeader() {
         width: "70px",
         height: "39px",
         right: "0",
-        bottom: { base: "-3px", md: "0px" },
+        bottom: !userToken
+          ? { base: "-3px", md: "0px" }
+          : { base: "-10px", md: "-7px" },
         zIndex: "-1",
         transform: "scaleY(-1)",
       }}
@@ -198,7 +202,7 @@ export default function HomeHeader() {
           </ChakraLink>
         </Box>
       ) : null}
-      <Center mt="1.5em">
+      <Center mt={!userToken ? "2em" : "-0.5em"}>
         <HomeNavBar />
       </Center>
     </Box>
