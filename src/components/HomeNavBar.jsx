@@ -16,7 +16,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 export default function HomeNavBar() {
   return (
     <HStack
-      w="90%"
+      w="80%"
       justifyContent="space-around"
       backgroundColor="white"
       display={{ base: "none", md: "flex" }}

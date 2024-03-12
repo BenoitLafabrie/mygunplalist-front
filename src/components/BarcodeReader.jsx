@@ -262,12 +262,12 @@ export default function BarcodeReader() {
               <Box
                 transition="0.3s ease-in-out"
                 position="absolute"
-                left="25%" // Adjust the left position as needed
-                top="35%" // Adjust the top position as needed
-                right="25%" // Adjust the right position as needed
-                bottom="35%" // Adjust the bottom position as needed
+                left="25%"
+                top="35%"
+                right="25%"
+                bottom="35%"
                 border="2px solid white"
-                pointerEvents="none" // Ensure the frame doesn't interfere with clicks
+                pointerEvents="none"
                 opacity={guideOpacity}
                 borderRadius={5}
               />
