@@ -21,7 +21,6 @@ const AddToWishlistButton = ({ token, id, item_id, ...props }) => {
           status: "info",
           duration: 3000,
           isClosable: true,
-          colorScheme: "red",
         });
         return;
       }
