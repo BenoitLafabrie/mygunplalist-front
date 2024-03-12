@@ -9,24 +9,49 @@ import { useContext } from "react";
 import { UserContext } from "../../context/User.jsx";
 
 const AddToCollectionButton = ({ token, id, item_id, ...props }) => {
-  const { setMyGunplaList } = useContext(UserContext);
+  const { myGunplaList, setMyGunplaList } = useContext(UserContext);
   const toast = useToast();
 
   const handleClick = async () => {
-    const gunplalist = await updateMygunplalistById(token, id, item_id);
+    try {
+      const existingItem = myGunplaList.Items.find(
+        (item) => item.item_id === item_id
+      );
+      if (existingItem) {
+        toast({
+          title: "Déjà chez vous ;)",
+          description: "Ce kit est déjà présent dans votre gunplalist",
+          status: "info",
+          duration: 3000,
+          isClosable: true,
+        });
+        return;
+      }
 
-    console.log("Gunplalist:", gunplalist);
+      const gunplalist = await updateMygunplalistById(token, id, item_id);
 
-    const updatedGunplaList = await getMygunplalistById(token, id);
+      console.log("Gunplalist:", gunplalist);
 
-    setMyGunplaList(updatedGunplaList);
-    toast({
-      title: "Ajout réussi",
-      description: "Le kit a bien été ajouté à votre gunplalist",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
+      const updatedGunplaList = await getMygunplalistById(token, id);
+
+      setMyGunplaList(updatedGunplaList);
+      toast({
+        title: "Ajout réussi",
+        description: "Le kit a bien été ajouté à votre gunplalist",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Ajout échoué",
+        description: "Réessayez plus tard",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
   return (
     <>

@@ -172,7 +172,13 @@ export default function BarcodeReader() {
       });
     } catch (error) {
       console.error("Error adding to collection:", error);
-      // Handle error if necessary
+      toast({
+        title: "Ajout échoué",
+        description: "Réessayez plus tard",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -207,7 +213,13 @@ export default function BarcodeReader() {
       });
     } catch (error) {
       console.error("Error adding to wishlist:", error);
-      // Handle error if necessary
+      toast({
+        title: "Ajout échoué",
+        description: "Réessayez plus tard",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
   return (
@@ -345,9 +357,11 @@ export default function BarcodeReader() {
                         id={userData.user_id}
                         item_id={scannedItems[scannedItems.length - 1].item_id}
                       />
-                      <Button variant="outline" colorScheme="brand">
-                        WISHLIST
-                      </Button>
+                      <AddToWishlistButton
+                        token={userToken}
+                        id={userData?.user_id}
+                        item_id={scannedItems[scannedItems.length - 1].item_id}
+                      />
                     </ButtonGroup>
                   </CardFooter>
                 </Card>

@@ -27,9 +27,7 @@ export default function Collection() {
 
   const handleStatusChange = async (item, newStatus) => {
     try {
-      console.log("item:", item);
       const item_status_id = item?.Item_status?.item_status_id;
-      console.log("item_status_id:", item_status_id);
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
       // Create a deep copy of myGunplaList.Items
