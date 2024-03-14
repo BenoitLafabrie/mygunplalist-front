@@ -8,11 +8,13 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Link as ChakraLink,
   Select,
   SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { getAllItems } from "../api/item";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
@@ -20,6 +22,7 @@ import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
 import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
 import { KitCard } from "../components/KitCard";
+import { BiBarcodeReader } from "react-icons/bi";
 
 export default function Search() {
   const { userData, userToken, isLoading } = useContext(UserContext);
@@ -115,6 +118,17 @@ export default function Search() {
             onChange={(e) => setSearch(e.target.value)}
           />
           <InputRightElement>
+            {!search && (
+              <ChakraLink as={ReactRouterLink} to="/add_kit">
+                <IconButton
+                  color="gray.500"
+                  variant="ghost"
+                  icon={<BiBarcodeReader size={20} />}
+                  _hover={{}}
+                  _active={{}}
+                />
+              </ChakraLink>
+            )}
             {search && (
               <IconButton
                 onClick={() => setSearch("")}
