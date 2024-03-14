@@ -25,12 +25,12 @@ export default function Search() {
   const { userData, userToken, isLoading } = useContext(UserContext);
 
   const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]); // items filtered by search
+  const [filteredItems, setFilteredItems] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortDirection, setSortDirection] = useState("Croissant");
   const [sortType, setSortType] = useState("name");
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const fetchAllItems = async () => {
     const allItems = await getAllItems();
@@ -67,7 +67,16 @@ export default function Search() {
 
   useEffect(() => {
     filterFunction();
-  }, [sortType, items, search]);
+    if (sortDirection === "Croissant") {
+      setFilteredItems((prevItems) =>
+        [...prevItems].sort((a, b) => (a[sortType] > b[sortType] ? 1 : -1))
+      );
+    } else if (sortDirection === "Décroissant") {
+      setFilteredItems((prevItems) =>
+        [...prevItems].sort((a, b) => (a[sortType] < b[sortType] ? 1 : -1))
+      );
+    }
+  }, [sortType, items, search, sortDirection]);
 
   useEffect(() => {
     const topElement = document.getElementById("search-page");
@@ -84,7 +93,12 @@ export default function Search() {
     return <Loading />;
   }
   return (
-    <Box w="80%" id="search-page" minH="calc(93vh - 66px)">
+    <Box
+      w={{ base: "80%", md: "90%" }}
+      id="search-page"
+      minH="calc(93vh - 66px)"
+      mt="1em"
+    >
       <Stack
         direction={{ base: "column", md: "row" }}
         spacing={4}
@@ -113,13 +127,18 @@ export default function Search() {
           </InputRightElement>
         </InputGroup>
         <Select
+          placeholder="Tri par ordre"
           value={sortDirection}
           onChange={(e) => setSortDirection(e.target.value)}
         >
-          <option value="asc">Croissant</option>
-          <option value="desc">Décroissant</option>
+          <option value="Croissant">Croissant</option>
+          <option value="Décroissant">Décroissant</option>
         </Select>
-        <Select value={sortType} onChange={(e) => setSortType(e.target.value)}>
+        <Select
+          placeholder="Tri par grade"
+          value={sortType}
+          onChange={(e) => setSortType(e.target.value)}
+        >
           <option value="name">Tous</option>
           <option value="Entry Grade">Entry Grade</option>
           <option value="High Grade">High Grade</option>
@@ -127,6 +146,17 @@ export default function Search() {
           <option value="SD/BB Grade">SD/BB Grade</option>
           <option value="Master Grade">Master Grade</option>
           <option value="Perfect Grade">Perfect Grade</option>
+        </Select>
+        <Select
+          placeholder="Kits par page"
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(Number(e.target.value))}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
         </Select>
       </Stack>
       <SimpleGrid
@@ -153,7 +183,7 @@ export default function Search() {
           </KitCard>
         ))}
       </SimpleGrid>
-      <Stack alignItems="center">
+      <Stack alignItems="center" mt="1.5em">
         <Pagination
           totalItems={filteredItems.length}
           itemsPerPage={itemsPerPage}

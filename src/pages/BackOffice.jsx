@@ -33,7 +33,7 @@ export default function BackOffice() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Changer le nombre d'items par page pour
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchAllItems = async () => {
@@ -183,6 +183,8 @@ export default function BackOffice() {
                       <ChevronUpIcon />
                     ))}
                 </Th>
+                <Th textAlign="center">Code-barres</Th>
+                <Th textAlign="center">Date de sortie</Th>
                 <Th textAlign="center">Description</Th>
                 <Th textAlign="center">Lien ROG</Th>
               </Tr>
@@ -226,6 +228,16 @@ export default function BackOffice() {
                       {item.Items_props && item.Items_props.series
                         ? item.Items_props.series
                         : "Aucune série indiquée"}
+                    </Td>
+                    <Td>
+                      {item.barcode
+                        ? item.barcode
+                        : "Code-barres non disponible"}
+                    </Td>
+                    <Td>
+                      {item.release_date
+                        ? item.release_date.split("/").reverse().join("/")
+                        : "Date de sortie non disponible"}
                     </Td>
                     <Td textAlign="center">
                       {item.description ? (

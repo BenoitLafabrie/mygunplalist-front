@@ -54,7 +54,7 @@ const AddToWishlistButton = ({ token, id, item_id, ...props }) => {
     <>
       <Button
         variant="outline"
-        colorScheme="red"
+        colorScheme="brand"
         onClick={handleClick}
         fontWeight="400"
         {...props}

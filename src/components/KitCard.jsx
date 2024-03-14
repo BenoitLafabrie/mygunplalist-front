@@ -18,7 +18,7 @@ export const KitCard = ({ item, children, ...props }) => {
       justifyContent="center"
       transition="transform 0.15s"
       _hover={{
-        transform: "scale(1.05)",
+        transform: "scale(1.04)",
       }}
       p={0}
       {...props}

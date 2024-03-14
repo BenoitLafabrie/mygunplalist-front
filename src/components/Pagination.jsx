@@ -27,7 +27,7 @@ const Pagination = ({
     setCurrentPage((prevPageNumber) => Math.max(prevPageNumber - 1, 1));
   };
   return (
-    <Stack alignItems="center" pb="1em">
+    <Stack alignItems="center" pb="2.5em">
       <ButtonGroup py={4}>
         {currentPage > 1 && (
           <>

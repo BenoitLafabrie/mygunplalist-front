@@ -28,13 +28,14 @@ export default function Collection() {
   const handleStatusChange = async (item, newStatus) => {
     try {
       const item_status_id = item?.Item_status?.item_status_id;
+
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
       // Create a deep copy of myGunplaList.Items
       const newItems = JSON.parse(JSON.stringify(myGunplaList.Items));
-
       // Find the item with the given id and update its status
       const itemIndex = newItems.findIndex((i) => i.id === item.id);
+
       if (itemIndex !== -1) {
         newItems[itemIndex].Item_status.status = newStatus;
       }

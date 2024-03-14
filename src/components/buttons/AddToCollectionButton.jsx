@@ -57,7 +57,7 @@ const AddToCollectionButton = ({ token, id, item_id, ...props }) => {
     <>
       <Button
         variant="solid"
-        colorScheme="red"
+        colorScheme="brand"
         onClick={handleClick}
         fontWeight="400"
         {...props}

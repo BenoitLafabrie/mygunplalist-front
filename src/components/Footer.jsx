@@ -84,7 +84,7 @@ export default function Footer() {
       <Box
         display={{ md: "flex" }}
         alignItems={{ md: "center" }}
-        justifyContent={{ md: "center" }}
+        justifyContent={{ md: "space-between" }}
         w={{ md: "100%" }}
       >
         <Box
@@ -95,6 +95,8 @@ export default function Footer() {
           h="70%"
           gap={{ md: "0.5em" }}
           my={{ base: "1em" }}
+          order={{ md: "2" }}
+          flexGrow={{ md: 1 }}
         >
           <Image
             src={MyGunplaListLogo}
@@ -124,15 +126,14 @@ export default function Footer() {
           alignItems="center"
           justifyItems="center"
           marginBottom={{ base: "auto", md: "0" }}
-          display={{ base: "grid", md: "flex" }}
-          gridTemplateColumns="2fr"
+          display={{ base: "grid", md: "grid" }}
+          gridTemplateColumns={{ base: "2fr", md: "1fr" }}
           gridTemplateRows="1fr"
           w={{ base: "100%", md: "100%" }}
-          justifyContent={{ base: "center", md: "space-around" }}
+          order={{ md: "1" }}
         >
           <Box
             display={{ base: "grid", md: "flex" }}
-            flexDirection={{ base: "row", md: "row-reverse" }}
             justifyContent={{ base: "center", md: "space-between" }}
             alignItems={{ base: "center" }}
             gridTemplateColumns="1fr 1fr"
@@ -143,7 +144,6 @@ export default function Footer() {
               px={{ md: "1em" }}
               pl={{ base: "0.5em" }}
               flexDirection="column"
-              alignItems={{ md: "flex-end" }}
               gap={{ base: "0.75em", md: "0" }}
               fontSize={{ base: "85%", md: "90%" }}
               textColor="white"

@@ -11,6 +11,8 @@ import {
   ModalContent,
   ModalOverlay,
   Stack,
+  Tag,
+  TagLabel,
   Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
@@ -79,7 +81,7 @@ export default function KitPage() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      w="80%"
+      w={{ base: "80%", md: "90%" }}
     >
       <Heading size="md" textAlign="center" py="1em" fontWeight="500">
         {item.name}
@@ -140,8 +142,9 @@ export default function KitPage() {
         <Stack
           display="flex"
           flexDirection="row"
-          justifyContent="space-evenly"
+          justifyContent="center"
           pb="1.25em"
+          gap="5em"
         >
           <AddToCollectionButton
             token={userToken}
@@ -155,13 +158,36 @@ export default function KitPage() {
             item_id={item.item_id}
           />
         </Stack>
-        <Stack display="flex" flexDirection="column" gap={0}>
-          <Text>Grade: {item.Items_props.grade}</Text>
-          <Text>Échelle: {item.Items_props.scale}</Text>
-          <Text>Série: {item.Items_props.series}</Text>
+        <Stack display="flex" flexDirection="row" gap={4}>
+          <Tag colorScheme="brand" variant="outline">
+            <span style={{ marginRight: "0.5em" }}>Date de sortie :</span>
+            <TagLabel>
+              {item.release_date
+                ? item.release_date.split("/").reverse().join("/")
+                : "Date de sortie non disponible"}
+            </TagLabel>
+          </Tag>
+          <Tag colorScheme="brand" variant="outline">
+            <span style={{ marginRight: "0.5em" }}>Échelle :</span>
+            {item.Items_props && item.Items_props.scale
+              ? item.Items_props.scale
+              : "Aucune échelle indiquée"}
+          </Tag>
+          <Tag colorScheme="brand" variant="outline">
+            <span style={{ marginRight: "0.5em" }}>Grade :</span>
+            {item.Items_props && item.Items_props.grade
+              ? item.Items_props.grade
+              : "Pas de grade indiqué"}
+          </Tag>
+          <Tag colorScheme="brand" variant="outline">
+            <span style={{ marginRight: "0.5em" }}>Série :</span>
+            {item.Items_props && item.Items_props.series
+              ? item.Items_props.series
+              : "Aucune série indiquée"}
+          </Tag>
         </Stack>
       </Box>
-      <Box pb="2em">
+      <Box pb="2em" mb="2em">
         <Heading fontSize="18px" pb="0.5em" fontWeight="500">
           Description
         </Heading>
