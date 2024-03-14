@@ -27,31 +27,6 @@ export default function Footer() {
       backgroundColor="brand.500"
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
-      _before={{
-        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
-        bgSize: "100% 38px, 100% 76px",
-        bgRepeat: "no-repeat",
-        content: '""',
-        position: "absolute",
-        width: "70px",
-        height: { base: "38px", md: "39px" },
-        left: "0",
-        bottom: { base: "256", md: "84" },
-        zIndex: "-1",
-        transform: "scaleX(-1)",
-      }}
-      _after={{
-        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
-        bgSize: "100% 38px, 100% 76px",
-        bgRepeat: "no-repeat",
-        content: '""',
-        position: "absolute",
-        width: "70px",
-        height: { base: "38px", md: "39px" },
-        right: "0",
-        bottom: { base: "256", md: "84" },
-        zIndex: "-1",
-      }}
     >
       <Box
         as="footer-gradient-div"
@@ -71,6 +46,31 @@ export default function Footer() {
         mt={{ base: "-2.25em", md: "-1.75em" }}
         mb={{ base: "0.75em" }}
         justifyContent={{ md: "center" }}
+        _before={{
+          backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
+          bgSize: "100% 38px, 100% 76px",
+          bgRepeat: "no-repeat",
+          content: '""',
+          position: "absolute",
+          width: "70px",
+          height: { base: "38px", md: "39px" },
+          left: "0",
+          bottom: { base: "256", md: "84" },
+          zIndex: "-1",
+          transform: "scaleX(-1)",
+        }}
+        _after={{
+          backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
+          bgSize: "100% 38px, 100% 76px",
+          bgRepeat: "no-repeat",
+          content: '""',
+          position: "absolute",
+          width: "70px",
+          height: { base: "38px", md: "39px" },
+          right: "0",
+          bottom: { base: "256", md: "84" },
+          zIndex: "-1",
+        }}
       >
         <Text
           fontSize={{ base: "55%", md: "85%" }}
@@ -124,17 +124,19 @@ export default function Footer() {
         <Box
           alignContent="center"
           alignItems="center"
-          justifyItems="center"
-          marginBottom={{ base: "auto", md: "0" }}
+          justifyItems="stretch"
+          ml={{ md: "2em" }}
+          mb={{ base: "auto", md: "0" }}
           display={{ base: "grid", md: "grid" }}
           gridTemplateColumns={{ base: "2fr", md: "1fr" }}
           gridTemplateRows="1fr"
-          w={{ base: "100%", md: "100%" }}
+          w="100%"
           order={{ md: "1" }}
         >
           <Box
-            display={{ base: "grid", md: "flex" }}
+            display={{ base: "grid", md: "grid" }}
             justifyContent={{ base: "center", md: "space-between" }}
+            justifyItems={{ md: "stretch" }}
             alignItems={{ base: "center" }}
             gridTemplateColumns="1fr 1fr"
             pb={{ base: "0.5em" }}
@@ -179,12 +181,12 @@ export default function Footer() {
               <Box
                 display="flex"
                 flexDirection={{ md: "row" }}
-                flexWrap={{ base: "wrap" }}
+                flexWrap={{ base: "wrap", md: "nowrap" }}
                 justifyContent={{ base: "center" }}
                 alignItems={{ base: "baseline" }}
                 px={{ base: "0", md: "1em" }}
                 gap={{ base: "1.5em", md: "1.5em" }}
-                pb={{ base: "auto", md: "0.5em" }}
+                pb={{ base: "auto" }}
               >
                 <ChakraLink
                   as={ReactRouterLink}

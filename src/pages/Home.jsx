@@ -44,7 +44,7 @@ export default function Home() {
         alignItems="baseline"
         justifyContent={{ base: "space-around", md: "unset" }}
         gap={{ base: "unset", md: "4" }}
-        mx={{ base: "auto", md: "3em" }}
+        pl={{ base: "auto", md: "3em" }}
         mt={{ base: "1em", md: "2.5em" }}
         mb="2em"
         w={{ base: "100%" }}
