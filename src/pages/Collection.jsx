@@ -12,7 +12,7 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { KitCard } from "../components/KitCard";
 import Loading from "../components/Loading";
@@ -69,13 +69,28 @@ export default function Collection() {
       });
     }
   };
-
+  const [totalKits, setTotalKits] = useState(0);
+  const [garageKits, setGarageKits] = useState(0);
+  const [deployedKits, setDeployedKits] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const filteredItems = myGunplaList?.Items;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredItems?.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    setTotalKits(myGunplaList.Items?.length);
+    setGarageKits(
+      myGunplaList.Items?.filter((item) => item.Item_status.status === "Garage")
+        .length
+    );
+    setDeployedKits(
+      myGunplaList.Items?.filter(
+        (item) => item.Item_status.status === "Deployed"
+      ).length
+    );
+  }, [myGunplaList.Items]);
 
   if (!userData || !myGunplaList || myGunplaList.length === 0) {
     return <Loading />;
@@ -101,7 +116,7 @@ export default function Collection() {
         <Box
           display="flex"
           mb="1.5em"
-          w="100%"
+          w={{ base: "100%", md: "40%" }}
           alignItems="center"
           justifyContent="space-around"
           gap={2}
@@ -162,7 +177,7 @@ export default function Collection() {
           </ChakraLink>
         </Box>
         <Box
-          w="100%"
+          w={{ base: "100%", md: "40%" }}
           bgColor="brand.100"
           display="flex"
           alignItems="center"
@@ -172,20 +187,20 @@ export default function Collection() {
         >
           <HStack justifyContent="center">
             <VStack gap={1}>
-              <Text fontSize="sm" fontWeight="600">
-                198
+              <Text fontSize="sm" color="brand.500" fontWeight="600">
+                {totalKits}
               </Text>
               <Text fontSize="sm">kits possédés</Text>
             </VStack>
             <VStack gap={1}>
               <Text fontSize="sm" color="#005778" fontWeight="600">
-                105
+                {garageKits}
               </Text>
               <Text fontSize="sm">kits en réserve</Text>
             </VStack>
             <VStack gap={1}>
-              <Text fontSize="sm" fontWeight="600">
-                93
+              <Text fontSize="sm" color="#A4DD70" fontWeight="600">
+                {deployedKits}
               </Text>
               <Text fontSize="sm">kits assemblés</Text>
             </VStack>
