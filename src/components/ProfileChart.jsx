@@ -25,12 +25,20 @@ const ProfileChart = () => {
       Assembling: "Assemblage",
       Deployed: "Déployé",
     };
+    const statusColorMapping = {
+      Garage: "#005778",
+      Assembling: "#FF9300",
+      Deployed: "#A4DD70",
+    };
 
-    // Create two arrays: one for the labels (status names) and one for the data (status counts)
+    // Create three arrays: one for the labels (status names), one for the data (status counts), and one for the colors
     const labels = Object.keys(statusCounts).map(
       (status) => statusNameMapping[status] || status
     );
     const data = Object.values(statusCounts);
+    const backgroundColors = Object.keys(statusCounts).map(
+      (status) => statusColorMapping[status] || "#000000" // Default color
+    );
 
     // Update the chart data
     setChartData({
@@ -38,7 +46,7 @@ const ProfileChart = () => {
       datasets: [
         {
           data: data,
-          backgroundColor: ["#005778", "#A4DD70", "#FF9300"], // Add more colors if you have more statuses
+          backgroundColor: backgroundColors,
         },
       ],
     });

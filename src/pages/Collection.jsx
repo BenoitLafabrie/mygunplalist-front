@@ -171,13 +171,22 @@ export default function Collection() {
           mb="1em"
         >
           <HStack justifyContent="center">
-            <VStack>
+            <VStack gap={1}>
+              <Text fontSize="sm" fontWeight="600">
+                198
+              </Text>
               <Text fontSize="sm">kits possédés</Text>
             </VStack>
-            <VStack>
+            <VStack gap={1}>
+              <Text fontSize="sm" color="#005778" fontWeight="600">
+                105
+              </Text>
               <Text fontSize="sm">kits en réserve</Text>
             </VStack>
-            <VStack>
+            <VStack gap={1}>
+              <Text fontSize="sm" fontWeight="600">
+                93
+              </Text>
               <Text fontSize="sm">kits assemblés</Text>
             </VStack>
           </HStack>

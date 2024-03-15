@@ -19,7 +19,7 @@ export default function BottomNavBar() {
       h="7.5vh"
       w="100%"
       position="fixed"
-      bg="rgba(240, 13, 50, 1)"
+      bg="brand.500"
       mb={0}
       bottom={0}
       boxShadow="0 0 4px #071D26"
