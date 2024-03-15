@@ -14,7 +14,7 @@ export const KitCard = ({ item, children, ...props }) => {
   return (
     <Card
       key={item.item_id}
-      bgColor="#F4F9FB"
+      bgColor="brand.100"
       justifyContent="center"
       transition="transform 0.15s"
       _hover={{
@@ -72,7 +72,7 @@ export const KitCard = ({ item, children, ...props }) => {
                 <p>Aucune image pour ce gunpla</p>
               )}
             </Box>
-            <Box bgColor="#F4F9FB" p={0}>
+            <Box bgColor="brand.100" p={0}>
               <Heading
                 size="xs"
                 pt="1em"

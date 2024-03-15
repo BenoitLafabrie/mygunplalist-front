@@ -30,20 +30,17 @@ export default function Footer() {
     >
       <Box
         as="footer-gradient-div"
-        position="absolute"
-        top={0}
-        left={0}
-        bottom={0}
-        right={0}
+        bgColor="white"
+        position="relative"
         bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
-        zIndex="-2"
       />
       <Box
-        w={{ base: "80%", md: "100%" }}
+        w="100%"
+        position="relative"
+        bgColor="white"
         display="flex"
         justifySelf="center"
         px={{ md: "1em" }}
-        mt={{ base: "-2.25em", md: "-1.75em" }}
         mb={{ base: "0.75em" }}
         justifyContent={{ md: "center" }}
         _before={{
@@ -55,8 +52,7 @@ export default function Footer() {
           width: "70px",
           height: { base: "38px", md: "39px" },
           left: "0",
-          bottom: { base: "256", md: "84" },
-          zIndex: "-1",
+          bottom: "-1px",
           transform: "scaleX(-1)",
         }}
         _after={{
@@ -68,14 +64,16 @@ export default function Footer() {
           width: "70px",
           height: { base: "38px", md: "39px" },
           right: "0",
-          bottom: { base: "256", md: "84" },
-          zIndex: "-1",
+          bottom: "-1px",
         }}
       >
         <Text
-          fontSize={{ base: "55%", md: "85%" }}
+          px={{ base: "1.75rem" }}
+          pb={{ base: "0.5em" }}
+          fontSize={{ base: "60%", md: "85%" }}
           fontWeight="400"
           align="center"
+          zIndex={1}
         >
           Les logos, produits et noms de sociétés mentionnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024

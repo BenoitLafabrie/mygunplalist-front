@@ -14,7 +14,7 @@ export const ProfileCard = ({ item, ...props }) => {
   return (
     <Card
       key={item.item_id}
-      bgColor="#F4F9FB"
+      bgColor="brand.100"
       justifyContent="center"
       transition="transform 0.2s"
       _hover={{

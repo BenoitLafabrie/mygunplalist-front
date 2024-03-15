@@ -3,17 +3,24 @@ import {
   CardFooter,
   Center,
   Heading,
+  Link as ChakraLink,
   SimpleGrid,
   Select,
   Stack,
   useToast,
+  Text,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
+import { Link as ReactRouterLink } from "react-router-dom";
 import { KitCard } from "../components/KitCard";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { updateItemStatus } from "../api/myGunplaList";
 import { UserContext } from "../context/User";
+import { BiBarcodeReader } from "react-icons/bi";
+import { BiSolidShareAlt } from "react-icons/bi";
 
 export default function Collection() {
   const {
@@ -24,6 +31,7 @@ export default function Collection() {
     setStatusUpdated,
   } = useContext(UserContext);
   const toast = useToast();
+  console.log(myGunplaList);
 
   const handleStatusChange = async (item, newStatus) => {
     try {
@@ -74,11 +82,106 @@ export default function Collection() {
   }
 
   return (
-    <Box w="80%" mb="1em" minH="calc(93vh - 82px)">
+    <Box w="90%" mb="1em" minH="calc(93vh - 82px)">
       <Center flexDirection="column">
-        <Heading my="1.5em" textTransform="uppercase" size="md">
-          La gunplalist de {userData.username}
-        </Heading>
+        <Box
+          my="2em"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Heading mb="1em" textTransform="uppercase" size="sm">
+            gunpla collection
+          </Heading>
+          <Text color="gray" size="sm">
+            @{userData.username}
+          </Text>
+        </Box>
+        <Box
+          display="flex"
+          mb="1.5em"
+          w="100%"
+          alignItems="center"
+          justifyContent="space-around"
+          gap={2}
+        >
+          <ChakraLink
+            w="55%"
+            as={ReactRouterLink}
+            to={"/add_kit"}
+            _hover={{ textDecoration: "none" }}
+          >
+            <Stack
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="center"
+              bgColor="brand.500"
+              borderRadius="8"
+              p="0.25em"
+            >
+              <BiBarcodeReader size={20} color="white" />
+              <Text
+                textTransform="uppercase"
+                textColor="white"
+                fontSize="sm"
+                fontWeight="400"
+                textAlign="center"
+              >
+                ajouter des kits
+              </Text>
+            </Stack>
+          </ChakraLink>
+          <ChakraLink
+            w="45%"
+            as={ReactRouterLink}
+            to={"/add_kit"}
+            _hover={{ textDecoration: "none" }}
+          >
+            <Stack
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="space-around"
+              bgColor="brand.100"
+              borderRadius="8"
+              p="0.35em"
+            >
+              <BiSolidShareAlt size={20} color="gray" />
+              <Text
+                textTransform="uppercase"
+                textColor="gray"
+                fontSize="sm"
+                fontWeight="400"
+                textAlign="center"
+              >
+                partager
+              </Text>
+            </Stack>
+          </ChakraLink>
+        </Box>
+        <Box
+          w="100%"
+          bgColor="brand.100"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          py="1em"
+          mb="1em"
+        >
+          <HStack justifyContent="center">
+            <VStack>
+              <Text fontSize="sm">kits possédés</Text>
+            </VStack>
+            <VStack>
+              <Text fontSize="sm">kits en réserve</Text>
+            </VStack>
+            <VStack>
+              <Text fontSize="sm">kits assemblés</Text>
+            </VStack>
+          </HStack>
+        </Box>
         <SimpleGrid
           spacing={4}
           templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
