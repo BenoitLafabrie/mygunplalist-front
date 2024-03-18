@@ -1,14 +1,11 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {
   Box,
-  CardFooter,
   Center,
   Link as ChakraLink,
   HStack,
   Heading,
   Image,
-  Select,
-  SimpleGrid,
   Stack,
   Table,
   TableCaption,
@@ -26,7 +23,6 @@ import { useContext, useEffect, useState } from "react";
 import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { updateItemStatus } from "../api/myGunplaList";
-import { KitCard } from "../components/KitCard";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { UserContext } from "../context/User";
@@ -44,7 +40,7 @@ export default function Collection() {
 
   const handleStatusChange = async (item, newStatus) => {
     try {
-      const item_status_id = item?.Item_status[0]?.item_status_id;
+      const item_status_id = item?.Item_status?.item_status_id;
 
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
@@ -54,7 +50,7 @@ export default function Collection() {
       const itemIndex = newItems?.findIndex((i) => i.id === item.id);
 
       if (itemIndex !== -1) {
-        newItems[itemIndex].Item_status[0].status = newStatus;
+        newItems[itemIndex].Item_status.status = newStatus;
       }
 
       // Update myGunplaList.Items with the new array
@@ -112,12 +108,12 @@ export default function Collection() {
     setTotalKits(myGunplaList?.Items?.length);
     setGarageKits(
       myGunplaList?.Items?.filter(
-        (item) => item?.Item_status[0]?.status === "Garage"
+        (item) => item?.Item_status?.status === "Garage"
       ).length
     );
     setDeployedKits(
       myGunplaList?.Items?.filter(
-        (item) => item?.Item_status[0]?.status === "Deployed"
+        (item) => item?.Item_status?.status === "Deployed"
       ).length
     );
   }, [myGunplaList?.Items]);
@@ -247,7 +243,7 @@ export default function Collection() {
                 <Select
                   colorScheme="brand"
                   size="sm"
-                  defaultValue={item?.Item_status[0]?.status}
+                  defaultValue={item?.Item_status?.status}
                   onChange={(event) =>
                     handleStatusChange(item, event.target.value)
                   }
@@ -345,13 +341,13 @@ export default function Collection() {
                           alignItems="center"
                           justifyContent="center"
                         >
-                          {item.Item_status[0].status === "Garage" && (
+                          {item.Item_status.status === "Garage" && (
                             <Box w="4" h="4" borderRadius="full" bg="#005778" />
                           )}
-                          {item.Item_status[0].status === "Assembling" && (
+                          {item.Item_status.status === "Assembling" && (
                             <Box w="4" h="4" borderRadius="full" bg="#FF9300" />
                           )}
-                          {item.Item_status[0].status === "Deployed" && (
+                          {item.Item_status.status === "Deployed" && (
                             <Box w="4" h="4" borderRadius="full" bg="#A4DD70" />
                           )}
                         </Box>

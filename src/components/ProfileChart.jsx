@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import "chart.js/auto";
-import { Doughnut } from "react-chartjs-2";
 import { useTheme } from "@chakra-ui/react";
+import "chart.js/auto";
+import { useContext, useEffect, useState } from "react";
+import { Doughnut } from "react-chartjs-2";
 import { UserContext } from "../context/User";
 
 const ProfileChart = () => {
@@ -14,7 +14,7 @@ const ProfileChart = () => {
 
     // Create an object to count the number of items for each status
     const statusCounts = myGunplaList.Items.reduce((counts, item) => {
-      const status = item.Item_status[0].status;
+      const status = item.Item_status.status;
       counts[status] = (counts[status] || 0) + 1;
       return counts;
     }, {});
