@@ -1,26 +1,35 @@
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {
   Box,
   CardFooter,
   Center,
-  Heading,
   Link as ChakraLink,
-  SimpleGrid,
-  Select,
-  Stack,
-  useToast,
-  Text,
   HStack,
+  Heading,
+  Image,
+  Select,
+  SimpleGrid,
+  Stack,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
+import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { updateItemStatus } from "../api/myGunplaList";
 import { KitCard } from "../components/KitCard";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
-import { updateItemStatus } from "../api/myGunplaList";
 import { UserContext } from "../context/User";
-import { BiBarcodeReader } from "react-icons/bi";
-import { BiSolidShareAlt } from "react-icons/bi";
 
 export default function Collection() {
   const {
@@ -35,17 +44,17 @@ export default function Collection() {
 
   const handleStatusChange = async (item, newStatus) => {
     try {
-      const item_status_id = item?.Item_status?.item_status_id;
+      const item_status_id = item?.Item_status[0]?.item_status_id;
 
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
       // Create a deep copy of myGunplaList.Items
-      const newItems = JSON.parse(JSON.stringify(myGunplaList.Items));
+      const newItems = JSON.parse(JSON.stringify(myGunplaList?.Items));
       // Find the item with the given id and update its status
-      const itemIndex = newItems.findIndex((i) => i.id === item.id);
+      const itemIndex = newItems?.findIndex((i) => i.id === item.id);
 
       if (itemIndex !== -1) {
-        newItems[itemIndex].Item_status.status = newStatus;
+        newItems[itemIndex].Item_status[0].status = newStatus;
       }
 
       // Update myGunplaList.Items with the new array
@@ -79,25 +88,46 @@ export default function Collection() {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredItems?.slice(startIndex, endIndex);
 
+  const [sortField, setSortField] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
+
+  const requestSort = (field) => {
+    let newSortDirection = "none";
+    if (sortField === field) {
+      if (sortDirection === "asc") {
+        newSortDirection = "desc";
+      } else if (sortDirection === "desc") {
+        newSortDirection = "none";
+      } else if (sortDirection === "none") {
+        newSortDirection = "asc";
+      }
+    } else {
+      newSortDirection = "asc";
+    }
+    setSortField(field);
+    setSortDirection(newSortDirection);
+  };
+
   useEffect(() => {
-    setTotalKits(myGunplaList.Items?.length);
+    setTotalKits(myGunplaList?.Items?.length);
     setGarageKits(
-      myGunplaList.Items?.filter((item) => item.Item_status.status === "Garage")
-        .length
-    );
-    setDeployedKits(
-      myGunplaList.Items?.filter(
-        (item) => item.Item_status.status === "Deployed"
+      myGunplaList?.Items?.filter(
+        (item) => item?.Item_status[0]?.status === "Garage"
       ).length
     );
-  }, [myGunplaList.Items]);
+    setDeployedKits(
+      myGunplaList?.Items?.filter(
+        (item) => item?.Item_status[0]?.status === "Deployed"
+      ).length
+    );
+  }, [myGunplaList?.Items]);
 
   if (!userData || !myGunplaList || myGunplaList.length === 0) {
     return <Loading />;
   }
 
   return (
-    <Box w="90%" mb="1em" minH="calc(93vh - 82px)">
+    <Box w="95%" mb="1em" minH="calc(93vh - 82px)">
       <Center flexDirection="column">
         <Box
           my="2em"
@@ -119,7 +149,7 @@ export default function Collection() {
           w={{ base: "100%", md: "40%" }}
           alignItems="center"
           justifyContent="space-around"
-          gap={2}
+          gap={3}
         >
           <ChakraLink
             w="55%"
@@ -181,9 +211,8 @@ export default function Collection() {
           bgColor="brand.100"
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-around"
           py="1em"
-          mb="1em"
         >
           <HStack justifyContent="center">
             <VStack gap={1}>
@@ -206,7 +235,7 @@ export default function Collection() {
             </VStack>
           </HStack>
         </Box>
-        <SimpleGrid
+        {/*         <SimpleGrid
           spacing={4}
           templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
           mx="1em"
@@ -218,7 +247,7 @@ export default function Collection() {
                 <Select
                   colorScheme="brand"
                   size="sm"
-                  defaultValue={item?.Item_status?.status}
+                  defaultValue={item?.Item_status[0]?.status}
                   onChange={(event) =>
                     handleStatusChange(item, event.target.value)
                   }
@@ -230,7 +259,110 @@ export default function Collection() {
               </CardFooter>
             </KitCard>
           ))}
-        </SimpleGrid>
+        </SimpleGrid> */}
+        <Stack w="100%">
+          <TableContainer m="2%">
+            <Table
+              size={{ base: "sm" }}
+              variant="striped"
+              colorScheme="brand"
+              w="100%"
+            >
+              <TableCaption placement="top" m={0}>
+                <HStack spacing={2} my="1em">
+                  <Box w="4" h="4" borderRadius="2" bg="#005778" />
+                  <Text fontSize="sm" fontWeight="400">
+                    Hangar
+                  </Text>
+                  <Box w="4" h="4" borderRadius="2" bg="#FF9300" />
+                  <Text fontSize="sm" fontWeight="400">
+                    Assemblage
+                  </Text>
+                  <Box w="4" h="4" borderRadius="2" bg="#A4DD70" />
+                  <Text fontSize="sm" fontWeight="400">
+                    Déployé
+                  </Text>
+                </HStack>
+              </TableCaption>
+              <Thead>
+                <Tr>
+                  <Th textAlign="center">Box Art</Th>
+                  <Th px={1} py={2} onClick={() => requestSort("name")}>
+                    Nom
+                    {sortField === "name" &&
+                      sortDirection !== "none" &&
+                      (sortDirection === "asc" ? (
+                        <ChevronDownIcon />
+                      ) : (
+                        <ChevronUpIcon />
+                      ))}
+                  </Th>
+                  <Th px={1} py={2} textAlign="center">
+                    Statut
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody fontSize="sm">
+                {currentItems.map((item) => {
+                  return (
+                    <Tr key={item.item_id} p={2}>
+                      <Td px={1} py={2}>
+                        <Box display="flex" justifyContent="center">
+                          {item.Items_images && item.Items_images[0] ? (
+                            <Image
+                              src={item.Items_images[0].image_path}
+                              alt={item.name}
+                              boxSize={{ base: "60px", md: "120px" }}
+                              objectFit="cover"
+                              borderRadius="sm"
+                            />
+                          ) : (
+                            "Pas d'image"
+                          )}
+                        </Box>
+                      </Td>
+                      <Td px={1} py={2}>
+                        <ChakraLink
+                          as={ReactRouterLink}
+                          to={`/kits/${item.item_id}`}
+                        >
+                          <Text
+                            fontWeight="400"
+                            fontSize={{ base: "xs", md: "sm" }}
+                            maxWidth={{ base: "175px", md: "unset" }}
+                            overflow="hidden"
+                            textOverflow="ellipsis"
+                            whiteSpace="nowrap"
+                          >
+                            {item.name}
+                          </Text>
+                        </ChakraLink>
+                      </Td>
+
+                      <Td p={2}>
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          {item.Item_status[0].status === "Garage" && (
+                            <Box w="4" h="4" borderRadius="full" bg="#005778" />
+                          )}
+                          {item.Item_status[0].status === "Assembling" && (
+                            <Box w="4" h="4" borderRadius="full" bg="#FF9300" />
+                          )}
+                          {item.Item_status[0].status === "Deployed" && (
+                            <Box w="4" h="4" borderRadius="full" bg="#A4DD70" />
+                          )}
+                        </Box>
+                      </Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Stack>
         <Stack alignItems="center">
           <Pagination
             totalItems={filteredItems.length}
