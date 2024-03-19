@@ -1,5 +1,11 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Center,
   Checkbox,
@@ -20,6 +26,7 @@ import {
   Tr,
   VStack,
   useToast,
+  Button,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
@@ -28,6 +35,7 @@ import { updateItemStatus } from "../api/myGunplaList";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { UserContext } from "../context/User";
+import { deleteItems } from "../api/item";
 
 export default function Collection() {
   const {
@@ -100,21 +108,60 @@ export default function Collection() {
     });
   };
 
+  const handleDelete = async () => {
+    try {
+      // Pass all the selected ids at once
+      await deleteItems(selectedRows, userToken, myGunplaList.mygunplalist_id);
+
+      // Remove the deleted items from the local state
+      const newItems = currentItems.filter(
+        (item) => !selectedRows.includes(item.item_id)
+      );
+      setMyGunplaList({ ...myGunplaList, Items: newItems });
+      setIsAllSelected(false);
+      setSelectedRows([]);
+      onClose();
+
+      toast({
+        title: "Kit(s) supprimé(s)",
+        description: "Le(s) kit(s) a(ont) bien été supprimé(s)",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Oups",
+        description: "Suppression échouée, réessayez plus tard",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   const [totalKits, setTotalKits] = useState(0);
   const [garageKits, setGarageKits] = useState(0);
   const [deployedKits, setDeployedKits] = useState(0);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
   const filteredItems = myGunplaList?.Items;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredItems?.slice(startIndex, endIndex);
+
   const [selectValue, setSelectValue] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
 
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => setIsOpen(true);
+  const onClose = () => setIsOpen(false);
 
   const requestSort = (field) => {
     let newSortDirection = "none";
@@ -260,184 +307,259 @@ export default function Collection() {
             </VStack>
           </HStack>
         </Box>
-        <Stack w="100%">
-          <TableContainer m="2%">
-            <Table
-              size={{ base: "sm", md: "md" }}
-              variant="striped"
-              colorScheme="brand"
-              w="100%"
-            >
-              <TableCaption placement="top" m={0}>
-                <HStack spacing={1.5} my="1em">
-                  <Box w="4" h="4" borderRadius="2" bg="#005778" />
-                  <Text fontSize="xs" fontWeight="400">
-                    Hangar
-                  </Text>
-                  <Box w="4" h="4" borderRadius="2" bg="#FF9300" />
-                  <Text fontSize="xs" fontWeight="400">
-                    Assemblage
-                  </Text>
-                  <Box w="4" h="4" borderRadius="2" bg="#A4DD70" />
-                  <Text fontSize="xs" fontWeight="400">
-                    Déployé
-                  </Text>
-                  <Select
-                    width={{ base: "100px", md: "150px" }}
-                    value={selectValue}
-                    placeholder="Statut"
-                    colorScheme="brand"
-                    size={{ base: "xs", md: "sm" }}
-                    onChange={(event) => {
-                      if (selectedRows.length === 1) {
-                        const item = currentItems.find(
-                          (item) => item.item_id === selectedRows[0]
-                        );
-                        if (item) {
-                          handleStatusChange(item, event.target.value);
-                        }
-                      } else {
-                        handleAllStatusChange(event.target.value);
-                      }
-                      setSelectValue("");
-                    }}
-                  >
-                    <option value="Garage">Hangar</option>
-                    <option value="Assembling">Assemblage</option>
-                    <option value="Deployed">Déployé</option>
-                  </Select>
-                </HStack>
-              </TableCaption>
-              <Thead>
-                <Tr>
-                  <Th>
-                    <Checkbox
-                      size={{ base: "sm", md: "md" }}
-                      colorScheme="brand"
-                      isChecked={isAllSelected}
-                      onChange={(e) => {
-                        setIsAllSelected(e.target.checked);
-                        if (e.target.checked) {
-                          setSelectedRows(
-                            filteredItems.map((item) => item.item_id)
-                          );
-                        } else {
-                          setSelectedRows([]);
-                        }
-                      }}
-                    />
-                  </Th>
-                  <Th textAlign="center">Box Art</Th>
-                  <Th px={1} py={2} onClick={() => requestSort("name")}>
-                    Nom
-                    {sortField === "name" &&
-                      sortDirection !== "none" &&
-                      (sortDirection === "asc" ? (
-                        <ChevronDownIcon />
-                      ) : (
-                        <ChevronUpIcon />
-                      ))}
-                  </Th>
-                  <Th px={1} py={2} textAlign="center">
-                    Statut
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody fontSize="sm">
-                {currentItems.map((item) => {
-                  return (
-                    <Tr key={item.item_id} p={2}>
-                      <Td px={1}>
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          <Checkbox
-                            size={{ base: "sm", md: "md" }}
-                            colorScheme="brand"
-                            isChecked={selectedRows.includes(item.item_id)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedRows((prev) => [
-                                  ...prev,
-                                  item.item_id,
-                                ]);
-                              } else {
-                                setSelectedRows((prev) =>
-                                  prev.filter((id) => id !== item.item_id)
-                                );
-                              }
-                            }}
-                          />
-                        </Box>
-                      </Td>
-                      <Td px={1} py={2}>
-                        <Box display="flex" justifyContent="center">
-                          {item.Items_images && item.Items_images[0] ? (
-                            <Image
-                              src={item.Items_images[0].image_path}
-                              alt={item.name}
-                              boxSize={{ base: "60px", md: "120px" }}
-                              objectFit="cover"
-                              borderRadius="sm"
-                            />
-                          ) : (
-                            "Pas d'image"
-                          )}
-                        </Box>
-                      </Td>
-                      <Td px={1} py={2}>
-                        <ChakraLink
-                          as={ReactRouterLink}
-                          to={`/kits/${item.item_id}`}
-                        >
-                          <Text
-                            fontWeight="400"
-                            fontSize={{ base: "xs", md: "sm" }}
-                            maxWidth={{ base: "175px", md: "unset" }}
-                            overflow="hidden"
-                            textOverflow="ellipsis"
-                            whiteSpace="nowrap"
-                          >
-                            {item.name}
-                          </Text>
-                        </ChakraLink>
-                      </Td>
+        {currentItems.length > 0 ? (
+          <>
+            <Stack w="100%">
+              <TableContainer m="2%">
+                <Table
+                  size={{ base: "sm", md: "md" }}
+                  variant="striped"
+                  colorScheme="brand"
+                  w="100%"
+                >
+                  <TableCaption placement="top" m={0}>
+                    <HStack spacing={1.5} my="1em">
+                      <Box w="4" h="4" borderRadius="2" bg="#005778" />
+                      <Text fontSize="xs" fontWeight="400">
+                        Hangar
+                      </Text>
+                      <Box w="4" h="4" borderRadius="2" bg="#FF9300" />
+                      <Text fontSize="xs" fontWeight="400">
+                        Assemblage
+                      </Text>
+                      <Box w="4" h="4" borderRadius="2" bg="#A4DD70" />
+                      <Text fontSize="xs" fontWeight="400">
+                        Déployé
+                      </Text>
+                      <Select
+                        width={{ base: "100px", md: "150px" }}
+                        value={selectValue}
+                        placeholder="Statut"
+                        colorScheme="brand"
+                        size={{ base: "xs", md: "sm" }}
+                        onChange={(event) => {
+                          if (selectedRows.length === 1) {
+                            const item = currentItems.find(
+                              (item) => item.item_id === selectedRows[0]
+                            );
+                            if (item) {
+                              handleStatusChange(item, event.target.value);
+                            }
+                          } else {
+                            handleAllStatusChange(event.target.value);
+                          }
+                          setSelectValue("");
+                        }}
+                      >
+                        <option value="Garage">Hangar</option>
+                        <option value="Assembling">Assemblage</option>
+                        <option value="Deployed">Déployé</option>
+                      </Select>
+                      <Button
+                        size={{ base: "xs", md: "sm" }}
+                        variant="solid"
+                        colorScheme="brand"
+                        fontWeight="400"
+                        onClick={onOpen}
+                      >
+                        Supprimer
+                      </Button>
 
-                      <Td p={2}>
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          {item.Item_status[0].status === "Garage" && (
-                            <Box w="4" h="4" borderRadius="full" bg="#005778" />
-                          )}
-                          {item.Item_status[0].status === "Assembling" && (
-                            <Box w="4" h="4" borderRadius="full" bg="#FF9300" />
-                          )}
-                          {item.Item_status[0].status === "Deployed" && (
-                            <Box w="4" h="4" borderRadius="full" bg="#A4DD70" />
-                          )}
-                        </Box>
-                      </Td>
+                      <AlertDialog
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        motionPreset="scale"
+                        isCentered
+                      >
+                        <AlertDialogOverlay>
+                          <AlertDialogContent
+                            width={{ base: "90%", md: "40%" }}
+                          >
+                            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                              Supprimer un/des kit(s)
+                            </AlertDialogHeader>
+
+                            <AlertDialogBody>
+                              Êtes-vous sûr de vouloir supprimer ce(s) kit(s)?
+                            </AlertDialogBody>
+
+                            <AlertDialogFooter>
+                              <Button onClick={onClose}>Non</Button>
+                              <Button
+                                colorScheme="red"
+                                onClick={handleDelete}
+                                ml={3}
+                              >
+                                Oui
+                              </Button>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialogOverlay>
+                      </AlertDialog>
+                    </HStack>
+                  </TableCaption>
+                  <Thead>
+                    <Tr>
+                      <Th>
+                        <Checkbox
+                          size={{ base: "sm", md: "md" }}
+                          colorScheme="brand"
+                          isChecked={isAllSelected}
+                          onChange={(e) => {
+                            setIsAllSelected(e.target.checked);
+                            if (e.target.checked) {
+                              setSelectedRows(
+                                filteredItems.map((item) => item.item_id)
+                              );
+                            } else {
+                              setSelectedRows([]);
+                            }
+                          }}
+                        />
+                      </Th>
+                      <Th textAlign="center">Box Art</Th>
+                      <Th px={1} py={2} onClick={() => requestSort("name")}>
+                        Nom
+                        {sortField === "name" &&
+                          sortDirection !== "none" &&
+                          (sortDirection === "asc" ? (
+                            <ChevronDownIcon />
+                          ) : (
+                            <ChevronUpIcon />
+                          ))}
+                      </Th>
+                      <Th px={1} py={2} textAlign="center">
+                        Statut
+                      </Th>
                     </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Stack>
-        <Stack alignItems="center">
-          <Pagination
-            totalItems={filteredItems.length}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            filteredItems={filteredItems}
-          />
-        </Stack>
+                  </Thead>
+                  <Tbody fontSize="sm">
+                    {currentItems.map((item) => {
+                      return (
+                        <Tr key={item.item_id} p={2}>
+                          <Td px={1}>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                              <Checkbox
+                                size={{ base: "sm", md: "md" }}
+                                colorScheme="brand"
+                                isChecked={selectedRows.includes(item.item_id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setSelectedRows((prev) => [
+                                      ...prev,
+                                      item.item_id,
+                                    ]);
+                                  } else {
+                                    setSelectedRows((prev) =>
+                                      prev.filter((id) => id !== item.item_id)
+                                    );
+                                  }
+                                }}
+                              />
+                            </Box>
+                          </Td>
+                          <Td px={1} py={2}>
+                            <Box display="flex" justifyContent="center">
+                              {item.Items_images && item.Items_images[0] ? (
+                                <Image
+                                  src={item.Items_images[0].image_path}
+                                  alt={item.name}
+                                  boxSize={{ base: "60px", md: "120px" }}
+                                  objectFit="cover"
+                                  borderRadius="sm"
+                                />
+                              ) : (
+                                "Pas d'image"
+                              )}
+                            </Box>
+                          </Td>
+                          <Td px={1} py={2}>
+                            <ChakraLink
+                              as={ReactRouterLink}
+                              to={`/kits/${item.item_id}`}
+                            >
+                              <Text
+                                fontWeight="400"
+                                fontSize={{ base: "xs", md: "sm" }}
+                                maxWidth={{ base: "175px", md: "unset" }}
+                                overflow="hidden"
+                                textOverflow="ellipsis"
+                                whiteSpace="nowrap"
+                              >
+                                {item.name}
+                              </Text>
+                            </ChakraLink>
+                          </Td>
+
+                          <Td p={2}>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                              {item.Item_status[0]?.status === "Garage" && (
+                                <Box
+                                  w="4"
+                                  h="4"
+                                  borderRadius="full"
+                                  bg="#005778"
+                                />
+                              )}
+                              {item.Item_status[0]?.status === "Assembling" && (
+                                <Box
+                                  w="4"
+                                  h="4"
+                                  borderRadius="full"
+                                  bg="#FF9300"
+                                />
+                              )}
+                              {item.Item_status[0]?.status === "Deployed" && (
+                                <Box
+                                  w="4"
+                                  h="4"
+                                  borderRadius="full"
+                                  bg="#A4DD70"
+                                />
+                              )}
+                            </Box>
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Stack>
+            <Stack alignItems="center">
+              <Pagination
+                totalItems={filteredItems.length}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                filteredItems={filteredItems}
+              />
+            </Stack>
+          </>
+        ) : (
+          <Center h="50vh" w="85%">
+            <Text textAlign="justify">
+              Rien ici pour l&apos;instant, utilisez le bouton pour ajouter des
+              kits ou faites votre recherche{" "}
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/search"
+                fontWeight="400"
+                textColor="brand.500"
+              >
+                là
+              </ChakraLink>
+            </Text>
+          </Center>
+        )}
       </Center>
     </Box>
   );
