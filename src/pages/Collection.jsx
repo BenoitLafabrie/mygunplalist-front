@@ -501,7 +501,7 @@ export default function Collection() {
                               alignItems="center"
                               justifyContent="center"
                             >
-                              {item.Item_status[0]?.status === "Garage" && (
+                              {item.Item_status?.status === "Garage" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -509,7 +509,7 @@ export default function Collection() {
                                   bg="#005778"
                                 />
                               )}
-                              {item.Item_status[0]?.status === "Assembling" && (
+                              {item.Item_status?.status === "Assembling" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -517,7 +517,7 @@ export default function Collection() {
                                   bg="#FF9300"
                                 />
                               )}
-                              {item.Item_status[0]?.status === "Deployed" && (
+                              {item.Item_status?.status === "Deployed" && (
                                 <Box
                                   w="4"
                                   h="4"
