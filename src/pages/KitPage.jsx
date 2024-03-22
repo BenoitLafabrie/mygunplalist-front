@@ -514,7 +514,9 @@ export default function KitPage() {
             objectFit="contain"
           />
           <Text fontSize={14}>
-            {item.name}{" "}
+            {item.name.length > 25
+              ? `${item.name.substring(0, 25)}...`
+              : item.name}{" "}
             {/* - {item.price ? item.price : "pas de prix indiqué"} */}
           </Text>
           <Box
