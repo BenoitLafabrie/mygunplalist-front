@@ -12,6 +12,7 @@ import {
   Icon,
   IconButton,
   Image,
+  Link as ChakraLink,
   Modal,
   ModalBody,
   ModalContent,
@@ -27,7 +28,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { getItemById } from "../api/item";
 import Loading from "../components/Loading";
 import { BiCollection, BiMinus, BiPlus, BiShareAlt } from "react-icons/bi";
@@ -519,27 +520,34 @@ export default function KitPage() {
               : item.name}{" "}
             {/* - {item.price ? item.price : "pas de prix indiqué"} */}
           </Text>
-          <Box
-            as="button"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            gap={2}
-            py={2.5}
-            px={3.5}
-            bgColor="brand.500"
-            fontSize={14}
-            fontWeight={400}
-            textColor="white"
-            textTransform="uppercase"
+          <ChakraLink
+            as={ReactRouterLink}
+            to={`${item.ROG_Url}`}
+            _hover={{ textDecoration: "none" }}
+            isExternal
           >
-            <Image
-              src={WhiteButtonIconLogo}
-              alt="Logo triangulaire blanc"
-              boxSize="16px"
-            />
-            voir en ligne
-          </Box>
+            <Box
+              as="button"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap={2}
+              py={2.5}
+              px={3.5}
+              bgColor="brand.500"
+              fontSize={14}
+              fontWeight={400}
+              textColor="white"
+              textTransform="uppercase"
+            >
+              <Image
+                src={WhiteButtonIconLogo}
+                alt="Logo triangulaire blanc"
+                boxSize="16px"
+              />
+              voir en ligne
+            </Box>
+          </ChakraLink>
         </Box>
       </Box>
     </Box>
