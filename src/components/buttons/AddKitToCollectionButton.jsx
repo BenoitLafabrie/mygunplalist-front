@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import {
   getMygunplalistById,
@@ -55,23 +55,27 @@ const AddKitToCollectionButton = ({ token, id, item_id, ...props }) => {
   };
   return (
     <>
-      <Button
+      <Box
+        as="button"
+        minW="33%"
+        bgColor="white"
+        display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        variant="solid"
-        colorScheme="whiteAlpha"
         onClick={handleClick}
         textColor="black"
         textTransform="uppercase"
+        fontSize="12px"
         fontWeight="600"
-        leftIcon={<AddToCollectionIcon />}
         borderRadius="xl"
-        p="1rem"
+        px="1.25rem"
+        py="0.5rem"
         {...props}
       >
+        <AddToCollectionIcon width="24" />
         Ajouter
-      </Button>
+      </Box>
     </>
   );
 };

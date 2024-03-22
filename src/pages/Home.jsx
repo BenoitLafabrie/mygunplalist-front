@@ -33,10 +33,9 @@ export default function Home() {
 
   return (
     <Flex
-      h="100vh"
-      w="100vw"
+      h="100%"
+      w={{ base: "80%", md: "85%" }}
       minHeight="calc(100vh - 7.5vh)"
-      overflow="auto"
       flexDirection="column"
     >
       <Flex

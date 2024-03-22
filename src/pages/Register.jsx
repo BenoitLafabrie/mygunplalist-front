@@ -404,8 +404,8 @@ export default function Register() {
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             >
-              <option>Mr</option>
               <option>Mme</option>
+              <option>Mr</option>
               <option>Gunpla</option>
             </Select>
           </FormControl>
