@@ -253,7 +253,7 @@ export default function Collection() {
           <ChakraLink
             w="45%"
             as={ReactRouterLink}
-            to={"/add_kit"}
+            to={"/collection"}
             _hover={{ textDecoration: "none" }}
           >
             <Stack
@@ -400,7 +400,7 @@ export default function Collection() {
                   </TableCaption>
                   <Thead>
                     <Tr>
-                      <Th>
+                      <Th textAlign="center">
                         <Checkbox
                           size={{ base: "sm", md: "md" }}
                           colorScheme="brand"
