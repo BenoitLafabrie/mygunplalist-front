@@ -573,6 +573,20 @@ export default function KitPage() {
             </Box>
           )}
         </Box>
+        <Box display="flex" flexDir="column" w="100%" pb="2em" gap={6}>
+          <Heading
+            pt="2em"
+            fontSize={14}
+            fontWeight={700}
+            textTransform="uppercase"
+            letterSpacing={1.5}
+          >
+            avis des builders
+          </Heading>
+          <Text textTransform="uppercase" fontSize={20} fontWeight={700}>
+            à venir...
+          </Text>
+        </Box>
       </Box>
     </Box>
   );
