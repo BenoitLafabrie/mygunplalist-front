@@ -520,12 +520,36 @@ export default function KitPage() {
               : item.name}{" "}
             {/* - {item.price ? item.price : "pas de prix indiqué"} */}
           </Text>
-          <ChakraLink
-            as={ReactRouterLink}
-            to={`${item.ROG_Url}`}
-            _hover={{ textDecoration: "none" }}
-            isExternal
-          >
+          {item.ROG_Url ? (
+            <ChakraLink
+              as={ReactRouterLink}
+              to={`${item.ROG_Url}`}
+              _hover={{ textDecoration: "none" }}
+              isExternal
+            >
+              <Box
+                as="button"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                gap={2}
+                py={2.5}
+                px={3.5}
+                bgColor="brand.500"
+                fontSize={14}
+                fontWeight={400}
+                textColor="white"
+                textTransform="uppercase"
+              >
+                <Image
+                  src={WhiteButtonIconLogo}
+                  alt="Logo triangulaire blanc"
+                  boxSize="16px"
+                />
+                voir en ligne
+              </Box>
+            </ChakraLink>
+          ) : (
             <Box
               as="button"
               display="flex"
@@ -539,6 +563,7 @@ export default function KitPage() {
               fontWeight={400}
               textColor="white"
               textTransform="uppercase"
+              isDisabled
             >
               <Image
                 src={WhiteButtonIconLogo}
@@ -547,7 +572,7 @@ export default function KitPage() {
               />
               voir en ligne
             </Box>
-          </ChakraLink>
+          )}
         </Box>
       </Box>
     </Box>
