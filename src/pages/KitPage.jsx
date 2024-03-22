@@ -282,7 +282,6 @@ export default function KitPage() {
             gap="2em"
           >
             <Stack
-              w="fit-content"
               display="flex"
               flexDirection="column"
               alignItems="flex-start"
