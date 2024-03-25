@@ -5,8 +5,10 @@ const createCollection = async () => {
       "Content-Type": "application/json",
     },
   });
+  console.log(request);
 
   const response = await request.json();
+  console.log(response);
   return response;
 };
 

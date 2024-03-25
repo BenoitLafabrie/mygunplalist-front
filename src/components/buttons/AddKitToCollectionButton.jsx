@@ -14,7 +14,7 @@ const AddKitToCollectionButton = ({ token, id, item_id, ...props }) => {
 
   const handleClick = async () => {
     try {
-      const existingItem = myGunplaList.Items.find(
+      const existingItem = myGunplaList?.Items.find(
         (item) => item.item_id === item_id
       );
       if (existingItem) {

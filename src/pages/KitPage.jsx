@@ -164,6 +164,8 @@ export default function KitPage() {
           transform="translateY(-50%) rotate(180deg)"
           onClick={handleCarouselPrev}
           size="xs"
+          width="30px"
+          height="30px"
           zIndex={2}
         >
           <Icon as={SlideArrowIcon} size="10px" />
@@ -209,6 +211,8 @@ export default function KitPage() {
           transform="translateY(-50%)"
           onClick={handleCarouselNext}
           size="xs"
+          width="30px"
+          height="30px"
           zIndex={2}
         >
           <Icon as={SlideArrowIcon} size="10px" />

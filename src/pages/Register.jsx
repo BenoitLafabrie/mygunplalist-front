@@ -65,7 +65,7 @@ export default function Register() {
           duration: 3000,
           isClosable: true,
         });
-
+        console.log("User created:", userData);
         await createCollection();
 
         if (response.ok) {
