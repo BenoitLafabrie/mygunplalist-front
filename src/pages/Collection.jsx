@@ -100,7 +100,7 @@ export default function Collection() {
     setIsAllSelected(false);
     setSelectedRows([]);
     toast({
-      title: "Statut mis à jour",
+      title: "Statuts mis à jour",
       description: "Le status des kits a bien été modifié",
       status: "success",
       duration: 3000,
@@ -332,9 +332,9 @@ export default function Collection() {
                         Déployé
                       </Text>
                       <Select
-                        width={{ base: "100px", md: "150px" }}
+                        width={{ base: "135px", md: "160px" }}
                         value={selectValue}
-                        placeholder="Statut"
+                        placeholder="Modifier le statut"
                         colorScheme="brand"
                         size={{ base: "xs", md: "sm" }}
                         onChange={(event) => {

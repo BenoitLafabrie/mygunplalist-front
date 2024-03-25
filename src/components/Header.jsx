@@ -139,7 +139,12 @@ export default function Header() {
         </ChakraLink>
         <ButtonGroup spacing={3} variant="ghost" size="md" gap="1em">
           <ChakraLink as={ReactRouterLink} to="/admin">
-            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
+            <Button
+              color="white"
+              _hover={{ bg: "#314095" }}
+              fontWeight="400"
+              isDisabled={userData?.role !== "admin"}
+            >
               Dashboard
             </Button>
           </ChakraLink>

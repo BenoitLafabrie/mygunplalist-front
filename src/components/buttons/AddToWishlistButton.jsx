@@ -11,7 +11,7 @@ const AddToWishlistButton = ({ token, id, item_id, ...props }) => {
 
   const handleClick = async () => {
     try {
-      const existingItem = myWishlist.Items.find(
+      const existingItem = myWishlist?.Items.find(
         (item) => item.item_id === item_id
       );
       if (existingItem) {
