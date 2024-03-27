@@ -20,6 +20,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import {
   useContext,
@@ -31,7 +32,13 @@ import {
 import { useParams, Link as ReactRouterLink } from "react-router-dom";
 import { getItemById } from "../api/item";
 import Loading from "../components/Loading";
-import { BiCollection, BiMinus, BiPlus, BiShareAlt } from "react-icons/bi";
+import {
+  BiCollection,
+  BiHeart,
+  BiMinus,
+  BiPlus,
+  BiShareAlt,
+} from "react-icons/bi";
 import AddKitToCollectionButton from "../components/buttons/AddKitToCollectionButton";
 import AddKitToWishlistButton from "../components/buttons/AddKitToWishlistButton";
 import NoticeButton from "../components/buttons/NoticeButton.jsx";
@@ -45,6 +52,7 @@ export default function KitPage() {
   const [item, setItem] = useState(null);
   const { id } = useParams();
   const { userData, userToken, isLoading } = useContext(UserContext);
+  const [isMobile] = useMediaQuery("(max-width: 600px)");
 
   const [activeSlide, setActiveSlide] = useState(0);
   const slideRefs = useRef([]);
@@ -148,9 +156,15 @@ export default function KitPage() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      w={{ base: "80%", md: "90%" }}
+      w={{ base: "85%", md: "90%" }}
     >
-      <Heading size="md" textAlign="center" py="2em" fontWeight="800">
+      <Heading
+        size={{ base: "sm", md: "md" }}
+        textAlign="center"
+        pt={{ base: "3em", md: "2em" }}
+        pb={{ base: "1em", md: "2em" }}
+        fontWeight={{ base: "700", md: "800" }}
+      >
         {item.name}
       </Heading>
       <Box position="relative" display="flex" w="100%">
@@ -160,7 +174,7 @@ export default function KitPage() {
           bgColor="brand.100"
           borderRadius="full"
           top="50%"
-          left="-1.25%"
+          left={{ base: "-4%", md: "-1.25%" }}
           transform="translateY(-50%) rotate(180deg)"
           onClick={handleCarouselPrev}
           size="xs"
@@ -173,29 +187,43 @@ export default function KitPage() {
         <Box
           bgColor="brand.100"
           display="flex"
+          alignItems="center"
           overflowX="auto"
           w="100%"
           borderRadius="xl"
           gap={1}
           p="0.35em"
+          sx={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
         >
           {item.Items_images.map((image, index) => (
             <Card
               key={index}
               minW={{ base: "200px", md: "500px" }}
-              minH={{ base: "200px", md: "300px" }}
               onClick={() => handleOpen(index)}
               shadow="none"
             >
-              <Box ref={(el) => (slideRefs.current[index] = el)}>
+              <Box
+                ref={(el) => (slideRefs.current[index] = el)}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                width={{ base: "200px", md: "500px" }}
+                height={{ base: "200px", md: "300px" }}
+              >
                 <Image
                   src={image.image_path}
                   alt={`Image ${index + 1} du ${item.name}`}
-                  flexShrink={0}
                   borderRadius="lg"
-                  fit="contain"
-                  h="100%"
-                  w="100%"
+                  objectFit="cover"
+                  objectPosition="center"
+                  width="100%"
+                  height="100%"
                 />
               </Box>
             </Card>
@@ -207,7 +235,7 @@ export default function KitPage() {
           bgColor="brand.100"
           borderRadius="full"
           top="50%"
-          right="-1.25%"
+          right={{ base: "-4%", md: "-1.25%" }}
           transform="translateY(-50%)"
           onClick={handleCarouselNext}
           size="xs"
@@ -279,6 +307,8 @@ export default function KitPage() {
         <Box h="min-content">
           <SimpleGrid
             h="100%"
+            display={{ base: "flex", md: "grid" }}
+            flexDir={{ base: "column" }}
             columns={2}
             templateColumns="1fr 2fr"
             justifyContent="center"
@@ -296,8 +326,8 @@ export default function KitPage() {
               <Box
                 display="flex"
                 alignItems="center"
-                justifyContent="space-evenly"
-                w="100%"
+                justifyContent={{ base: "center", md: "space-evenly" }}
+                w={{ base: "100%", md: "90%" }}
                 gap={4}
                 pb="1em"
               >
@@ -313,38 +343,64 @@ export default function KitPage() {
                 />
                 <NoticeButton />
               </Box>
-              <Stack
-                w="max-content"
+              <Box
+                w="100%"
                 display="flex"
-                flexDir="row"
+                flexDir={{ base: "column", md: "row" }}
                 alignItems="center"
                 gap="0.25em"
-                pb="2em"
+                pb={{ base: "1em", md: "1.5em" }}
               >
-                <BiCollection size="1em" />
-                <Text fontSize="12px" fontWeight="700">
-                  598
-                </Text>
-                <Text fontSize="12px">ajouts à la collection</Text>
-                <Text fontSize="12px"> - </Text>
-                <Text fontSize="12px" fontWeight="700">
-                  135
-                </Text>
-                <Text fontSize="12px">favoris</Text>
-                <Box
-                  as="button"
+                <Stack
                   display="flex"
-                  pl="2em"
-                  size="sm"
-                  variant="ghost"
-                  fontSize="12px"
-                  fontWeight="400"
-                  gap={1}
+                  flexDir={{ base: "column", md: "row" }}
+                  w="100%"
+                  gap="0.25em"
                 >
-                  <BiShareAlt size="1.5em" />
-                  Partager
-                </Box>
-              </Stack>
+                  <Stack
+                    display="flex"
+                    flexDir="row"
+                    gap={{ base: "0.25em", md: "0.125em" }}
+                    w={{ md: "max-content" }}
+                  >
+                    <BiCollection size="1em" />
+                    <Text fontSize="12px" fontWeight="700">
+                      598
+                    </Text>
+                    <Text fontSize="12px">ajouts à la collection</Text>
+                  </Stack>
+                  <Text display={{ base: "none", md: "block" }} fontSize="12px">
+                    {" "}
+                    -{" "}
+                  </Text>
+                  <Stack
+                    display="flex"
+                    flexDir="row"
+                    gap={{ base: "0.25em", md: "0.125em" }}
+                  >
+                    <BiHeart size="1em" />
+                    <Text fontSize="12px" fontWeight="700">
+                      135
+                    </Text>
+                    <Text fontSize="12px">favoris</Text>
+                  </Stack>
+                </Stack>
+                <Stack w={{ base: "100%", md: "40%" }}>
+                  <Box
+                    as="button"
+                    display="flex"
+                    pl={{ base: "0", md: "1em" }}
+                    size="sm"
+                    variant="ghost"
+                    fontSize="12px"
+                    fontWeight="400"
+                    gap={1}
+                  >
+                    <BiShareAlt size="1.5em" />
+                    Partager
+                  </Box>
+                </Stack>
+              </Box>
               <Stack display="flex" flexDir="row">
                 <Image
                   src={BlackButtonIconLogo}
@@ -354,7 +410,7 @@ export default function KitPage() {
                 <Heading
                   textTransform="uppercase"
                   fontSize="14px"
-                  pb="0.5em"
+                  pb={{ base: "0.25em", md: "0.5em" }}
                   fontWeight="700"
                   letterSpacing={1.75}
                 >
@@ -502,24 +558,26 @@ export default function KitPage() {
           Obtenez le {item.name} dans notre boutique Rise Of Gunpla :
         </Text>
         <Box
-          w="50%"
+          w={{ base: "100%", md: "50%" }}
           display="flex"
+          flexDir={{ base: "column", md: "row" }}
           alignItems="center"
           justifyContent="space-around"
           borderWidth={1}
           borderRadius={30}
+          gap={{ base: 3 }}
           py={2.5}
-          px={3.5}
+          px={{ base: 2.5, md: 3.5 }}
         >
           <Image
-            w="30%"
+            w={{ base: "60%", md: "30%" }}
             src={ROGLogo}
             alt="Logo Rise Of Gunpla"
             objectFit="contain"
           />
-          <Text fontSize={14}>
-            {item.name.length > 25
-              ? `${item.name.substring(0, 25)}...`
+          <Text fontSize={{ base: 12, md: 14 }}>
+            {item.name.length > (isMobile ? 30 : 25)
+              ? `${item.name.substring(0, isMobile ? 30 : 25)}...`
               : item.name}{" "}
             {/* - {item.price ? item.price : "pas de prix indiqué"} */}
           </Text>
@@ -530,53 +588,58 @@ export default function KitPage() {
               _hover={{ textDecoration: "none" }}
               isExternal
             >
+              <Stack>
+                <Box
+                  as="button"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  gap={2}
+                  py={{ base: 2, md: 2.5 }}
+                  px={{ base: 3, md: 3.5 }}
+                  bgColor="brand.500"
+                  fontSize={{ base: 12, md: 14 }}
+                  fontWeight={400}
+                  textColor="white"
+                  textTransform="uppercase"
+                >
+                  <Image
+                    src={WhiteButtonIconLogo}
+                    alt="Logo triangulaire blanc"
+                    boxSize="12px"
+                  />
+                  voir en ligne
+                </Box>
+              </Stack>
+            </ChakraLink>
+          ) : (
+            <Stack>
               <Box
                 as="button"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 gap={2}
-                py={2.5}
-                px={3.5}
+                py={{ base: 2, md: 2.5 }}
+                px={{ base: 3, md: 3.5 }}
                 bgColor="brand.500"
-                fontSize={14}
+                fontSize={{ base: 12, md: 14 }}
                 fontWeight={400}
                 textColor="white"
                 textTransform="uppercase"
+                isDisabled
               >
                 <Image
                   src={WhiteButtonIconLogo}
                   alt="Logo triangulaire blanc"
-                  boxSize="16px"
+                  boxSize="12px"
                 />
                 voir en ligne
               </Box>
-            </ChakraLink>
-          ) : (
-            <Box
-              as="button"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              gap={2}
-              py={2.5}
-              px={3.5}
-              bgColor="brand.500"
-              fontSize={14}
-              fontWeight={400}
-              textColor="white"
-              textTransform="uppercase"
-              isDisabled
-            >
-              <Image
-                src={WhiteButtonIconLogo}
-                alt="Logo triangulaire blanc"
-                boxSize="16px"
-              />
-              voir en ligne
-            </Box>
+            </Stack>
           )}
         </Box>
+
         <Box display="flex" flexDir="column" w="100%" pb="2em" gap={6}>
           <Heading
             pt="2em"
