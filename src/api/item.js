@@ -48,9 +48,28 @@ const getItemById = async (id, token) => {
   return response;
 };
 
-const deleteItems = async (ids, token, mygunplalist_id) => {
+const deleteGunplalistItems = async (ids, token, mygunplalist_id) => {
   const response = await fetch(
     `${import.meta.env.VITE_APP_URL}/kits/gunplalist/${mygunplalist_id}/items`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ item_ids: ids }),
+    }
+  );
+
+  // Convert the response to JSON
+  const jsonResponse = await response.json();
+
+  return jsonResponse;
+};
+
+const deleteWishlistItems = async (ids, token, wishlist_id) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_APP_URL}/kits/wishlist/${wishlist_id}/items`,
     {
       method: "DELETE",
       headers: {
@@ -72,5 +91,6 @@ export {
   getAllItems,
   getItemById,
   getLatestItems,
-  deleteItems,
+  deleteGunplalistItems,
+  deleteWishlistItems,
 };

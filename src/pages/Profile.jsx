@@ -41,13 +41,12 @@ export default function Profile() {
 
   return (
     <Box
-      minH={{ base: "55.7vh", md: "85vh" }}
+      minH={{ base: "55.7%", md: "85%" }}
       display={{ base: "flex", md: "grid" }}
       flexDirection={{ base: "column" }}
       justifyContent={{ base: "center" }}
       alignItems={{ base: "center" }}
       w="100%"
-      ml={{ base: "unset", md: "4em" }}
     >
       <Box
         display="flex"
@@ -77,7 +76,7 @@ export default function Profile() {
           fontSize={{ base: "sm", md: "lg" }}
           as="em"
           opacity="50%"
-          mb="1rem"
+          mb="2rem"
         >
           Membre depuis le{" "}
           {new Date(userData?.createdAt).toLocaleDateString("fr-FR", {
@@ -109,9 +108,28 @@ export default function Profile() {
           </Text>
         </ChakraLink>
       </Box>
-      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1.5em">
+      <Box
+        display="flex"
+        overflowX="auto"
+        w="90%"
+        gap={4}
+        py="1.5em"
+        sx={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+        }}
+      >
         {myGunplaList?.Items?.map((item) => (
-          <KitCard key={item.item_id} item={item} minW="150px" minH="150px" />
+          <KitCard
+            key={item.item_id}
+            item={item}
+            minW="190px"
+            maxW="200px"
+            maxH="350px"
+          />
         ))}
       </Box>
       <Box
@@ -142,9 +160,22 @@ export default function Profile() {
         gap={4}
         py="1.5em"
         mb={{ base: "unset", md: "1.5em" }}
+        sx={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+        }}
       >
         {myWishlist?.Items?.map((item) => (
-          <KitCard key={item.item_id} item={item} minW="150px" minH="150px" />
+          <KitCard
+            key={item.item_id}
+            item={item}
+            minW="190px"
+            maxW="200px"
+            maxH="350px"
+          />
         ))}
       </Box>
       <LogoutButton mb="3em" />

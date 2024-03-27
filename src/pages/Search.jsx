@@ -141,12 +141,12 @@ export default function Search() {
           </InputRightElement>
         </InputGroup>
         <Select
-          placeholder="Tri par ordre"
+          placeholder="Tri par ordre alphabétique"
           value={sortDirection}
           onChange={(e) => setSortDirection(e.target.value)}
         >
-          <option value="Croissant">Croissant</option>
-          <option value="Décroissant">Décroissant</option>
+          <option value="Croissant">A-Z</option>
+          <option value="Décroissant">Z-A</option>
         </Select>
         <Select
           placeholder="Tri par grade"

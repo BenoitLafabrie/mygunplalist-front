@@ -15,7 +15,7 @@ export default function Root() {
       style={{
         minHeight: "100vh",
         width: "100vw",
-        overflow: "auto",
+
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

@@ -8,7 +8,7 @@ const BuyButton = ({ url }) => {
       <LinkOverlay as={ReactRouterLink} to={url} isExternal>
         <Button
           variant="solid"
-          colorScheme="red"
+          colorScheme="brand"
           fontWeight="400"
           boxShadow="5px 5px 50px 0px rgba(7,29,38,0.25)"
         >

@@ -1,37 +1,37 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogOverlay,
-    Box,
-    Button,
-    Center,
-    Link as ChakraLink,
-    Checkbox,
-    HStack,
-    Heading,
-    Image,
-    Select,
-    Stack,
-    Table,
-    TableCaption,
-    TableContainer,
-    Tbody,
-    Td,
-    Text,
-    Th,
-    Thead,
-    Tr,
-    VStack,
-    useToast,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Box,
+  Button,
+  Center,
+  Link as ChakraLink,
+  Checkbox,
+  HStack,
+  Heading,
+  Image,
+  Select,
+  Stack,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { deleteItems } from "../api/item";
+import { deleteGunplalistItems } from "../api/item";
 import { updateItemStatus } from "../api/myGunplaList";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
@@ -50,9 +50,9 @@ export default function Collection() {
 
   const handleStatusChange = async (item, newStatus, showToast = true) => {
     try {
-      const item_status[0]_id = item?.item_status[0]?.item_status[0]_id;
+      const item_status_id = item?.Item_status[0]?.item_status_id;
 
-      await updateItemStatus(userToken, item_status[0]_id, newStatus);
+      await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
       // Create a deep copy of myGunplaList.Items
       const newItems = JSON.parse(JSON.stringify(myGunplaList?.Items));
@@ -60,7 +60,7 @@ export default function Collection() {
       const itemIndex = newItems?.findIndex((i) => i.id === item.id);
 
       if (itemIndex !== -1) {
-        newItems[itemIndex].item_status[0].status = newStatus;
+        newItems[itemIndex].Item_status[0].status = newStatus;
       }
 
       // Update myGunplaList.Items with the new array
@@ -111,7 +111,11 @@ export default function Collection() {
   const handleDelete = async () => {
     try {
       // Pass all the selected ids at once
-      await deleteItems(selectedRows, userToken, myGunplaList.mygunplalist_id);
+      await deleteGunplalistItems(
+        selectedRows,
+        userToken,
+        myGunplaList.mygunplalist_id
+      );
 
       // Remove the deleted items from the local state
       const newItems = currentItems.filter(
@@ -184,12 +188,12 @@ export default function Collection() {
     setTotalKits(myGunplaList?.Items?.length);
     setGarageKits(
       myGunplaList?.Items?.filter(
-        (item) => item?.item_status[0]?.status === "Garage"
+        (item) => item?.Item_status[0]?.status === "Garage"
       ).length
     );
     setDeployedKits(
       myGunplaList?.Items?.filter(
-        (item) => item?.item_status[0]?.status === "Deployed"
+        (item) => item?.Item_status[0]?.status === "Deployed"
       ).length
     );
   }, [myGunplaList?.Items]);
@@ -481,12 +485,14 @@ export default function Collection() {
                             <ChakraLink
                               as={ReactRouterLink}
                               to={`/kits/${item.item_id}`}
+                              _hover={{ textDecoration: "none" }}
                             >
                               <Text
                                 fontWeight="400"
                                 fontSize={{ base: "xs", md: "sm" }}
                                 maxWidth={{ base: "175px", md: "unset" }}
                                 overflow="hidden"
+                                textTransform="uppercase"
                                 textOverflow="ellipsis"
                                 whiteSpace="nowrap"
                               >
@@ -501,7 +507,7 @@ export default function Collection() {
                               alignItems="center"
                               justifyContent="center"
                             >
-                              {item.item_status[0]?.status === "Garage" && (
+                              {item.Item_status[0]?.status === "Garage" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -509,7 +515,7 @@ export default function Collection() {
                                   bg="#005778"
                                 />
                               )}
-                              {item.item_status[0]?.status === "Assembling" && (
+                              {item.Item_status[0]?.status === "Assembling" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -517,7 +523,7 @@ export default function Collection() {
                                   bg="#FF9300"
                                 />
                               )}
-                              {item.item_status[0]?.status === "Deployed" && (
+                              {item.Item_status[0]?.status === "Deployed" && (
                                 <Box
                                   w="4"
                                   h="4"

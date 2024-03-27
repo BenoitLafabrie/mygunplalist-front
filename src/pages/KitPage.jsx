@@ -274,7 +274,7 @@ export default function KitPage() {
 
       <Modal isOpen={isOpen} onClose={handleClose} isCentered="true">
         <ModalOverlay />
-        <ModalContent w="95%">
+        <ModalContent w={{ base: "90%" }}>
           <ModalBody>
             <Image
               src={item.Items_images[selectedImageIndex].image_path}
