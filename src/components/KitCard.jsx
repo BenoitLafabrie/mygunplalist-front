@@ -13,7 +13,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 export const KitCard = ({ item, children, ...props }) => {
   return (
     <Card
-      key={item.item_id}
+      key={item?.item_id}
       bgColor="brand.100"
       justifyContent="center"
       transition="transform 0.15s"
@@ -25,7 +25,7 @@ export const KitCard = ({ item, children, ...props }) => {
     >
       <ChakraLink
         as={ReactRouterLink}
-        to={`/kits/${item.item_id}`}
+        to={`/kits/${item?.item_id}`}
         _hover={{ textDecoration: "none", color: "inherit" }}
       >
         <CardBody p="0">
@@ -45,7 +45,7 @@ export const KitCard = ({ item, children, ...props }) => {
                 left="0"
                 right="0"
                 bgColor="white"
-                bgImage={item.Items_images[0].image_path}
+                bgImage={item?.Items_images[0]?.image_path}
                 bgSize="contain"
                 bgRepeat="no-repeat"
                 bgPosition="center center"
@@ -54,10 +54,10 @@ export const KitCard = ({ item, children, ...props }) => {
                 opacity="0.225"
                 zIndex={-1}
               />
-              {item.Items_images && item.Items_images.length > 0 ? (
+              {item?.Items_images && item?.Items_images.length > 0 ? (
                 <Image
-                  src={item.Items_images[0].image_path}
-                  alt={item.name}
+                  src={item?.Items_images[0]?.image_path}
+                  alt={item?.name}
                   borderRadius="lg"
                   position="absolute"
                   w="100%"
@@ -81,7 +81,7 @@ export const KitCard = ({ item, children, ...props }) => {
                 fontSize="12px"
                 textTransform="uppercase"
               >
-                {item.name}
+                {item?.name}
               </Heading>
               <Box
                 as="span"
@@ -95,7 +95,7 @@ export const KitCard = ({ item, children, ...props }) => {
                   color: "currentColor",
                 }}
               >
-                {item.Items_props.grade}
+                {item?.Items_props?.grade}
               </Box>
             </Box>
           </Grid>

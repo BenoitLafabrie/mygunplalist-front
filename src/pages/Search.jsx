@@ -115,7 +115,7 @@ export default function Search() {
           <Input
             placeholder="Trouvez votre gunpla"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e?.target?.value)}
           />
           <InputRightElement>
             {!search && (
@@ -179,18 +179,18 @@ export default function Search() {
         mx="2em"
       >
         {currentItems.map((item) => (
-          <KitCard key={item.item_id} item={item}>
+          <KitCard key={item?.item_id} item={item}>
             <CardFooter justifyContent="center">
               <ButtonGroup spacing={4}>
                 <AddToCollectionButton
                   token={userToken}
                   id={userData?.user_id}
-                  item_id={item.item_id}
+                  item_id={item?.item_id}
                 />
                 <AddToWishlistButton
                   token={userToken}
                   id={userData?.user_id}
-                  item_id={item.item_id}
+                  item_id={item?.item_id}
                 />
               </ButtonGroup>
             </CardFooter>
