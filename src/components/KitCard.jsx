@@ -45,7 +45,7 @@ export const KitCard = ({ item, children, ...props }) => {
                 left="0"
                 right="0"
                 bgColor="white"
-                bgImage={item.Items_images[0].image_path}
+                bgImage={item.Items_images[0]?.image_path}
                 bgSize="contain"
                 bgRepeat="no-repeat"
                 bgPosition="center center"
@@ -54,9 +54,9 @@ export const KitCard = ({ item, children, ...props }) => {
                 opacity="0.225"
                 zIndex={-1}
               />
-              {item.Items_images && item.Items_images.length > 0 ? (
+              {item.Items_images && item.Items_images?.length > 0 ? (
                 <Image
-                  src={item.Items_images[0].image_path}
+                  src={item.Items_images[0]?.image_path}
                   alt={item.name}
                   borderRadius="lg"
                   position="absolute"
@@ -95,7 +95,7 @@ export const KitCard = ({ item, children, ...props }) => {
                   color: "currentColor",
                 }}
               >
-                {item.Items_props.grade}
+                {item.Items_props?.grade}
               </Box>
             </Box>
           </Grid>

@@ -64,8 +64,8 @@ export default function Home() {
         templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
         mx="2em"
       >
-        {latestItems.map((item) => (
-          <KitCard key={item.item_id} item={item} />
+        {latestItems?.map((item) => (
+          <KitCard key={item?.item_id} item={item} />
         ))}
       </SimpleGrid>
       <Heading size="sm" textAlign="center" mt="4em">

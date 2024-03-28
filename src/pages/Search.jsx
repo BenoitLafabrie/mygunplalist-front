@@ -31,7 +31,7 @@ export default function Search() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortDirection, setSortDirection] = useState("Croissant");
+  const [sortDirection, setSortDirection] = useState("A-Z");
   const [sortType, setSortType] = useState("name");
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -56,6 +56,7 @@ export default function Search() {
       const itemsFiltering = items.filter((item) =>
         item?.name?.toLowerCase().includes(search.toLowerCase())
       );
+      console.log(itemsFiltering);
       setFilteredItems(itemsFiltering);
     } else if (sortType !== "name") {
       const itemsFiltering = items.filter(
@@ -70,11 +71,11 @@ export default function Search() {
 
   useEffect(() => {
     filterFunction();
-    if (sortDirection === "Croissant") {
+    if (sortDirection === "A-Z") {
       setFilteredItems((prevItems) =>
         [...prevItems].sort((a, b) => (a[sortType] > b[sortType] ? 1 : -1))
       );
-    } else if (sortDirection === "Décroissant") {
+    } else if (sortDirection === "Z-A") {
       setFilteredItems((prevItems) =>
         [...prevItems].sort((a, b) => (a[sortType] < b[sortType] ? 1 : -1))
       );
@@ -145,8 +146,8 @@ export default function Search() {
           value={sortDirection}
           onChange={(e) => setSortDirection(e.target.value)}
         >
-          <option value="Croissant">A-Z</option>
-          <option value="Décroissant">Z-A</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
         </Select>
         <Select
           placeholder="Tri par grade"
