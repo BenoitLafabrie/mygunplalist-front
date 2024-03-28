@@ -43,6 +43,13 @@ export default function BarcodeReader() {
   const { userData, userToken, setMyGunplaList, setMyWishlist } =
     useContext(UserContext);
 
+  // Function to detect if the device is mobile
+  const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+  };
+
   // Define a ref for the video element
   const videoRef = useRef(null);
 
@@ -89,7 +96,9 @@ export default function BarcodeReader() {
     setScanner(true);
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({
+          video: { facingMode: isMobile() ? "environment" : "user" },
+        })
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
