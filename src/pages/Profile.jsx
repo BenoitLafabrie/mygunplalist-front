@@ -88,96 +88,98 @@ export default function Profile() {
           ({diffInDays} jour(s))
         </Text>
       </Box>
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="flex-end"
-        w="90%"
-      >
-        <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
-          Ma Gunplalist
-        </Heading>
-        <ChakraLink as={ReactRouterLink} to="/collection">
-          <Text
-            casing="uppercase"
-            fontSize="14px"
-            color="brand.500"
-            fontWeight="400"
-          >
-            tout voir
-          </Text>
-        </ChakraLink>
-      </Box>
-      <Box
-        display="flex"
-        overflowX="auto"
-        w="90%"
-        gap={4}
-        py="1.5em"
-        sx={{
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-          msOverflowStyle: "none",
-          scrollbarWidth: "none",
-        }}
-      >
-        {myGunplaList?.Items?.map((item) => (
-          <KitCard
-            key={item.item_id}
-            item={item}
-            minW="190px"
-            maxW="200px"
-            maxH="350px"
-          />
-        ))}
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="flex-end"
-        w="90%"
-      >
-        <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
-          Ma Wishlist
-        </Heading>
-        <ChakraLink as={ReactRouterLink} to="/wishlist">
-          <Text
-            casing="uppercase"
-            fontSize="14px"
-            color="brand.500"
-            fontWeight="400"
-          >
-            tout voir
-          </Text>
-        </ChakraLink>
-      </Box>
-      <Box
-        display="flex"
-        overflowX="auto"
-        w="90%"
-        gap={4}
-        py="1.5em"
-        mb={{ base: "unset", md: "1.5em" }}
-        sx={{
-          "&::-webkit-scrollbar": {
-            display: "none",
-          },
-          msOverflowStyle: "none",
-          scrollbarWidth: "none",
-        }}
-      >
-        {myWishlist?.Items?.map((item) => (
-          <KitCard
-            key={item.item_id}
-            item={item}
-            minW="190px"
-            maxW="200px"
-            maxH="350px"
-          />
-        ))}
+      <Box px="1em">
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="flex-end"
+          w="90%"
+        >
+          <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
+            Ma Gunplalist
+          </Heading>
+          <ChakraLink as={ReactRouterLink} to="/collection">
+            <Text
+              casing="uppercase"
+              fontSize="14px"
+              color="brand.500"
+              fontWeight="400"
+            >
+              tout voir
+            </Text>
+          </ChakraLink>
+        </Box>
+        <Box
+          display="flex"
+          overflowX="auto"
+          w="90%"
+          gap={4}
+          py="1.5em"
+          sx={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
+        >
+          {myGunplaList?.Items?.map((item) => (
+            <KitCard
+              key={item.item_id}
+              item={item}
+              minW="190px"
+              maxW="200px"
+              maxH="350px"
+            />
+          ))}
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="flex-end"
+          w="90%"
+        >
+          <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
+            Ma Wishlist
+          </Heading>
+          <ChakraLink as={ReactRouterLink} to="/wishlist">
+            <Text
+              casing="uppercase"
+              fontSize="14px"
+              color="brand.500"
+              fontWeight="400"
+            >
+              tout voir
+            </Text>
+          </ChakraLink>
+        </Box>
+        <Box
+          display="flex"
+          overflowX="auto"
+          w="90%"
+          gap={4}
+          py="1.5em"
+          mb={{ base: "unset", md: "1.5em" }}
+          sx={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
+        >
+          {myWishlist?.Items?.map((item) => (
+            <KitCard
+              key={item.item_id}
+              item={item}
+              minW="190px"
+              maxW="200px"
+              maxH="350px"
+            />
+          ))}
+        </Box>
       </Box>
       <LogoutButton mb="3em" />
     </Box>
