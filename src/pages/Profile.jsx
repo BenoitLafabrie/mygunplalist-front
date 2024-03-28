@@ -53,6 +53,7 @@ export default function Profile() {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
+        px="1em"
       >
         <Box
           position="relative"
