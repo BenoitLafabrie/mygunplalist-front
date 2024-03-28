@@ -461,7 +461,11 @@ export default function KitPage() {
                     Série :
                   </Text>
                   <Text fontSize="12px" fontWeight="400">
-                    {item.Items_props && item.Items_props.series
+                    {item.Items_props &&
+                    item.Items_props.series &&
+                    item.Items_props.series.length > 45
+                      ? `${item.Items_props.series.substring(0, 45)}...`
+                      : item.Items_props && item.Items_props.series
                       ? item.Items_props.series
                       : "Aucune série indiquée"}
                   </Text>

@@ -2,8 +2,8 @@ import {
   Box,
   Card,
   CardBody,
-  Grid,
   Link as ChakraLink,
+  Grid,
   Heading,
   Image,
 } from "@chakra-ui/react";
