@@ -156,11 +156,14 @@ export default function Search() {
         >
           <option value="name">Tous</option>
           <option value="Entry Grade">Entry Grade</option>
+          <option value="Figure-rise Standard">Figure-rise Standard</option>
           <option value="High Grade">High Grade</option>
-          <option value="Real Grade">Real Grade</option>
-          <option value="SD/BB Grade">SD/BB Grade</option>
+          <option value="HIRM">HIRM</option>
           <option value="Master Grade">Master Grade</option>
           <option value="Perfect Grade">Perfect Grade</option>
+          <option value="Real Grade">Real Grade</option>
+          <option value="RE/100">RE/100</option>
+          <option value="SD/BB Grade">SD/BB Grade</option>
         </Select>
         <Select
           placeholder="Kits par page"

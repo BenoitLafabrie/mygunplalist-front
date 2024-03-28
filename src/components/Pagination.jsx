@@ -56,7 +56,7 @@ const Pagination = ({
               onClick={() => setCurrentPage(number)}
               disabled={currentPage === number}
               variant="outline"
-              color="#314095"
+              color={currentPage === number ? "brand.500" : "#314095"}
             >
               {number}
             </Button>
