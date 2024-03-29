@@ -56,7 +56,6 @@ export default function Search() {
       const itemsFiltering = items.filter((item) =>
         item?.name?.toLowerCase().includes(search.toLowerCase())
       );
-      console.log(itemsFiltering);
       setFilteredItems(itemsFiltering);
     } else if (sortType !== "name") {
       const itemsFiltering = items.filter(

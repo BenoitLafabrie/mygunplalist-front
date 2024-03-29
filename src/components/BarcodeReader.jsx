@@ -2,22 +2,14 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
-  Link as ChakraLink,
-  Divider,
   HStack,
-  Heading,
   Image,
   List,
-  ListItem,
   Text,
   VStack,
   useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
 import { useZxing } from "react-zxing";
 import { getAllItems } from "../api/item"; // replace with actual path to item.js
 import {
@@ -28,6 +20,7 @@ import { getWishlistById, updateWishlistById } from "../api/myWishlist";
 import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
 import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
+import { KitCard } from "./KitCard";
 
 export default function BarcodeReader() {
   // Define state variables for the last result and all scanned barcodes
@@ -97,7 +90,10 @@ export default function BarcodeReader() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia({
-          video: { facingMode: isMobile() ? "environment" : "user" },
+          video: {
+            facingMode: isMobile() ? "environment" : "user",
+            zoom: 1,
+          },
         })
         .then((stream) => {
           videoRef.current.srcObject = stream;
@@ -139,7 +135,16 @@ export default function BarcodeReader() {
       setSnapshotOpacity(0);
       setGuideOpacity(1);
     }, 300);
-  }, [scannedBarcodes]);
+    if (scannedBarcodes.length > 0) {
+      toast({
+        title: "Scan réussi!!",
+        description: "Scannez un autre kit ou faîtes votre ajout",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  }, [scannedBarcodes, toast]);
 
   useEffect(() => {
     return () => {
@@ -233,7 +238,13 @@ export default function BarcodeReader() {
   };
   return (
     <Box minH="87.9vh" id="BarcodeReader">
-      <Text my="1.25em" fontSize="xl" align="center" fontWeight="500">
+      <Text
+        pt={{ base: "2em", md: "1.25em" }}
+        pb="1.25em"
+        fontSize="xl"
+        align="center"
+        fontWeight="500"
+      >
         AJOUTONS DES KITS À VOTRE COLLECTION!
       </Text>
       <VStack overflowY="auto">
@@ -241,19 +252,25 @@ export default function BarcodeReader() {
           display="flex"
           flexDirection={{ base: "column", md: "row" }}
           justifyContent="center"
-          alignItems="center"
-          gap={5}
+          alignItems={{ base: "center", md: "flex-start" }}
+          gap={0}
         >
           <Box
             w={{ base: "90%", md: "50%" }}
+            px={{ base: "1em", md: "2em" }}
             position="relative"
             overflow="hidden"
             display="flex"
             flexDirection="column"
             alignItems="center"
-            minH="75vh"
+            minH="75%"
           >
-            <Box position="relative" overflow="hidden" marginBottom="20px">
+            <Box
+              position="relative"
+              overflow="hidden"
+              pt={{ base: "0", md: "0.5em" }}
+              pb="2em"
+            >
               <Box borderRadius={10} as="video" ref={ref} />
               <Box
                 w="100%"
@@ -303,12 +320,13 @@ export default function BarcodeReader() {
                 />
               </Box>
             </Box>
-            <HStack>
+            <HStack pb="1em">
               <Button
                 colorScheme="teal"
                 onClick={startScan}
                 fontWeight="400"
-                size="sm"
+                size={{ base: "xs", md: "sm" }}
+                p={4}
               >
                 DÉMARRER LE SCAN
               </Button>
@@ -316,119 +334,107 @@ export default function BarcodeReader() {
                 colorScheme="brand"
                 onClick={stopScan}
                 fontWeight="400"
-                size="sm"
+                size={{ base: "xs", md: "sm" }}
+                p={4}
               >
                 ARRÊTER LE SCAN
               </Button>
             </HStack>
           </Box>
           <Box>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <Text mb="1em">Dernier scan:</Text>
-              {scannedItems.length > 0 ? (
-                // scannedItems[scannedItems.length - 1].name
-                <Card
-                  key={scannedItems[scannedItems.length - 1].item_id}
-                  align="center"
-                >
-                  <ChakraLink
-                    as={ReactRouterLink}
-                    to={`/kits/${
-                      scannedItems[scannedItems.length - 1].item_id
-                    }`}
-                  >
-                    <CardBody>
-                      {/* Render the first image of the item if it exists */}
-                      {scannedItems[scannedItems.length - 1].Items_images &&
-                      scannedItems[scannedItems.length - 1].Items_images
-                        .length > 0 ? (
-                        <Image
-                          src={
-                            scannedItems[scannedItems.length - 1]
-                              .Items_images[0].image_path
-                          }
-                          alt={scannedItems[scannedItems.length - 1].name}
-                          borderRadius="lg"
-                        />
-                      ) : (
-                        <p>Aucune image pour ce gunpla</p>
-                      )}
-                      <Heading size="xs" pt="2">
-                        {scannedItems[scannedItems.length - 1].name}
-                      </Heading>
-                    </CardBody>
-                  </ChakraLink>
-                  <Divider color="brand" />
-                  <CardFooter justifyContent="center">
-                    <ButtonGroup spacing={12}>
-                      <AddToCollectionButton
-                        token={userToken}
-                        id={userData.user_id}
-                        item_id={scannedItems[scannedItems.length - 1].item_id}
-                      />
-                      <AddToWishlistButton
-                        token={userToken}
-                        id={userData?.user_id}
-                        item_id={scannedItems[scannedItems.length - 1].item_id}
-                      />
-                    </ButtonGroup>
-                  </CardFooter>
-                </Card>
-              ) : (
-                "Aucun kit scanné pour l'instant"
-              )}
-            </Box>
-
             <Box
-              gap={4}
               display="flex"
               flexDirection="column"
-              my="1em"
-              // alignItems="center"
+              alignItems="center"
+              pb={{ md: "1em" }}
+              py={{ base: "1em", md: "0.5em" }}
             >
-              <Button
-                variant="solid"
-                colorScheme="brand"
-                onClick={addAllToCollection}
-                fontWeight="400"
-              >
-                TOUT AJOUTER À LA COLLECTION
-              </Button>
-              <Button
-                variant="solid"
-                colorScheme="brand"
-                onClick={addAllToWishlist}
-                fontWeight="400"
-              >
-                TOUT AJOUTER À LA WISHLIST
-              </Button>
-            </Box>
-
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <Text mb="1em">Kits scannés:</Text>
-              <List spacing={1} mb="1em">
-                {scannedItems.map((item, index) => (
-                  <Box key={index} display="flex" alignItems="center" gap={3}>
-                    <ListItem overflow="hidden">{item.name}</ListItem>
-                    <ButtonGroup spacing={1}>
-                      <AddToCollectionButton
-                        token={userToken}
-                        id={userData?.user_id}
-                        item_id={item.item_id}
-                      />
-                      <AddToWishlistButton
-                        token={userToken}
-                        id={userData?.user_id}
-                        item_id={item.item_id}
-                      />
-                    </ButtonGroup>
-                  </Box>
-                ))}
-              </List>
+              {scannedItems.length > 0 ? (
+                <Box
+                  display="flex"
+                  flexWrap={{ base: "wrap" }}
+                  justifyContent={{ base: "center" }}
+                  alignItems={{ base: "center" }}
+                >
+                  <KitCard
+                    key={scannedItems[scannedItems.length - 1].item_id}
+                    item={scannedItems[scannedItems.length - 1]}
+                    toLink={`/kits/${
+                      scannedItems[scannedItems.length - 1].item_id
+                    }`}
+                    imageSrc={
+                      scannedItems[scannedItems.length - 1].Items_images[0]
+                        .image_path
+                    }
+                    imageAlt={scannedItems[scannedItems.length - 1].name}
+                  />
+                  <List spacing={1} pt="1em">
+                    {scannedItems.map((item, index) => (
+                      <Box
+                        key={index}
+                        display="flex"
+                        alignItems="center"
+                        px="1em"
+                        gap={3}
+                      >
+                        <ButtonGroup spacing={8}>
+                          <AddToCollectionButton
+                            token={userToken}
+                            id={userData?.user_id}
+                            item_id={item.item_id}
+                          />
+                          <AddToWishlistButton
+                            token={userToken}
+                            id={userData?.user_id}
+                            item_id={item.item_id}
+                          />
+                        </ButtonGroup>
+                      </Box>
+                    ))}
+                  </List>
+                </Box>
+              ) : (
+                <Box
+                  h="100%"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Text>Aucun kit scanné pour l&apos;instant</Text>
+                </Box>
+              )}
             </Box>
           </Box>
         </Box>
       </VStack>
+      <Box
+        gap={4}
+        display="flex"
+        flexDirection={{ base: "column", md: "row" }}
+        py={{ base: "1em", md: "2em" }}
+        pb={{ base: "2em", md: "1em" }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button
+          variant="solid"
+          size={{ base: "sm", md: "md" }}
+          colorScheme="brand"
+          onClick={addAllToCollection}
+          fontWeight="400"
+        >
+          TOUT AJOUTER À LA COLLECTION
+        </Button>
+        <Button
+          variant="solid"
+          size={{ base: "sm", md: "md" }}
+          colorScheme="brand"
+          onClick={addAllToWishlist}
+          fontWeight="400"
+        >
+          TOUT AJOUTER À LA WISHLIST
+        </Button>
+      </Box>
     </Box>
   );
 }

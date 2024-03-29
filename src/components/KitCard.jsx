@@ -10,7 +10,15 @@ import {
 import PropTypes from "prop-types";
 import { Link as ReactRouterLink } from "react-router-dom";
 
-export const KitCard = ({ item, children, ...props }) => {
+export const KitCard = ({
+  item,
+  children,
+  toLink,
+  bgImage,
+  imageSrc,
+  imageAlt,
+  ...props
+}) => {
   return (
     <Card
       key={item.item_id}
@@ -25,7 +33,7 @@ export const KitCard = ({ item, children, ...props }) => {
     >
       <ChakraLink
         as={ReactRouterLink}
-        to={`/kits/${item.item_id}`}
+        to={toLink || `/kits/${item.item_id}`}
         _hover={{ textDecoration: "none", color: "inherit" }}
       >
         <CardBody p="0">
@@ -45,7 +53,7 @@ export const KitCard = ({ item, children, ...props }) => {
                 left="0"
                 right="0"
                 bgColor="white"
-                bgImage={item.Items_images[0]?.image_path}
+                bgImage={bgImage || item.Items_images[0]?.image_path}
                 bgSize="contain"
                 bgRepeat="no-repeat"
                 bgPosition="center center"
@@ -56,8 +64,8 @@ export const KitCard = ({ item, children, ...props }) => {
               />
               {item.Items_images && item.Items_images?.length > 0 ? (
                 <Image
-                  src={item.Items_images[0]?.image_path}
-                  alt={item.name}
+                  src={imageSrc || item.Items_images[0]?.image_path}
+                  alt={imageAlt || item.name}
                   borderRadius="lg"
                   position="absolute"
                   w="100%"
@@ -121,5 +129,9 @@ KitCard.propTypes = {
     }),
     name: PropTypes.string.isRequired,
   }).isRequired,
+  toLink: PropTypes.string,
+  bgImage: PropTypes.string,
+  imageSrc: PropTypes.string,
+  imageAlt: PropTypes.string,
   children: PropTypes.node,
 };
