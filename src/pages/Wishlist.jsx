@@ -93,7 +93,7 @@ export default function Wishlist() {
     return <Loading />;
   } else {
     return (
-      <Box w="80%" mb="1em" minH="calc(93vh - 82px)">
+      <Box w={{ base: "80%", md: "90%" }} mb="1em" minH="calc(93vh - 82px)">
         <Center flexDirection="column">
           <Heading my="1.5em" textTransform="uppercase" size="md">
             La wishlist de {userData.username}
