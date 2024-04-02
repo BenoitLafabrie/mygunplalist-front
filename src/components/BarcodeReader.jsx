@@ -352,6 +352,7 @@ export default function BarcodeReader() {
               {scannedItems.length > 0 ? (
                 <Box
                   display="flex"
+                  flexDir="column"
                   flexWrap={{ base: "wrap" }}
                   justifyContent={{ base: "center" }}
                   alignItems={{ base: "center" }}

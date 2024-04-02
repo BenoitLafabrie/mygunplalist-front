@@ -161,6 +161,7 @@ export default function KitPage() {
       <Heading
         size={{ base: "sm", md: "md" }}
         textAlign="center"
+        textTransform="uppercase"
         pt={{ base: "3em", md: "2em" }}
         pb={{ base: "1em", md: "2em" }}
         fontWeight={{ base: "700", md: "800" }}
