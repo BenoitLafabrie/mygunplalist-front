@@ -1,44 +1,57 @@
 import {
+  Box,
   Button,
+  Image,
   Link as ChakraLink,
   FormControl,
   FormLabel,
-  Image,
   Input,
   Stack,
   Text,
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import ButtonIconLogo from "../assets/icons/buttonIconLogo.svg";
-
+import {
+  GoogleReCaptchaProvider,
+  GoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 import { login } from "../api/auth";
-
 import { UserContext } from "../context/User.jsx";
+import WhiteButtonIconLogo from "../assets/icons/whiteButtonIconLogo.svg";
 
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [captchaToken, setCaptchaToken] = useState(null);
   const toast = useToast();
 
-  const { userData, setUserToken } = useContext(UserContext);
+  const { setUserToken } = useContext(UserContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }),
     [];
 
-  useEffect(() => {
-    if (userData) {
-      navigate("/users/me");
-    }
-  }, [userData, navigate]);
+  const handleRecaptcha = useCallback((token) => {
+    setCaptchaToken(token);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!captchaToken) {
+      toast({
+        title: "Vérification captcha échouée",
+        description: "Réessayez ultérieurement",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
 
     try {
       const token = await login(email, password);
@@ -53,6 +66,7 @@ export default function Login() {
           duration: 3000,
           isClosable: true,
         });
+        navigate("/");
       }
     } catch (error) {
       toast({
@@ -67,89 +81,142 @@ export default function Login() {
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100vw",
-        minHeight: "calc(100vh - 7.5vh)",
-        overflow: "auto",
-      }}
-    >
-      <Stack
-        display="flex"
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        mt="1em"
+    <GoogleReCaptchaProvider reCaptchaKey={import.meta.env.VITE_RECAPTCHA_KEY}>
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
+          minHeight: "calc(100vh - 7.5vh)",
+          overflow: "auto",
+        }}
       >
-        <Image
-          src={ButtonIconLogo}
-          alt="Logo triangulaire rouge"
-          boxSize="18px"
-        />
-        <Text
-          align="center"
-          textColor="brand.500"
-          fontSize={{ base: "md", md: "lg" }}
-        >
-          DE RETOUR? CONNECTEZ-VOUS
-        </Text>
-      </Stack>
-      <VStack w="80%" mt="4em" mx="auto" spacing={8}>
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "1em",
-          }}
-        >
-          <FormControl id="email" isRequired borderColor="#314095" w="80%">
-            <FormLabel fontWeight="400">E-mail</FormLabel>
-            <Input
-              autoComplete="email"
-              name="email"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FormControl>
-          <FormControl id="password" isRequired borderColor="#314095" w="80%">
-            <FormLabel fontWeight="400">Mot de passe</FormLabel>
-            <Input
-              autoComplete="current-password"
-              name="password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </FormControl>
-          <Button
-            colorScheme="red"
-            variant="outline"
-            type="submit"
-            mt="1em"
-            w={{ sm: "40%", md: "20%" }}
-            fontWeight="500"
+        <VStack w={{ base: "90%", md: "50%" }} mt="4em" mx="auto" spacing={8}>
+          <Box
+            as="form"
+            pt="2em"
+            pr={{ base: "0", md: "9em" }}
+            pb="3em"
+            pl={{ base: "0", md: "9em" }}
+            bgColor="#f4f9fb"
+            borderRadius="lg"
+            h="100%"
+            w="100%"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            gap={{ base: "1.25em", md: "1.5em" }}
+            onSubmit={handleSubmit}
           >
-            CONNEXION
-          </Button>
-        </form>
-        <Text>
-          Pas encore inscrit?{" "}
-          <ChakraLink
-            as={ReactRouterLink}
-            to="/register"
-            color="brand.500"
-            _hover={{ textDecoration: "none", textColor: "brand.700" }}
-            fontWeight="400"
-          >
-            C&apos;est par ici
-          </ChakraLink>
-        </Text>
-      </VStack>
-    </div>
+            <Stack
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              w={{ base: "80%", md: "70%" }}
+            >
+              <Text
+                align="center"
+                textTransform="uppercase"
+                fontSize="xl"
+                fontWeight="700"
+              >
+                me connecter
+              </Text>
+            </Stack>
+            <FormControl
+              id="email"
+              isRequired
+              position="relative"
+              w={{ base: "90%", md: "100%" }}
+              borderRadius="lg"
+              bgColor="white"
+            >
+              <FormLabel
+                position="absolute"
+                left="1em"
+                top={email ? "-35%" : "15%"}
+                transition="all .1s linear"
+                boxSizing="border-box"
+                padding="0.1em"
+                bgColor="white"
+                pointerEvents="none"
+                _focus={{ top: "-35%", fontSize: "0.875em" }}
+                zIndex={2}
+                fontWeight="400"
+              >
+                Adresse email
+              </FormLabel>
+              <Input
+                autoComplete="email"
+                border="none"
+                name="email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <FormControl
+              id="password"
+              isRequired
+              position="relative"
+              w={{ base: "90%", md: "100%" }}
+              borderRadius="lg"
+              bgColor="white"
+            >
+              <FormLabel
+                position="absolute"
+                left="1em"
+                top={password ? "-35%" : "15%"}
+                transition="all .1s linear"
+                boxSizing="border-box"
+                padding="0.1em"
+                bgColor="white"
+                pointerEvents="none"
+                _focus={{ top: "-35%", fontSize: "0.875em" }}
+                zIndex={2}
+                fontWeight="400"
+              >
+                Mot de passe
+              </FormLabel>
+              <Input
+                autoComplete="current-password"
+                border="none"
+                name="password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormControl>
+            <GoogleReCaptcha onVerify={handleRecaptcha} />
+            <Button
+              colorScheme="brand"
+              mt={{ base: "0.5em", md: "1em" }}
+              type="submit"
+              fontWeight="400"
+              gap={4}
+              p="1.5em"
+            >
+              <Image
+                boxSize={4}
+                src={WhiteButtonIconLogo}
+                alt="Logo triangulaire blanc"
+              />
+              CONNEXION
+            </Button>
+          </Box>
+          <Text>
+            Nouveau?{" "}
+            <ChakraLink
+              as={ReactRouterLink}
+              to="/register"
+              color="brand.500"
+              _hover={{ textDecoration: "none", textColor: "brand.700" }}
+              fontWeight="400"
+            >
+              Créer un compte
+            </ChakraLink>
+          </Text>
+        </VStack>
+      </div>
+    </GoogleReCaptchaProvider>
   );
 }

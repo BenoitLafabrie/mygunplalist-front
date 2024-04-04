@@ -563,7 +563,7 @@ export default function KitPage() {
           Obtenez le {item.name} dans notre boutique Rise Of Gunpla :
         </Text>
         <Box
-          w={{ base: "100%", md: "50%" }}
+          w={{ base: "100%", md: "60%" }}
           display="flex"
           flexDir={{ base: "column", md: "row" }}
           alignItems="center"

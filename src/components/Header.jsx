@@ -1,43 +1,42 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
   Flex,
-  HStack,
   Image,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
 
-import { Search2Icon } from "@chakra-ui/icons";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useContext } from "react";
-import { BiLogOut } from "react-icons/bi";
-import { HiOutlineUser } from "react-icons/hi";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import {
+  BiSearch,
+  BiCollection,
+  BiHeart,
+  BiBarcodeReader,
+  BiUser,
+  BiPowerOff,
+} from "react-icons/bi";
+import { GrUserAdmin } from "react-icons/gr";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 import { UserContext } from "../context/User";
 
 export default function Header() {
+  const navigate = useNavigate();
   const toast = useToast();
   const { userData, setUserData, setUserToken } = useContext(UserContext);
-  const navigate = useNavigate();
+  console.log(userData);
 
   const handleLogout = () => {
     setUserToken("");
     setUserData(null);
     localStorage.removeItem("userToken");
-
+    navigate("/");
     toast({
       title: "Déconnexion réussie",
       description: "Vous avez été déconnecté :(",
@@ -60,7 +59,7 @@ export default function Header() {
         content: '""',
         position: "absolute",
         width: "70px",
-        height: { base: "37px", md: "39px" },
+        height: { base: "37px", md: "38px" },
         top: "65",
         left: "0",
         bottom: "0",
@@ -73,7 +72,7 @@ export default function Header() {
         content: '""',
         position: "absolute",
         width: "70px",
-        height: { base: "37px", md: "39px" },
+        height: { base: "37px", md: "38px" },
         top: "65",
         right: "0",
         bottom: "0",
@@ -117,7 +116,7 @@ export default function Header() {
       </Box>
       <Flex
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="space-around"
         mx="auto"
         display={{ base: "none", md: "flex" }}
         bgColor="brand.500"
@@ -129,85 +128,93 @@ export default function Header() {
           gap={2}
           maxW="400px"
         >
-          <Image
-            src={MyGunplaListLogo}
-            alt="Logo MyGunplaList"
-            boxSize="7.5%"
-            ml="1em"
-          />
-          <Image src={BrandLogo} alt="Logo texte : MyGunplaList" />
+          <Stack
+            display="flex"
+            flexDir="row"
+            alignItems="center"
+            gap={2}
+            maxH="60px"
+            pt="0.5em"
+          >
+            <Image src={MyGunplaListLogo} alt="Logo MyGunplaList" maxH="50px" />
+            <Image
+              src={BrandLogo}
+              alt="Logo texte : MyGunplaList"
+              maxH="20px"
+            />
+          </Stack>
         </ChakraLink>
-        <ButtonGroup spacing={3} variant="ghost" size="md" gap="1em">
-          <ChakraLink as={ReactRouterLink} to="/admin">
+        <ButtonGroup spacing={3} variant="ghost" size="xs" pt="0.5em">
+          {userData?.role === "admin" && (
+            <ChakraLink as={ReactRouterLink} to="/admin">
+              <Button
+                color="white"
+                leftIcon={<GrUserAdmin size={20} />}
+                fontWeight="400"
+                _hover={{ bg: "transparent", border: "none" }}
+              >
+                ADMIN
+              </Button>
+            </ChakraLink>
+          )}
+          <ChakraLink as={ReactRouterLink} to="/search">
             <Button
               color="white"
-              _hover={{ bg: "#314095" }}
+              leftIcon={<BiSearch size={20} />}
               fontWeight="400"
-              isDisabled={userData?.role !== "admin"}
+              _hover={{ bg: "transparent", border: "none" }}
             >
-              Dashboard
-            </Button>
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/add_kit">
-            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
-              Ajouter
+              RECHERCHER
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/collection">
-            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
-              Collection
+            <Button
+              color="white"
+              leftIcon={<BiCollection size={20} />}
+              fontWeight="400"
+              _hover={{ bg: "transparent", border: "none" }}
+            >
+              COLLECTION
             </Button>
           </ChakraLink>
           <ChakraLink as={ReactRouterLink} to="/wishlist">
-            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
-              Wishlist
+            <Button
+              color="white"
+              leftIcon={<BiHeart size={20} />}
+              fontWeight="400"
+              _hover={{ bg: "transparent", border: "none" }}
+            >
+              WISHLIST
             </Button>
           </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/search">
-            <Button color="white" _hover={{ bg: "#314095" }} fontWeight="400">
-              Recherche
+          <ChakraLink as={ReactRouterLink} to="/add_kit">
+            <Button
+              color="white"
+              leftIcon={<BiBarcodeReader size={20} />}
+              fontWeight="400"
+              _hover={{ bg: "transparent", border: "none" }}
+            >
+              AJOUTER
             </Button>
           </ChakraLink>
+          <ChakraLink as={ReactRouterLink} to="/users/me">
+            <Button
+              color="white"
+              leftIcon={<BiUser size={20} />}
+              fontWeight="400"
+              _hover={{ bg: "transparent", border: "none" }}
+            >
+              PROFIL
+            </Button>
+          </ChakraLink>
+          <Button
+            color="white"
+            leftIcon={<BiPowerOff size={20} />}
+            fontWeight="400"
+            _hover={{ bg: "transparent", border: "none" }}
+            onClick={handleLogout}
+          />
         </ButtonGroup>
-        <HStack spacing={3} display="flex" alignItems="center" py="0.5em">
-          <InputGroup display="none">
-            <InputLeftElement pointerEvents="none">
-              <Search2Icon color="white" />
-            </InputLeftElement>
-            <Input
-              placeholder="Recherche..."
-              sx={{ "::placeholder": { color: "white" } }}
-            />
-          </InputGroup>
-          <Menu>
-            <MenuButton>
-              <Avatar
-                size="md"
-                name={`${userData?.firstname} ${userData?.lastname}`}
-                mr="1em"
-                fontWeight="400"
-                border="none"
-              />
-            </MenuButton>
-            <MenuList>
-              <MenuItem
-                icon={<HiOutlineUser />}
-                onClick={() => navigate("/users/me")}
-                fontWeight="400"
-              >
-                Profil
-              </MenuItem>
-              <MenuItem
-                icon={<BiLogOut />}
-                textColor="brand.500"
-                onClick={handleLogout}
-                fontWeight="400"
-              >
-                Déconnexion
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </HStack>
       </Flex>
     </Box>
   );

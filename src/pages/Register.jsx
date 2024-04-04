@@ -17,9 +17,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { createCollection } from "../api/myGunplaList";
-import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import WhiteButtonIconLogo from "../assets/icons/whiteButtonIconLogo.svg";
 
 export default function Register() {
@@ -91,7 +91,7 @@ export default function Register() {
         await createCollection();
 
         if (response.ok) {
-          navigate("/users/me");
+          navigate("/");
         } else {
           console.error("Error creating collection");
         }

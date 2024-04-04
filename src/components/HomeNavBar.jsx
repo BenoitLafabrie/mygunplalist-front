@@ -21,7 +21,7 @@ export default function HomeNavBar() {
       backgroundColor="white"
       display={{ base: "none", md: "flex" }}
     >
-      <ButtonGroup spacing={3} variant="ghost" size="sm" gap="1em">
+      <ButtonGroup spacing={10} variant="ghost" size="sm">
         <ChakraLink as={ReactRouterLink} to="/search">
           <Button
             color="brand.500"
