@@ -30,7 +30,6 @@ export default function Header() {
   const navigate = useNavigate();
   const toast = useToast();
   const { userData, setUserData, setUserToken } = useContext(UserContext);
-  console.log(userData);
 
   const handleLogout = () => {
     setUserToken("");

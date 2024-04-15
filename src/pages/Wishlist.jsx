@@ -37,7 +37,6 @@ export default function Wishlist() {
   const { userData, userToken, myWishlist, setMyWishlist, isLoading } =
     useContext(UserContext);
   const toast = useToast();
-  console.log(myWishlist);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

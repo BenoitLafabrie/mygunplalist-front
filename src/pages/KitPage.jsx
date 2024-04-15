@@ -221,7 +221,7 @@ export default function KitPage() {
                   src={image.image_path}
                   alt={`Image ${index + 1} du ${item.name}`}
                   borderRadius="lg"
-                  objectFit="cover"
+                  objectFit="contain"
                   objectPosition="center"
                   width="100%"
                   height="100%"
