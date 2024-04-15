@@ -27,6 +27,7 @@ import {
   Tr,
   VStack,
   useToast,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
@@ -46,7 +47,7 @@ export default function Collection() {
     setStatusUpdated,
   } = useContext(UserContext);
   const toast = useToast();
-  console.log(myGunplaList);
+  const iconSize = useBreakpointValue({ base: "20px", md: "24px" });
 
   const handleStatusChange = async (item, newStatus, showToast = true) => {
     try {
@@ -54,16 +55,14 @@ export default function Collection() {
 
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
-      // Create a deep copy of myGunplaList.Items
+
       const newItems = JSON.parse(JSON.stringify(myGunplaList?.Items));
-      // Find the item with the given id and update its status
       const itemIndex = newItems?.findIndex((i) => i.id === item.id);
 
       if (itemIndex !== -1) {
         newItems[itemIndex].Item_status.status = newStatus;
       }
 
-      // Update myGunplaList.Items with the new array
       setMyGunplaList({ ...myGunplaList, Items: newItems });
 
       if (showToast) {
@@ -110,14 +109,11 @@ export default function Collection() {
 
   const handleDelete = async () => {
     try {
-      // Pass all the selected ids at once
       await deleteGunplalistItems(
         selectedRows,
         userToken,
         myGunplaList.mygunplalist_id
       );
-
-      // Remove the deleted items from the local state
       const newItems = currentItems.filter(
         (item) => !selectedRows.includes(item.item_id)
       );
@@ -228,7 +224,7 @@ export default function Collection() {
           gap={3}
         >
           <ChakraLink
-            w="55%"
+            w={{ base: "55%", md: "50%" }}
             as={ReactRouterLink}
             to={"/add_kit"}
             _hover={{ textDecoration: "none" }}
@@ -240,13 +236,13 @@ export default function Collection() {
               justifyContent="center"
               bgColor="brand.500"
               borderRadius="8"
-              p="0.25em"
+              p={{ base: "0.25em", md: "0.5em" }}
             >
-              <BiBarcodeReader size={20} color="white" />
+              <BiBarcodeReader size={iconSize} color="white" />
               <Text
                 textTransform="uppercase"
                 textColor="white"
-                fontSize="sm"
+                fontSize={{ base: "sm", md: "md" }}
                 fontWeight="400"
                 textAlign="center"
               >
@@ -255,7 +251,7 @@ export default function Collection() {
             </Stack>
           </ChakraLink>
           <ChakraLink
-            w="45%"
+            w={{ base: "45%", md: "50%" }}
             as={ReactRouterLink}
             to={"/collection"}
             _hover={{ textDecoration: "none" }}
@@ -264,16 +260,16 @@ export default function Collection() {
               display="flex"
               flexDirection="row"
               alignItems="center"
-              justifyContent="space-around"
+              justifyContent={{ base: "space-around", md: "center" }}
               bgColor="brand.100"
               borderRadius="8"
-              p="0.35em"
+              p={{ base: "0.35em", md: "0.6em" }}
             >
-              <BiSolidShareAlt size={20} color="gray" />
+              <BiSolidShareAlt size={iconSize} color="gray" />
               <Text
                 textTransform="uppercase"
                 textColor="gray"
-                fontSize="sm"
+                fontSize={{ base: "sm", md: "md" }}
                 fontWeight="400"
                 textAlign="center"
               >
@@ -289,8 +285,12 @@ export default function Collection() {
           alignItems="center"
           justifyContent="space-around"
           py="1em"
+          borderRadius="lg"
         >
-          <HStack justifyContent="center">
+          <HStack
+            justifyContent={{ base: "center", md: "space-evenly" }}
+            w="100%"
+          >
             <VStack gap={1}>
               <Text fontSize="sm" color="brand.500" fontWeight="600">
                 {totalKits}
@@ -325,18 +325,19 @@ export default function Collection() {
                     <HStack spacing={1.5} my="1em">
                       <Box w="4" h="4" borderRadius="2" bg="#005778" />
                       <Text fontSize="xs" fontWeight="400">
-                        Hangar
+                        En boîte
                       </Text>
                       <Box w="4" h="4" borderRadius="2" bg="#FF9300" />
                       <Text fontSize="xs" fontWeight="400">
-                        Assemblage
+                        En cours
                       </Text>
                       <Box w="4" h="4" borderRadius="2" bg="#A4DD70" />
                       <Text fontSize="xs" fontWeight="400">
-                        Déployé
+                        Terminé
                       </Text>
                       <Select
                         width={{ base: "135px", md: "160px" }}
+                        borderRadius="md"
                         value={selectValue}
                         placeholder="Modifier le statut"
                         colorScheme="brand"
@@ -355,9 +356,9 @@ export default function Collection() {
                           setSelectValue("");
                         }}
                       >
-                        <option value="Garage">Hangar</option>
-                        <option value="Assembling">Assemblage</option>
-                        <option value="Deployed">Déployé</option>
+                        <option value="Garage">En boîte</option>
+                        <option value="Assembling">En cours</option>
+                        <option value="Deployed">Terminé</option>
                       </Select>
                       <Button
                         size={{ base: "xs", md: "sm" }}

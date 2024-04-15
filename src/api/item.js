@@ -15,6 +15,58 @@ const addToCollection = async (email, password) => {
   return token;
 };
 
+const addItem = async (item, token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(item),
+  });
+  const response = await request.json();
+  return response.item_id;
+};
+
+const addItemProps = async (item_id, itemProps, token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits-props`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ ...itemProps, item_id }),
+  });
+  const response = await request.json();
+  return response;
+};
+
+const addItemImages = async (item_id, itemImages, token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits-images`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ ...itemImages, item_id }),
+  });
+  const response = await request.json();
+  return response;
+};
+
+const updateItems = async (items, token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(items),
+  });
+  const response = await request.json();
+  return response;
+};
+
 const getAllItems = async (token) => {
   const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits`, {
     headers: {
@@ -48,8 +100,26 @@ const getItemById = async (id, token) => {
   return response;
 };
 
+const deleteItems = async (ids, token) => {
+  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ item_ids: ids }),
+  });
+  if (request.headers.get("Content-Type").includes("application/json")) {
+    const response = await request.json();
+    return response;
+  } else {
+    const response = await request.text();
+    return response;
+  }
+};
+
 const deleteGunplalistItems = async (ids, token, mygunplalist_id) => {
-  const response = await fetch(
+  const request = await fetch(
     `${import.meta.env.VITE_APP_URL}/kits/gunplalist/${mygunplalist_id}/items`,
     {
       method: "DELETE",
@@ -60,15 +130,12 @@ const deleteGunplalistItems = async (ids, token, mygunplalist_id) => {
       body: JSON.stringify({ item_ids: ids }),
     }
   );
-
-  // Convert the response to JSON
-  const jsonResponse = await response.json();
-
-  return jsonResponse;
+  const response = await request.json();
+  return response;
 };
 
 const deleteWishlistItems = async (ids, token, wishlist_id) => {
-  const response = await fetch(
+  const request = await fetch(
     `${import.meta.env.VITE_APP_URL}/kits/wishlist/${wishlist_id}/items`,
     {
       method: "DELETE",
@@ -79,18 +146,20 @@ const deleteWishlistItems = async (ids, token, wishlist_id) => {
       body: JSON.stringify({ item_ids: ids }),
     }
   );
-
-  // Convert the response to JSON
-  const jsonResponse = await response.json();
-
-  return jsonResponse;
+  const response = await request.json();
+  return response;
 };
 
 export {
   addToCollection,
+  addItem,
+  addItemProps,
+  addItemImages,
   getAllItems,
   getItemById,
   getLatestItems,
+  deleteItems,
   deleteGunplalistItems,
   deleteWishlistItems,
+  updateItems,
 };

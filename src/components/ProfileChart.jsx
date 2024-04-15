@@ -21,9 +21,9 @@ const ProfileChart = () => {
 
     // Create a mapping object for the status names
     const statusNameMapping = {
-      Garage: "Hangar",
-      Assembling: "Assemblage",
-      Deployed: "Déployé",
+      Garage: "En boîte",
+      Assembling: "En cours",
+      Deployed: "Terminé",
     };
     const statusColorMapping = {
       Garage: "#005778",
