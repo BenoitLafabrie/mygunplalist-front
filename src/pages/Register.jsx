@@ -176,6 +176,25 @@ export default function Register() {
               créer un compte mygunplalist
             </Text>
           </Stack>
+          <Stack
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            w={{ base: "80%", md: "130%" }}
+          >
+            <Text
+              textColor="orange"
+              align="center"
+              textTransform="uppercase"
+              fontSize="md"
+              fontWeight="700"
+            >
+              avertissement : la réinitialisation du mot de passe n&apos;étant
+              pas encore implémentée, veuillez ne pas oublier votre mot de
+              passe.
+            </Text>
+          </Stack>
           <FormControl
             id="email"
             isRequired
