@@ -18,6 +18,8 @@ import Search from "./pages/Search.jsx";
 import TermsOfUse from "./pages/TermsOfUse.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import theme from "./theme.js";
+import ForgottenPassword from "./pages/ForgottenPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,8 @@ const router = createBrowserRouter([
       { path: "/error", element: <ErrorPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { path: "/forgotten-password", element: <ForgottenPassword /> },
+      { path: "/reset-password", element: <ResetPassword /> },
       { path: "/about", element: <About /> },
       { path: "/terms-of-use", element: <TermsOfUse /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },

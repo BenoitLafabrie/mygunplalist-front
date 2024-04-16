@@ -186,6 +186,15 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
+            {/* <ChakraLink
+              as={ReactRouterLink}
+              to="/reset-password"
+              color="brand.500"
+              _hover={{ textDecoration: "none", textColor: "brand.700" }}
+              fontWeight="400"
+            >
+              Mot de passe oublié ?
+            </ChakraLink> */}
             <GoogleReCaptcha onVerify={handleRecaptcha} />
             <Button
               colorScheme="brand"

@@ -254,6 +254,12 @@ export default function Footer() {
           </Box>
         </Box>
       </Box>
+      <Stack w="100%" display="flex" alignContent="center" pb="0.5em">
+        <Text fontSize="sm" textColor="white" textAlign="center">
+          Un problème sur le site? Contactez-nous à{" "}
+          <a href="mailto:contact@mygunplalist.com">contact@mygunplalist.com</a>
+        </Text>
+      </Stack>
     </Box>
   );
 }
