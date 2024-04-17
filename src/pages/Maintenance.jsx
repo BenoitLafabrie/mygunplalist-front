@@ -50,7 +50,7 @@ export default function Maintenance() {
             textTransform="uppercase"
             fontWeight="700"
           >
-            En maintenance, avec toutes nos excuses.
+            En maintenance suite à un problème de déploiement.
           </Text>
           <Text
             textColor="white"
