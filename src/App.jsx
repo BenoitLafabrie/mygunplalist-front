@@ -20,8 +20,10 @@ import Wishlist from "./pages/Wishlist.jsx";
 import theme from "./theme.js";
 import ForgottenPassword from "./pages/ForgottenPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import Maintenance from "./pages/Maintenance.jsx";
 
 const router = createBrowserRouter([
+  { path: "/maintenance", element: <Maintenance /> },
   {
     path: "/",
     element: <Root />,
