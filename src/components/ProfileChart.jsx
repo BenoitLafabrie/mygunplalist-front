@@ -14,7 +14,7 @@ const ProfileChart = () => {
 
     // Create an object to count the number of items for each status
     const statusCounts = myGunplaList.Items.reduce((counts, item) => {
-      const status = item.Item_status.status;
+      const status = item.Item_status[0].status;
       counts[status] = (counts[status] || 0) + 1;
       return counts;
     }, {});

@@ -26,7 +26,6 @@ import { BiBarcodeReader } from "react-icons/bi";
 
 export default function Search() {
   const { userData, userToken, isLoading } = useContext(UserContext);
-
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [search, setSearch] = useState("");
@@ -35,21 +34,20 @@ export default function Search() {
   const [sortType, setSortType] = useState("name");
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const fetchAllItems = async () => {
-    const allItems = await getAllItems();
-    if (allItems) {
-      setItems(allItems);
-    }
-  };
-
-  // Fetch the items when the component mounts
   useEffect(() => {
+    const fetchAllItems = async () => {
+      const allItems = await getAllItems(userToken);
+      if (allItems) {
+        setItems(allItems);
+      }
+    };
+
     try {
       fetchAllItems();
     } catch (error) {
       console.error("Erreur:", error);
     }
-  }, []);
+  }, [userToken]);
 
   const filterFunction = () => {
     if (sortType === "name") {

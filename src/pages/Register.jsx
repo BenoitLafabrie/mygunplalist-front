@@ -87,12 +87,10 @@ export default function Register() {
           duration: 3000,
           isClosable: true,
         });
-        console.log("User created:", userData);
+        navigate("/");
         await createCollection();
 
-        if (response.ok) {
-          navigate("/");
-        } else {
+        if (!response.ok) {
           console.error("Error creating collection");
         }
       } else {
