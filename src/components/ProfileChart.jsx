@@ -13,8 +13,8 @@ const ProfileChart = () => {
     // This function runs whenever `myGunplaList` changes
 
     // Create an object to count the number of items for each status
-    const statusCounts = myGunplaList.Items.reduce((counts, item) => {
-      const status = item.Item_status[0].status;
+    const statusCounts = myGunplaList?.Items?.reduce((counts, item) => {
+      const status = item?.Item_status?.status;
       counts[status] = (counts[status] || 0) + 1;
       return counts;
     }, {});
@@ -29,6 +29,7 @@ const ProfileChart = () => {
       Garage: "#005778",
       Assembling: "#FF9300",
       Deployed: "#A4DD70",
+      undefined: "#FECACA",
     };
 
     // Create three arrays: one for the labels (status names), one for the data (status counts), and one for the colors

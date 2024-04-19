@@ -1,15 +1,23 @@
-const createCollection = async () => {
-  const request = await fetch(`${import.meta.env.VITE_APP_URL}/mygunplalist/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log(request);
+const createCollection = async (token) => {
+  try {
+    const request = await fetch(
+      `${import.meta.env.VITE_APP_URL}/mygunplalist/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ token }),
+      }
+    );
 
-  const response = await request.json();
-  console.log(response);
-  return response;
+    const response = await request.json();
+    return response;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
 };
 
 const getMygunplalistById = async (token, id) => {

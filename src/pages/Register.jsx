@@ -16,10 +16,11 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { createCollection } from "../api/myGunplaList";
+import { UserContext } from "../context/User.jsx";
 import WhiteButtonIconLogo from "../assets/icons/whiteButtonIconLogo.svg";
 
 export default function Register() {
@@ -39,6 +40,7 @@ export default function Register() {
 
   const navigate = useNavigate();
   const toast = useToast();
+  const { setUserToken } = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -80,6 +82,9 @@ export default function Register() {
         body: JSON.stringify(userData),
       });
       if (response.ok) {
+        const data = await response.json();
+        setUserToken(data.token);
+        console.log("User token: ", data.token);
         toast({
           title: "Compte créé",
           description: "Bienvenue!",
@@ -87,23 +92,22 @@ export default function Register() {
           duration: 3000,
           isClosable: true,
         });
-        navigate("/");
-        await createCollection();
+        await createCollection(data.token);
 
-        if (!response.ok) {
+        if (response.ok) {
+          navigate("/");
+        } else {
           console.error("Error creating collection");
         }
       } else {
         console.error("Error creating user. Server response:", response);
 
         try {
-          // Consume the response body as JSON
           const errorDetails = await response.json();
           console.error("Server error details:", errorDetails);
         } catch (jsonError) {
           console.error("Error parsing JSON:", jsonError);
 
-          // If parsing as JSON fails, attempt to read the response body as text
           try {
             const errorText = await response.text();
             console.error("Server error body (text):", errorText);
