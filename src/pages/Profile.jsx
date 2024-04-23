@@ -1,117 +1,142 @@
 import {
   Avatar,
   Box,
-  Card,
-  CardBody,
-  CardFooter,
+  Link as ChakraLink,
   Heading,
-  Image,
   Text,
 } from "@chakra-ui/react";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { KitCard } from "../components/KitCard";
+import Loading from "../components/Loading";
+import LogoutButton from "../components/buttons/LogoutButton";
+import ProfileChart from "../components/ProfileChart";
 import { UserContext } from "../context/User";
-import LogoutButton from "../components/LogoutButton";
 
 export default function Profile() {
   const navigate = useNavigate();
 
-  const { userData, myGunplaList, myWishlist } = useContext(UserContext);
+  const { userData, myGunplaList, myWishlist, isLoading } =
+    useContext(UserContext);
 
-  useEffect(() => {
-    if (!userData) {
-      navigate("/login");
-    }
-  }, [userData, navigate]);
+  if (!userData) {
+    navigate("/login");
+  }
 
   const createdAt = new Date(userData?.createdAt);
   const now = new Date();
   const diffInTime = now.getTime() - createdAt.getTime();
   const diffInDays = Math.floor(diffInTime / (1000 * 60 * 60 * 24));
 
-  if (!userData || !myGunplaList || !myWishlist) {
-    <p>loading</p>;
+  if (
+    !userData ||
+    !myGunplaList ||
+    myGunplaList.length === 0 ||
+    !myWishlist ||
+    myWishlist.length === 0 ||
+    isLoading
+  ) {
+    return <Loading />;
   }
 
   return (
     <Box
-      minH={{ base: "55.7vh", md: "85vh" }}
+      minH={{ base: "55.7%", md: "85%" }}
       display={{ base: "flex", md: "grid" }}
       flexDirection={{ base: "column" }}
       justifyContent={{ base: "center" }}
       alignItems={{ base: "center" }}
       w="100%"
     >
-      <Avatar
-        size="xl"
-        name={`${userData?.firstname} ${userData?.lastname}`}
-        mb="1rem"
-      />
-      <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem">
-        {userData?.username}
-      </Heading>
-      <Text fontSize={{ base: "sm", md: "lg" }} as="em" opacity="50%" mb="1rem">
-        Membre depuis le{" "}
-        {new Date(userData?.createdAt).toLocaleDateString("fr-FR", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}{" "}
-        ({diffInDays} jour(s))
-      </Text>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box
+          position="relative"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          my="1em"
+        >
+          <ProfileChart />
+          <Avatar
+            size="xl"
+            name={
+              userData?.firstname && userData?.lastname
+                ? `${userData?.firstname} ${userData?.lastname}`
+                : "G L"
+            }
+            fontWeight="400"
+            style={{ position: "absolute" }}
+          />
+        </Box>
+        <Heading size={{ base: "lg", md: "xl" }} mb="0.25rem" fontWeight="400">
+          {userData?.username}
+        </Heading>
+        <Text
+          fontSize={{ base: "sm", md: "lg" }}
+          as="em"
+          opacity="50%"
+          mb="2rem"
+        >
+          Membre depuis le{" "}
+          {new Date(userData?.createdAt).toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}{" "}
+          ({diffInDays} jour(s))
+        </Text>
+      </Box>
       <Box
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="flex-end"
-        w="90%"
+        w="100%"
+        px={{ base: "1em", md: "2em" }}
       >
-        <Heading size={{ base: "md", md: "lg" }}>Ma Gunplalist</Heading>
+        <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
+          Ma Gunplalist
+        </Heading>
         <ChakraLink as={ReactRouterLink} to="/collection">
-          <Text casing="uppercase" fontSize="14px" color="brand.500">
+          <Text
+            casing="uppercase"
+            fontSize="14px"
+            color="brand.500"
+            fontWeight="400"
+          >
             tout voir
           </Text>
         </ChakraLink>
       </Box>
-      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1em">
+      <Box
+        display="flex"
+        overflowX="auto"
+        w="100%"
+        gap={4}
+        mr={{ base: "1em", md: "2em" }}
+        px={{ base: "1.5em", md: "2em" }}
+        py="1.5em"
+        sx={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+        }}
+      >
         {myGunplaList?.Items?.map((item) => (
-          <Card
+          <KitCard
             key={item.item_id}
-            minW="150px"
-            minH="150px"
-            transition="transform 0.2s"
-            _hover={{ transform: "scale(1.05)" }}
-          >
-            <CardBody p={0}>
-              <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-                {item.Items_images && item.Items_images.length > 0 ? (
-                  <Image
-                    src={item.Items_images[0].image_path}
-                    alt={item.name}
-                    borderRadius="md"
-                    fit="cover"
-                    h="100%"
-                    w="100%"
-                  />
-                ) : (
-                  <p>Aucune image pour ce gunpla</p>
-                )}
-              </ChakraLink>
-            </CardBody>
-            <CardFooter>
-              <Text
-                fontSize={14}
-                textAlign="center"
-                textOverflow="ellipsis"
-                whiteSpace="nowrap"
-                overflow="hidden"
-              >
-                {item.name}
-              </Text>
-            </CardFooter>
-          </Card>
+            item={item}
+            minW="190px"
+            maxW="200px"
+            maxH="350px"
+          />
         ))}
       </Box>
       <Box
@@ -119,49 +144,51 @@ export default function Profile() {
         flexDirection="row"
         justifyContent="space-between"
         alignItems="flex-end"
-        w="90%"
+        w="100%"
+        px={{ base: "1em", md: "2em" }}
       >
-        <Heading size={{ base: "md", md: "lg" }}>Ma Wishlist</Heading>
+        <Heading size={{ base: "md", md: "lg" }} fontWeight="500">
+          Ma Wishlist
+        </Heading>
         <ChakraLink as={ReactRouterLink} to="/wishlist">
-          <Text casing="uppercase" fontSize="14px" color="brand.500">
+          <Text
+            casing="uppercase"
+            fontSize="14px"
+            color="brand.500"
+            fontWeight="400"
+          >
             tout voir
           </Text>
         </ChakraLink>
       </Box>
-      <Box display="flex" overflowX="auto" w="90%" gap={4} py="1em">
+      <Box
+        display="flex"
+        overflowX="auto"
+        w="100%"
+        gap={4}
+        mr={{ base: "1em", md: "2em" }}
+        px={{ base: "1.5em", md: "2em" }}
+        py="1.5em"
+        mb={{ base: "unset", md: "1.5em" }}
+        sx={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+        }}
+      >
         {myWishlist?.Items?.map((item) => (
-          <Card key={item.item_id} minW="150px" minH="150px">
-            <CardBody p={0}>
-              <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-                {item.Items_images && item.Items_images.length > 0 ? (
-                  <Image
-                    src={item.Items_images[0].image_path}
-                    alt={item.name}
-                    borderRadius="lg"
-                    fit="cover"
-                    h="100%"
-                    w="100%"
-                  />
-                ) : (
-                  <p>Aucune image pour ce gunpla</p>
-                )}
-              </ChakraLink>
-            </CardBody>
-            <CardFooter>
-              <Text
-                fontSize={14}
-                textAlign="center"
-                textOverflow="ellipsis"
-                whiteSpace="nowrap"
-                overflow="hidden"
-              >
-                {item.name}
-              </Text>
-            </CardFooter>
-          </Card>
+          <KitCard
+            key={item.item_id}
+            item={item}
+            minW="190px"
+            maxW="200px"
+            maxH="350px"
+          />
         ))}
       </Box>
-      <LogoutButton />
+      <LogoutButton mb="3em" />
     </Box>
   );
 }

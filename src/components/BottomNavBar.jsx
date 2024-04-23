@@ -1,8 +1,14 @@
-import { Box, Image, List, ListItem } from "@chakra-ui/react";
+import {
+  Box,
+  Link as ChakraLink,
+  Image,
+  List,
+  ListItem,
+  Text,
+} from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import Add_Kit_Icon from "../assets/bottomNavBar/add_kit_icon.svg";
-import Collection_Icon from "../assets/bottomNavBar/Collection_Icon.svg";
+import Collection_Icon from "../assets/bottomNavBar/collection_icon.svg";
 import Profile_Icon from "../assets/bottomNavBar/profile_icon.svg";
 import Search_Icon from "../assets/bottomNavBar/search_icon.svg";
 import Wishlist_Icon from "../assets/bottomNavBar/wishlist_icon.svg";
@@ -13,7 +19,7 @@ export default function BottomNavBar() {
       h="7.5vh"
       w="100%"
       position="fixed"
-      bg="rgba(240, 13, 50, 1)"
+      bg="brand.500"
       mb={0}
       bottom={0}
       boxShadow="0 0 4px #071D26"
@@ -26,7 +32,7 @@ export default function BottomNavBar() {
           justifyContent="space-around"
           w="100%"
           color="white"
-          fontSize="0.75rem"
+          fontSize="0.73em"
         >
           <ChakraLink
             as={ReactRouterLink}
@@ -42,11 +48,11 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Search_Icon}
-                alt="Search icon"
+                alt="Icône Rechercher"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Recherche
+              <Text fontWeight="400">RECHERCHER</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -63,11 +69,11 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Collection_Icon}
-                alt="Collection icon"
+                alt="Icône Collection"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Collection
+              <Text fontWeight="400">COLLECTION</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -84,11 +90,11 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Wishlist_Icon}
-                alt="Wishlist icon"
+                alt="Icône Wishlist"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Wishlist
+              <Text fontWeight="400">WISHLIST</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -105,11 +111,11 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Add_Kit_Icon}
-                alt="Add a kit icon"
+                alt="Icône Ajouter un kit"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Ajouter
+              <Text fontWeight="400">SCANNER</Text>
             </ListItem>
           </ChakraLink>
           <ChakraLink
@@ -126,11 +132,11 @@ export default function BottomNavBar() {
             >
               <Image
                 src={Profile_Icon}
-                alt="Profile icon"
+                alt="Icône Profil"
                 boxSize="24px"
                 marginBottom="0.5em"
               />
-              Profil
+              <Text fontWeight="400">MON PROFIL</Text>
             </ListItem>
           </ChakraLink>
         </Box>

@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { getUserData } from "../api/user";
+import { createContext, useEffect, useState } from "react";
 import { getMygunplalistById } from "../api/myGunplaList";
 import { getWishlistById } from "../api/myWishlist";
+import { getUserData } from "../api/user";
 
 const UserContext = createContext({});
 
@@ -11,12 +11,16 @@ const UserContextProvider = (props) => {
   const [userData, setUserData] = useState(null);
   const [myGunplaList, setMyGunplaList] = useState(null);
   const [myWishlist, setMyWishlist] = useState(null);
+  const [statusUpdated, setStatusUpdated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserData = async (token) => {
+    setIsLoading(true);
     const userData = await getUserData(token);
     if (userData) {
       setUserData(userData);
     }
+    setIsLoading(false);
   };
 
   const fetchMyGunplaList = async (token, id) => {
@@ -47,20 +51,20 @@ const UserContextProvider = (props) => {
 
   useEffect(() => {
     if (userToken) {
-      localStorage.setItem("userToken", userToken);
       fetchUserData(userToken);
     } else {
       setUserData(null);
-      localStorage.setItem("userToken", "");
+      setIsLoading(false);
     }
   }, [userToken]);
 
   useEffect(() => {
-    if (userData) {
+    if (userData && userToken) {
       fetchMyGunplaList(userToken, userData.user_id);
       fetchWishlist(userToken, userData.user_id);
+      setStatusUpdated(false);
     }
-  }, [userToken, userData]);
+  }, [userToken, userData, statusUpdated]);
 
   const value = {
     userData,
@@ -71,6 +75,9 @@ const UserContextProvider = (props) => {
     setMyGunplaList,
     myWishlist,
     setMyWishlist,
+    isLoading,
+    statusUpdated,
+    setStatusUpdated,
   };
 
   return (
@@ -82,4 +89,4 @@ UserContextProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export { UserContextProvider, UserContext };
+export { UserContext, UserContextProvider };

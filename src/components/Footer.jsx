@@ -1,163 +1,265 @@
-import { Box, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Link as ChakraLink, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import { useBreakpointValue } from "@chakra-ui/react";
-import Footer_Background from "../assets/Footer_Background.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
-import Tagline from "../assets/header/Tagline.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
-import FaceBookIcon from "../assets/icons/FaceBookIcon.svg";
-import InstagramIcon from "../assets/icons/InstagramIcon.svg";
-import TwitterIcon from "../assets/icons/TwitterIcon.svg";
-import DiscordIcon from "../assets/icons/DiscordIcon.svg";
+import Tagline from "../assets/header/Tagline.svg";
+import DiscordIcon from "../assets/icons/discordIcon.svg";
+import FaceBookIcon from "../assets/icons/facebookIcon.svg";
+import InstagramIcon from "../assets/icons/instagramIcon.svg";
 import TiktokIcon from "../assets/icons/tiktok_icon.svg";
-import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
+import TwitterIcon from "../assets/icons/twitterIcon.svg";
+import YoutubeIcon from "../assets/icons/youtubeIcon.svg";
 
 export default function Footer() {
-  const bgImage = useBreakpointValue({ base: Footer_Background, md: "none" });
-
   return (
     <Box
+      as="footer"
       display={{ base: "grid", md: "flex" }}
       w="100%"
-      h={{ base: "28%", md: "14%" }}
+      h={{ base: "28%", md: "25%" }}
       flexDirection={{ md: "column" }}
       position={{ md: "relative" }}
       bottom={{ base: "0", md: "unset" }}
       mb={{ base: "7.5vh", md: "unset" }}
-      pb={{ base: "unset", md: "0.5em" }}
+      pb={{ md: "0.5em" }}
       alignItems={{ base: "center", md: "start" }}
-      alignContent={{ base: "unset", md: "start" }}
-      backgroundImage={bgImage}
-      bgColor={{ base: "transparent", md: "brand.500" }}
+      alignContent={{ md: "start" }}
+      backgroundColor="brand.500"
       zIndex={2}
       justifyContent={{ base: "normal", md: "center" }}
     >
       <Box
-        w={{ base: "80%", md: "100%" }}
+        as="footer-gradient-div"
+        bgColor="white"
+        position="relative"
+        bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
+      />
+      <Box
+        w="100%"
+        position="relative"
+        bgColor="white"
         display="flex"
         justifySelf="center"
-        px={{ base: "unset", md: "1em" }}
-        mt={{ base: "unset", md: "0.5em" }}
-        mb={{ base: "auto", md: "0.5em" }}
-        justifyContent={{ base: "unset", md: "center" }}
+        px={{ md: "1em" }}
+        mb={{ base: "0.75em" }}
+        justifyContent={{ md: "center" }}
+        _before={{
+          backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
+          bgSize: "100% 38px, 100% 76px",
+          bgRepeat: "no-repeat",
+          content: '""',
+          position: "absolute",
+          width: "70px",
+          height: { base: "38px", md: "39px" },
+          left: "0",
+          bottom: "-1px",
+          transform: "scaleX(-1)",
+        }}
+        _after={{
+          backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
+          bgSize: "100% 38px, 100% 76px",
+          bgRepeat: "no-repeat",
+          content: '""',
+          position: "absolute",
+          width: "70px",
+          height: { base: "38px", md: "39px" },
+          right: "0",
+          bottom: "-1px",
+        }}
       >
         <Text
-          fontSize="60%"
-          fontWeight={{ base: "normal", md: "bold" }}
+          px={{ base: "1.75rem" }}
+          pb={{ base: "0.5em" }}
+          fontSize={{ base: "60%", md: "85%" }}
+          fontWeight="400"
           align="center"
-          textColor={{ base: "auto", md: "white" }}
+          zIndex={1}
         >
-          Les Logos, produits et noms de sociétés mentionnnés sont la propriété
+          Les logos, produits et noms de sociétés mentionnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024
         </Text>
       </Box>
       <Box
-        display={{ base: "flex", md: "none" }}
-        justifyContent="center"
-        alignItems="center"
-        flexWrap={{ base: "wrap" }}
-        h="70%"
-      >
-        <Image src={MyGunplaListLogo} w="20%" h="100%" />
-        <Box display="flex" flexDirection="column" h="50%" w="70%">
-          <Image src={BrandLogo} pb="0.25em" />
-          <Image src={Tagline} />
-        </Box>
-      </Box>
-      <Box
-        alignContent="center"
-        alignItems="center"
-        justifyItems="center"
-        marginBottom={{ base: "auto", md: "0" }}
-        display={{ base: "grid", md: "flex" }}
-        gridTemplateColumns="1fr 1fr"
-        gridTemplateRows="1fr"
-        w={{ base: "100%", md: "100%" }}
-        justifyContent={{ base: "center", md: "space-around" }}
+        display={{ md: "flex" }}
+        alignItems={{ md: "center" }}
+        justifyContent={{ md: "space-between" }}
+        w={{ md: "100%" }}
       >
         <Box
           display="flex"
-          px={{ base: "unset", md: "1em" }}
-          flexDirection={{ base: "column", md: "row" }}
-          gap={{ base: "0.5em", md: "1.5em" }}
-          fontSize={{ base: "85%", md: "90%" }}
-          textColor="white"
-          fontWeight="bold"
+          justifyContent={{ base: "space-evenly", md: "center" }}
+          alignItems="center"
+          flexWrap={{ base: "wrap" }}
+          h="70%"
+          gap={{ md: "0.5em" }}
+          my={{ base: "1em" }}
+          order={{ md: "2" }}
+          flexGrow={{ md: 1 }}
         >
-          <ChakraLink as={ReactRouterLink} to="/about">
-            À propos
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/terms-of-use">
-            Conditions d&apos;utilisation
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/privacy-policy">
-            Politique de confidentialité
-          </ChakraLink>
-        </Box>
-        <Stack display={{ base: "grid", md: "flex" }} flexDirection="row">
-          <Box display={{ base: "none", md: "flex" }} px="1em">
-            <Text textColor="white" fontWeight="bold">
-              Retrouvez-nous sur les réseaux sociaux :
-            </Text>
-          </Box>
+          <Image
+            src={MyGunplaListLogo}
+            alt="Logo MyGunplaList"
+            w={{ base: "18%", md: "10%" }}
+            h={{ base: "100%", md: "80%" }}
+          />
           <Box
             display="flex"
-            flexDirection="row"
-            flexWrap={{ base: "wrap" }}
-            justifyContent={{ base: "center" }}
-            alignItems={{ base: "center" }}
-            px={{ base: "0", md: "1em" }}
-            gap={{ base: "1.25em", md: "1.5em" }}
+            flexDirection="column"
+            h={{ base: "50%", md: "80%" }}
+            w={{ base: "70%", md: "60%" }}
           >
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.facebook.com/riseofgunpla"
-            >
-              <Image src={FaceBookIcon} boxSize={{ base: "32px" }} />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.instagram.com/riseofgunpla"
-            >
-              <Image
-                src={InstagramIcon}
-                mt="0.1em"
-                boxSize={{ base: "32px" }}
-              />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://twitter.com/Riseofgunpla"
-            >
-              <Image
-                src={TwitterIcon}
-                mt={{ base: "0", md: "0.25em" }}
-                boxSize={{ base: "32px" }}
-              />
-            </ChakraLink>
-            <ChakraLink as={ReactRouterLink} to="https://discord.gg/J2VYmbd">
-              <Image src={DiscordIcon} boxSize={{ base: "32px" }} />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.tiktok.com/@riseofgunpla"
-            >
-              <Image src={TiktokIcon} boxSize={{ base: "32px" }} />
-            </ChakraLink>
-            <ChakraLink
-              as={ReactRouterLink}
-              to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
-            >
-              <Image
-                src={YoutubeIcon}
-                mt={{ base: "0", md: "0.25em" }}
-                boxSize={{ base: "32px" }}
-              />
-            </ChakraLink>
+            <Image
+              src={BrandLogo}
+              alt="Logo texte : MyGunplaList"
+              pb="0.25em"
+            />
+            <Image
+              src={Tagline}
+              alt="Logo texte : Backlog & Collection showcase by Rise Of Gunpla"
+            />
           </Box>
-        </Stack>
+        </Box>
+        <Box
+          alignContent="center"
+          alignItems="center"
+          justifyItems="stretch"
+          ml={{ md: "2em" }}
+          mb={{ base: "auto", md: "0" }}
+          display={{ base: "grid", md: "grid" }}
+          gridTemplateColumns={{ base: "2fr", md: "1fr" }}
+          gridTemplateRows="1fr"
+          w="100%"
+          order={{ md: "1" }}
+        >
+          <Box
+            display={{ base: "grid", md: "grid" }}
+            justifyContent={{ base: "center", md: "space-between" }}
+            justifyItems={{ md: "stretch" }}
+            alignItems={{ base: "center" }}
+            gridTemplateColumns="1fr 1fr"
+            pb={{ base: "0.5em" }}
+          >
+            <Box
+              display="flex"
+              px={{ md: "1em" }}
+              pl={{ base: "0.5em" }}
+              flexDirection="column"
+              gap={{ base: "0.75em", md: "0" }}
+              fontSize={{ base: "85%", md: "90%" }}
+              textColor="white"
+            >
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/about"
+                _hover={{ textDecoration: "none", textColor: "white" }}
+              >
+                <Text fontWeight="400">À propos</Text>
+              </ChakraLink>
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/terms-of-use"
+                _hover={{ textDecoration: "none", textColor: "white" }}
+              >
+                <Text fontWeight="400">Conditions d&apos;utilisation</Text>
+              </ChakraLink>
+              <ChakraLink
+                as={ReactRouterLink}
+                to="/privacy-policy"
+                _hover={{ textDecoration: "none", textColor: "white" }}
+              >
+                <Text fontWeight="400">Politique de confidentialité</Text>
+              </ChakraLink>
+            </Box>
+            <Stack
+              display={{ base: "grid", md: "flex" }}
+              flexDirection={{ md: "row" }}
+              gridTemplateColumns="1fr"
+              gridTemplateRows="2fr"
+            >
+              <Box
+                display="flex"
+                flexDirection={{ md: "row" }}
+                flexWrap={{ base: "wrap", md: "nowrap" }}
+                justifyContent={{ base: "center" }}
+                alignItems={{ base: "baseline" }}
+                px={{ base: "0", md: "1em" }}
+                gap={{ base: "1.5em", md: "1.5em" }}
+                pb={{ base: "auto" }}
+              >
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.facebook.com/riseofgunpla"
+                >
+                  <Image
+                    src={FaceBookIcon}
+                    alt="Icône FaceBook"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.instagram.com/riseofgunpla"
+                >
+                  <Image
+                    src={InstagramIcon}
+                    alt="Icône Instagram"
+                    mt="0.1em"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://twitter.com/Riseofgunpla"
+                >
+                  <Image
+                    src={TwitterIcon}
+                    alt="Icône Twitter"
+                    mt={{ base: "0", md: "0.25em" }}
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://discord.gg/J2VYmbd"
+                >
+                  <Image
+                    src={DiscordIcon}
+                    alt="Icône Discord"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.tiktok.com/@riseofgunpla"
+                >
+                  <Image
+                    src={TiktokIcon}
+                    alt="Icône TikTok"
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
+                >
+                  <Image
+                    src={YoutubeIcon}
+                    alt="Icône YouTube"
+                    mt={{ base: "0", md: "0.25em" }}
+                    boxSize={{ base: "32px" }}
+                  />
+                </ChakraLink>
+              </Box>
+            </Stack>
+          </Box>
+        </Box>
       </Box>
+      <Stack w="100%" display="flex" alignContent="center" pb="0.5em">
+        <Text fontSize="sm" textColor="white" textAlign="center">
+          Un problème sur le site? Contactez-nous à{" "}
+          <a href="mailto:contact@mygunplalist.com">contact@mygunplalist.com</a>
+        </Text>
+      </Stack>
     </Box>
   );
 }

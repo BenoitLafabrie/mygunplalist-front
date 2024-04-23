@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
-import { Button, ButtonGroup, IconButton, Stack } from "@chakra-ui/react";
 import {
   ArrowBackIcon,
   ArrowForwardIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
 } from "@chakra-ui/icons";
+import { Button, ButtonGroup, IconButton, Stack } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
 const Pagination = ({
   totalItems,
@@ -27,7 +27,7 @@ const Pagination = ({
     setCurrentPage((prevPageNumber) => Math.max(prevPageNumber - 1, 1));
   };
   return (
-    <Stack alignItems="center">
+    <Stack alignItems="center" pb="2.5em">
       <ButtonGroup py={4}>
         {currentPage > 1 && (
           <>
@@ -56,7 +56,7 @@ const Pagination = ({
               onClick={() => setCurrentPage(number)}
               disabled={currentPage === number}
               variant="outline"
-              color="#314095"
+              color={currentPage === number ? "brand.500" : "#314095"}
             >
               {number}
             </Button>

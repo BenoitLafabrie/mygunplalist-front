@@ -1,31 +1,40 @@
-import { UserContextProvider } from "./context/User.jsx";
-import Home from "./pages/Home.jsx";
-import Root from "./pages/Root.jsx";
-import Register from "./pages/Register.jsx";
-import Login from "./pages/Login.jsx";
-import Collection from "./pages/Collection.jsx";
-import Profile from "./pages/Profile.jsx";
-import Search from "./pages/Search.jsx";
-import Wishlist from "./pages/Wishlist.jsx";
-import About from "./pages/About.jsx";
-import TermsOfUse from "./pages/TermsOfUse.jsx";
-import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
-import { ColorModeScript } from "@chakra-ui/react";
-import theme from "./theme.js";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import "@fontsource/rubik";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.jsx";
+import { UserContextProvider } from "./context/User.jsx";
+import About from "./pages/About.jsx";
 import AddKit from "./pages/AddKit.jsx";
-import KitPage from "./pages/KitPage.jsx";
 import BackOffice from "./pages/BackOffice.jsx";
+import Collection from "./pages/Collection.jsx";
+import Home from "./pages/Home.jsx";
+import KitPage from "./pages/KitPage.jsx";
+import Login from "./pages/Login.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import Profile from "./pages/Profile.jsx";
+import Register from "./pages/Register.jsx";
+import Root from "./pages/Root.jsx";
+import Search from "./pages/Search.jsx";
+import TermsOfUse from "./pages/TermsOfUse.jsx";
+import Wishlist from "./pages/Wishlist.jsx";
+import theme from "./theme.js";
+import ForgottenPassword from "./pages/ForgottenPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
+import Maintenance from "./pages/Maintenance.jsx";
 
 const router = createBrowserRouter([
+  { path: "/maintenance", element: <Maintenance /> },
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+        errorElement: <ErrorPage />,
+        children: [],
+      },
       { path: "/search", element: <Search /> },
       {
         path: "/collection",
@@ -44,28 +53,22 @@ const router = createBrowserRouter([
       { path: "/error", element: <ErrorPage /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { path: "/forgotten-password", element: <ForgottenPassword /> },
+      { path: "/reset-password", element: <ResetPassword /> },
       { path: "/about", element: <About /> },
       { path: "/terms-of-use", element: <TermsOfUse /> },
       { path: "/privacy-policy", element: <PrivacyPolicy /> },
     ],
   },
-  {
-    path: "/home",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-    children: [],
-  },
 ]);
 function App() {
   return (
-    <>
-      <UserContextProvider>
-        <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <RouterProvider router={router} />
-        </ChakraProvider>
-      </UserContextProvider>
-    </>
+    <UserContextProvider>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </UserContextProvider>
   );
 }
 

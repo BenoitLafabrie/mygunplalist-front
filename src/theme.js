@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import "@fontsource-variable/rubik/wght.css";
 
 //Add color mode config
 const config = {
@@ -9,7 +10,10 @@ const config = {
 //Extend the theme
 const theme = extendTheme({
   config,
-  fonts: { heading: `"Rubik", sans-serif`, body: `"Rubik", sans-serif` },
+  fonts: {
+    heading: `"Rubik Variable", sans-serif`,
+    body: `"Rubik Variable", sans-serif`,
+  },
   colors: {
     brand: {
       100: "#f4f9fb",

@@ -1,88 +1,210 @@
-import { Box, Button, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Link as ChakraLink,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import Home_Header_Background from "../assets/header/Home_Header_Background.svg";
-import Home_Header_ROG from "../assets/header/Home_Header_ROG.svg";
+import BrandLogo from "../assets/header/BrandLogo.svg";
 import Header_Mobile_Logo from "../assets/header/Header_Mobile_Logo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
-import BrandLogo from "../assets/header/BrandLogo.svg";
-import Tagline from "../assets/header/Tagline.svg";
-import ButtonLogo from "./ButtonLogo";
+import ButtonLogo from "../components/buttons/ButtonLogo";
+import WhiteButtonIconLogo from "../components/buttons/WhiteButtonIconLogo";
+import { UserContext } from "../context/User";
+import HomeNavBar from "./HomeNavBar";
 
 export default function HomeHeader() {
+  const [hoveredButton, setHoveredButton] = useState(null);
+  const { userToken } = useContext(UserContext);
+
   return (
     <Box
+      as="header"
       w="100%"
-      h="660px"
+      h={!userToken ? "698px" : "568px"}
       position="sticky"
-      backgroundImage={Home_Header_Background}
+      backgroundColor="brand.500"
+      _before={{
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "38px",
+        left: "0",
+        bottom: !userToken
+          ? { base: "-3px", md: "0px" }
+          : { base: "-10px", md: "-7px" },
+        zIndex: "-1",
+        transform: "scaleX(-1) scaleY(-1)",
+      }}
+      _after={{
+        backgroundImage: `url(https://test.mygunplalist.com/images/assets/separator_curve-r.svg)`,
+        bgSize: "100% 38px, 100% 76px",
+        bgRepeat: "no-repeat",
+        content: '""',
+        position: "absolute",
+        width: "70px",
+        height: "39px",
+        right: "0",
+        bottom: !userToken
+          ? { base: "-3px", md: "0px" }
+          : { base: "-10px", md: "-7px" },
+        zIndex: "-1",
+        transform: "scaleY(-1)",
+      }}
     >
-      <ChakraLink
-        as={ReactRouterLink}
-        to="/"
-        _hover={{ textDecoration: "none" }}
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        bottom={{ base: "-1", md: "0" }}
+        right={0}
+        bgGradient="linear-gradient(180deg, brand.500 94.55%, #fff 50%, #fff 100%)"
+        zIndex="-2"
+      />
+      <Box
+        display="flex"
+        px={{ base: "1em", md: "3em" }}
+        py="0.5em"
+        justifyContent="space-between"
+        alignContent="center"
+        alignItems="center"
       >
-        <Box
-          display="flex"
-          py="0.5em"
-          justifyContent="space-around"
-          alignContent="center"
+        <ChakraLink
+          as={ReactRouterLink}
+          to="/"
+          _hover={{ textDecoration: "none" }}
         >
-          <Image src={Header_Mobile_Logo} />
-          <Image src={Home_Header_ROG} />
-        </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          px="2em"
-          pt="1em"
-          justifyContent="center"
+          <Image src={Header_Mobile_Logo} alt="Image du header pour mobile" />
+        </ChakraLink>
+
+        <ChakraLink
+          as={ReactRouterLink}
+          to="https://www.riseofgunpla.com"
+          _hover={{ textDecoration: "none" }}
         >
-          <Image src={MyGunplaListLogo} pb="2em" />
+          <Text color="white" fontWeight="400" fontSize="12px">
+            BY RISEOFGUNPLA.COM
+          </Text>
+        </ChakraLink>
+      </Box>
+
+      <Box
+        display="flex"
+        flexDirection="column"
+        flexWrap="wrap"
+        px="2em"
+        pt="1em"
+        justifyContent="center"
+        alignContent="center"
+      >
+        <Image src={MyGunplaListLogo} alt="Logo MyGunplaList" pb="2em" />
+        <Text
+          color="white"
+          align="center"
+          fontSize="xl"
+          letterSpacing="0.25em"
+          fontWeight="800"
+          mb="0.25em"
+        >
+          BIENVENUE SUR
+        </Text>
+        <Image src={BrandLogo} alt="Logo texte : MyGunplaList" pb="0.25em" />
+        <Box my={{ base: "1.5em", md: "2.5em" }}>
           <Text
             color="white"
             align="center"
-            fontSize="2xl"
-            fontWeight="extra-bold"
-            pb="0.5em"
+            fontSize="sm"
+            fontWeight="300"
+            mt="0.25em"
+            style={{ hyphens: "auto" }}
           >
-            BIENVENUE SUR
+            COMMENCEZ À SUIVRE, PARTAGER ET COMPLÉTER VOTRE COLLECTION DE GUNPLA
           </Text>
-          <Image src={BrandLogo} pb="0.25em" />
-          <Image src={Tagline} pb="1.5em" />
+          <Text
+            color="white"
+            align="center"
+            fontSize="sm"
+            fontWeight="300"
+            mb="0.25em"
+          >
+            AVEC MYGUNPLALIST PAR RISE OF GUNPLA
+          </Text>
         </Box>
-      </ChakraLink>
-      <Box display="flex" h="80px" justifyContent="center" alignItems="center">
-        <ChakraLink
-          as={ReactRouterLink}
-          to="/register"
-          _hover={{ textDecoration: "none" }}
-        >
-          <Button
-            textColor="brand.500"
-            leftIcon={<ButtonLogo />}
-            boxShadow="-1px 0 1px #071D26"
-          >
-            JE M&apos;INSCRIS
-          </Button>
-        </ChakraLink>
-        <ChakraLink
-          as={ReactRouterLink}
-          to="/login"
-          _hover={{ textDecoration: "none" }}
-        >
-          <Button
-            variant="outline"
-            textColor="#F0F5F7"
-            border="2px"
-            ml="-0.5em"
-            p="1.125em"
-            boxShadow="2px 0 1px -1px #071D26"
-          >
-            CONNEXION
-          </Button>
-        </ChakraLink>
       </Box>
+
+      {!userToken ? (
+        <Box
+          display="flex"
+          h="80px"
+          justifyContent="center"
+          alignItems="center"
+          mx={{ base: "1em" }}
+        >
+          <ChakraLink
+            as={ReactRouterLink}
+            to="/register"
+            onMouseEnter={() => setHoveredButton("register")}
+            onMouseLeave={() => setHoveredButton(null)}
+            _hover={{ textDecoration: "none" }}
+          >
+            <Button
+              textColor={hoveredButton === "login" ? "brand.100" : "brand.500"}
+              leftIcon={
+                hoveredButton === "login" ? (
+                  <WhiteButtonIconLogo />
+                ) : (
+                  <ButtonLogo />
+                )
+              }
+              boxShadow={
+                hoveredButton === "login"
+                  ? "none"
+                  : "5px 5px 50px 0px rgba(7,29,38,0.25)"
+              }
+              p="1.5em"
+              fontWeight="400"
+              variant={hoveredButton === "login" ? "outline" : "solid"}
+              transition="all 0.3s ease"
+            >
+              JE M&apos;INSCRIS
+            </Button>
+          </ChakraLink>
+          <ChakraLink
+            as={ReactRouterLink}
+            to="/login"
+            onMouseEnter={() => setHoveredButton("login")}
+            onMouseLeave={() => setHoveredButton(null)}
+            _hover={{ textDecoration: "none" }}
+          >
+            <Button
+              textColor={hoveredButton === "login" ? "brand.500" : "brand.100"}
+              variant={hoveredButton === "login" ? "solid" : "outline"}
+              ml="-0.5em"
+              px="2.5em"
+              py="1.5em"
+              boxShadow={
+                hoveredButton === "login"
+                  ? "5px 5px 50px 0px rgba(7,29,38,0.25)"
+                  : "none"
+              }
+              fontWeight="400"
+              zIndex={hoveredButton === "login" ? "2" : "-1"}
+              transition="all 0.3s ease"
+            >
+              CONNEXION
+            </Button>
+          </ChakraLink>
+        </Box>
+      ) : null}
+      <Center mt={!userToken ? "2em" : "-0.5em"}>
+        <HomeNavBar />
+      </Center>
     </Box>
   );
 }

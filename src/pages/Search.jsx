@@ -1,84 +1,111 @@
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../context/User";
+import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
 import {
   Box,
   ButtonGroup,
-  Card,
   CardFooter,
-  CardBody,
-  Divider,
-  Heading,
-  Image,
   IconButton,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Link as ChakraLink,
   Select,
+  SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
-import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
-import AddToWishlistButton from "../components/AddToWishlistButton";
-import AddToCollectionButton from "../components/AddToCollectionButton";
+import { getAllItems } from "../api/item";
+import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
+import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
+import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
+import { UserContext } from "../context/User";
+import { KitCard } from "../components/KitCard";
+import { BiBarcodeReader } from "react-icons/bi";
 
 export default function Search() {
-  const { userData, userToken } = useContext(UserContext);
-
+  const { userData, userToken, isLoading } = useContext(UserContext);
   const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortDirection, setSortDirection] = useState("asc");
-  const itemsPerPage = 10;
+  const [sortDirection, setSortDirection] = useState("A-Z");
+  const [sortType, setSortType] = useState("name");
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  // Fetch the items when the component mounts
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_URL}/kits`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des kits");
-        }
-        return response.json();
-      })
-      .then((items) => {
-        fetch(`${import.meta.env.VITE_APP_URL}/kits-images`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Erreur lors de la récupération des images");
-            }
-            return response.json();
-          })
-          .then((images) => {
-            const itemsWithImages = items.map((item) => ({
-              ...item,
-              images: images.filter((image) => image.item_id === item.item_id),
-            }));
-            setItems(itemsWithImages);
-          });
-      })
-      .catch((error) => {
-        console.error("Erreur:", error);
-      });
-  }, []);
+    const fetchAllItems = async () => {
+      const allItems = await getAllItems(userToken);
+      if (allItems) {
+        setItems(allItems);
+      }
+    };
 
-  const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
+    try {
+      fetchAllItems();
+    } catch (error) {
+      console.error("Erreur:", error);
+    }
+  }, [userToken]);
+
+  const filterFunction = () => {
+    if (sortType === "name") {
+      const itemsFiltering = items.filter((item) =>
+        item?.name?.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredItems(itemsFiltering);
+    } else if (sortType !== "name") {
+      const itemsFiltering = items.filter(
+        (item) => item?.Items_props?.grade === sortType
+      );
+      const itemsSearched = itemsFiltering.filter((item) =>
+        item?.name?.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredItems(itemsSearched);
+    }
+  };
+
+  useEffect(() => {
+    filterFunction();
+    if (sortDirection === "A-Z") {
+      setFilteredItems((prevItems) =>
+        [...prevItems].sort((a, b) => (a[sortType] > b[sortType] ? 1 : -1))
+      );
+    } else if (sortDirection === "Z-A") {
+      setFilteredItems((prevItems) =>
+        [...prevItems].sort((a, b) => (a[sortType] < b[sortType] ? 1 : -1))
+      );
+    }
+  }, [sortType, items, search, sortDirection]);
 
   useEffect(() => {
     const topElement = document.getElementById("search-page");
-    topElement.scrollIntoView({ behavior: "smooth" });
+    if (topElement) {
+      topElement.scrollIntoView({ behavior: "smooth" });
+    }
   }, [currentPage]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
-    <Box w="80%" id="search-page">
-      <Stack direction="column" spacing={4} my="2em">
+    <Box
+      w={{ base: "80%", md: "90%" }}
+      id="search-page"
+      minH="calc(93vh - 66px)"
+      mt="1em"
+    >
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={4}
+        my="2em"
+        minH="100%"
+      >
         <InputGroup>
           <InputLeftElement pointerEvents="none">
             <Search2Icon color="gray.300" />
@@ -86,9 +113,20 @@ export default function Search() {
           <Input
             placeholder="Trouvez votre gunpla"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e?.target?.value)}
           />
           <InputRightElement>
+            {!search && (
+              <ChakraLink as={ReactRouterLink} to="/add_kit">
+                <IconButton
+                  color="gray.500"
+                  variant="ghost"
+                  icon={<BiBarcodeReader size={20} />}
+                  _hover={{}}
+                  _active={{}}
+                />
+              </ChakraLink>
+            )}
             {search && (
               <IconButton
                 onClick={() => setSearch("")}
@@ -101,52 +139,66 @@ export default function Search() {
           </InputRightElement>
         </InputGroup>
         <Select
+          placeholder="Tri par ordre alphabétique"
           value={sortDirection}
           onChange={(e) => setSortDirection(e.target.value)}
         >
-          <option value="asc">Croissant</option>
-          <option value="desc">Décroissant</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+        </Select>
+        <Select
+          placeholder="Tri par grade"
+          value={sortType}
+          onChange={(e) => setSortType(e.target.value)}
+        >
+          <option value="name">Tous</option>
+          <option value="Entry Grade">Entry Grade</option>
+          <option value="Figure-rise Standard">Figure-rise Standard</option>
+          <option value="High Grade">High Grade</option>
+          <option value="HIRM">HIRM</option>
+          <option value="Master Grade">Master Grade</option>
+          <option value="Perfect Grade">Perfect Grade</option>
+          <option value="Real Grade">Real Grade</option>
+          <option value="RE/100">RE/100</option>
+          <option value="SD/BB Grade">SD/BB Grade</option>
+        </Select>
+        <Select
+          placeholder="Kits par page"
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(Number(e.target.value))}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
         </Select>
       </Stack>
-      <Stack spacing={8}>
+      <SimpleGrid
+        spacing={4}
+        templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+        mx="2em"
+      >
         {currentItems.map((item) => (
-          <Card key={item.item_id} align="center">
-            <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
-              <CardBody>
-                {/* Render the first image of the item if it exists */}
-                {item.images && item.images.length > 0 ? (
-                  <Image
-                    src={item.images[0].image_path}
-                    alt={item.name}
-                    borderRadius="lg"
-                  />
-                ) : (
-                  <p>Aucune image pour ce gunpla</p>
-                )}
-                <Heading size="xs" pt="2">
-                  {item.name}
-                </Heading>
-              </CardBody>
-            </ChakraLink>
-            <Divider color="red" />
+          <KitCard key={item?.item_id} item={item}>
             <CardFooter justifyContent="center">
-              <ButtonGroup spacing={12}>
+              <ButtonGroup spacing={4}>
                 <AddToCollectionButton
                   token={userToken}
                   id={userData?.user_id}
-                  item_id={item.item_id}
+                  item_id={item?.item_id}
                 />
                 <AddToWishlistButton
                   token={userToken}
                   id={userData?.user_id}
-                  item_id={item.item_id}
+                  item_id={item?.item_id}
                 />
               </ButtonGroup>
             </CardFooter>
-          </Card>
+          </KitCard>
         ))}
-      </Stack>
-      <Stack alignItems="center">
+      </SimpleGrid>
+      <Stack alignItems="center" mt="1.5em">
         <Pagination
           totalItems={filteredItems.length}
           itemsPerPage={itemsPerPage}
