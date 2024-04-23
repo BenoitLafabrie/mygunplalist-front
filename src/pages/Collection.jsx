@@ -51,7 +51,7 @@ export default function Collection() {
 
   const handleStatusChange = async (item, newStatus, showToast = true) => {
     try {
-      const item_status_id = item?.Item_status?.item_status_id;
+      const item_status_id = item?.Item_status[0]?.item_status_id;
 
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
@@ -60,7 +60,7 @@ export default function Collection() {
       const itemIndex = newItems?.findIndex((i) => i.id === item.id);
 
       if (itemIndex !== -1) {
-        newItems[itemIndex].Item_status.status = newStatus;
+        newItems[itemIndex].Item_status[0].status = newStatus;
       }
 
       setMyGunplaList({ ...myGunplaList, Items: newItems });
@@ -183,12 +183,12 @@ export default function Collection() {
     setTotalKits(myGunplaList?.Items?.length);
     setGarageKits(
       myGunplaList?.Items?.filter(
-        (item) => item?.Item_status?.status === "Garage"
+        (item) => item?.Item_status[0]?.status === "Garage"
       ).length
     );
     setDeployedKits(
       myGunplaList?.Items?.filter(
-        (item) => item?.Item_status?.status === "Deployed"
+        (item) => item?.Item_status[0]?.status === "Deployed"
       ).length
     );
   }, [myGunplaList?.Items]);
@@ -507,7 +507,7 @@ export default function Collection() {
                               alignItems="center"
                               justifyContent="center"
                             >
-                              {item.Item_status?.status === "Garage" && (
+                              {item.Item_status[0]?.status === "Garage" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -515,7 +515,7 @@ export default function Collection() {
                                   bg="#005778"
                                 />
                               )}
-                              {item.Item_status?.status === "Assembling" && (
+                              {item.Item_status[0]?.status === "Assembling" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -523,7 +523,7 @@ export default function Collection() {
                                   bg="#FF9300"
                                 />
                               )}
-                              {item.Item_status?.status === "Deployed" && (
+                              {item.Item_status[0]?.status === "Deployed" && (
                                 <Box
                                   w="4"
                                   h="4"

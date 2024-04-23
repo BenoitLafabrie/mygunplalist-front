@@ -95,7 +95,7 @@ export default function Register() {
         await createCollection(data.token);
 
         if (response.ok) {
-          navigate("/");
+          navigate("/login");
         } else {
           console.error("Error creating collection");
         }
