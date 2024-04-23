@@ -243,7 +243,7 @@ export default function BackOffice() {
   // useEffect to fetch all kits from the database
   useEffect(() => {
     const fetchAllItems = async () => {
-      const allItems = await getAllItems();
+      const allItems = await getAllItems(userToken);
       if (allItems) {
         setItems(allItems);
       }
@@ -254,7 +254,7 @@ export default function BackOffice() {
     } catch (error) {
       console.error("Erreur:", error);
     }
-  }, []);
+  }, [userToken]);
 
   // Filtering and sorting
   const filteredItems = items?.filter((item) =>

@@ -22,7 +22,6 @@ export default function Home() {
     }
   };
 
-  // Fetch the items when the component mounts
   useEffect(() => {
     try {
       fetchLatestItems();

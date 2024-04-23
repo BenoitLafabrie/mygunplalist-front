@@ -56,7 +56,7 @@ export default function Login() {
     try {
       const token = await login(email, password);
       setUserToken(token.token);
-      console.log(token.token);
+
       localStorage.setItem("userToken", token.token);
       if (token) {
         toast({

@@ -78,15 +78,23 @@ const getAllItems = async (token) => {
   return response;
 };
 
-const getLatestItems = async (token) => {
-  const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits/latest`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const response = await request.json();
-  return response;
+const getLatestItems = async () => {
+  try {
+    const request = await fetch(`${import.meta.env.VITE_APP_URL}/kits/latest`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!request.ok) {
+      throw new Error(`HTTP error! status: ${request.status}`);
+    }
+
+    const response = await request.json();
+    return response;
+  } catch (error) {
+    console.error("Error fetching latest items:", error);
+  }
 };
 
 const getItemById = async (id, token) => {
@@ -151,15 +159,15 @@ const deleteWishlistItems = async (ids, token, wishlist_id) => {
 };
 
 export {
-  addToCollection,
   addItem,
-  addItemProps,
   addItemImages,
+  addItemProps,
+  addToCollection,
+  deleteGunplalistItems,
+  deleteItems,
+  deleteWishlistItems,
   getAllItems,
   getItemById,
   getLatestItems,
-  deleteItems,
-  deleteGunplalistItems,
-  deleteWishlistItems,
   updateItems,
 };

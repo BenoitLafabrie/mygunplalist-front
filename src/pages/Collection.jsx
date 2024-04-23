@@ -26,8 +26,8 @@ import {
   Thead,
   Tr,
   VStack,
-  useToast,
   useBreakpointValue,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
@@ -91,7 +91,6 @@ export default function Collection() {
   const handleAllStatusChange = async (newStatus) => {
     for (const id of selectedRows) {
       const item = currentItems.find((item) => item.item_id === id);
-      console.log(item);
       if (item) {
         await handleStatusChange(item, newStatus, false);
       }

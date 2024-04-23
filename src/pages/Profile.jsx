@@ -64,7 +64,11 @@ export default function Profile() {
           <ProfileChart />
           <Avatar
             size="xl"
-            name={`${userData?.firstname} ${userData?.lastname}`}
+            name={
+              userData?.firstname && userData?.lastname
+                ? `${userData?.firstname} ${userData?.lastname}`
+                : "G L"
+            }
             fontWeight="400"
             style={{ position: "absolute" }}
           />

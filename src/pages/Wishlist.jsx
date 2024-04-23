@@ -34,7 +34,7 @@ import { UserContext } from "../context/User";
 import { deleteWishlistItems } from "../api/item";
 
 export default function Wishlist() {
-  const { userData, userToken, myWishlist, setMyWishlist, isLoading } =
+  const { userData, userToken, myWishlist, setMyWishlist } =
     useContext(UserContext);
   const toast = useToast();
 
@@ -88,7 +88,7 @@ export default function Wishlist() {
     }
   };
 
-  if (!userData || !myWishlist || myWishlist.length === 0 || isLoading) {
+  if (!userData || !myWishlist || myWishlist.length === 0) {
     return <Loading />;
   } else {
     return (
