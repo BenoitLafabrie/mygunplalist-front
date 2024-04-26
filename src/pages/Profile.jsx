@@ -19,22 +19,24 @@ export default function Profile() {
   const { userData, myGunplaList, myWishlist, isLoading } =
     useContext(UserContext);
 
-  if (!userData) {
-    navigate("/login");
-  }
-
   const createdAt = new Date(userData?.createdAt);
   const now = new Date();
   const diffInTime = now.getTime() - createdAt.getTime();
   const diffInDays = Math.floor(diffInTime / (1000 * 60 * 60 * 24));
 
+  if (isLoading || userData === null) {
+    return <Loading />;
+  }
+
+  if (!userData) {
+    navigate("/login");
+  }
+
   if (
-    !userData ||
     !myGunplaList ||
     myGunplaList.length === 0 ||
     !myWishlist ||
-    myWishlist.length === 0 ||
-    isLoading
+    myWishlist.length === 0
   ) {
     return <Loading />;
   }
