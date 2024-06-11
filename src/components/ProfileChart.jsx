@@ -13,8 +13,8 @@ const ProfileChart = () => {
     // This function runs whenever `myGunplaList` changes
 
     // Create an object to count the number of items for each status
-    const statusCounts = myGunplaList?.Items?.reduce((counts, item) => {
-      const status = item?.Item_status[0]?.status;
+    const statusCounts = myGunplaList?.Item_status?.reduce((counts, item) => {
+      const status = item?.status;
       counts[status] = (counts[status] || 0) + 1;
       return counts;
     }, {});
@@ -33,11 +33,11 @@ const ProfileChart = () => {
     };
 
     // Create three arrays: one for the labels (status names), one for the data (status counts), and one for the colors
-    const labels = Object.keys(statusCounts).map(
+    const labels = Object?.keys(statusCounts).map(
       (status) => statusNameMapping[status] || status
     );
-    const data = Object.values(statusCounts);
-    const backgroundColors = Object.keys(statusCounts).map(
+    const data = Object?.values(statusCounts);
+    const backgroundColors = Object?.keys(statusCounts).map(
       (status) => statusColorMapping[status] || "#000000" // Default color
     );
 

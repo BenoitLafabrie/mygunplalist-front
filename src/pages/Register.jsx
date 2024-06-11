@@ -84,7 +84,7 @@ export default function Register() {
       if (response.ok) {
         const data = await response.json();
         setUserToken(data.token);
-        console.log("User token: ", data.token);
+
         toast({
           title: "Compte créé",
           description: "Bienvenue!",

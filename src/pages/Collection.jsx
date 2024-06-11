@@ -31,7 +31,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { BiBarcodeReader, BiSolidShareAlt } from "react-icons/bi";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { deleteGunplalistItems } from "../api/item";
 import { updateItemStatus } from "../api/myGunplaList";
 import Loading from "../components/Loading";
@@ -45,25 +45,33 @@ export default function Collection() {
     myGunplaList,
     setMyGunplaList,
     setStatusUpdated,
+    isLoading,
   } = useContext(UserContext);
+
+  const navigate = useNavigate();
   const toast = useToast();
   const iconSize = useBreakpointValue({ base: "20px", md: "24px" });
 
-  const handleStatusChange = async (item, newStatus, showToast = true) => {
+  const handleStatusChange = async (
+    item_status_id,
+    newStatus,
+    showToast = true
+  ) => {
     try {
-      const item_status_id = item?.Item_status[0]?.item_status_id;
-
       await updateItemStatus(userToken, item_status_id, newStatus);
       setStatusUpdated(true);
 
-      const newItems = JSON.parse(JSON.stringify(myGunplaList?.Items));
-      const itemIndex = newItems?.findIndex((i) => i.id === item.id);
+      const itemStatusIndex = myGunplaList.Item_status.findIndex(
+        (item_status) =>
+          item_status.item_status_id === item_status.item_status_id
+      );
 
-      if (itemIndex !== -1) {
-        newItems[itemIndex].Item_status[0].status = newStatus;
+      if (itemStatusIndex !== -1) {
+        myGunplaList.Item_status[itemStatusIndex].status = newStatus;
       }
 
-      setMyGunplaList({ ...myGunplaList, Items: newItems });
+      setMyGunplaList({ ...myGunplaList });
+      setSelectedRows([]);
 
       if (showToast) {
         toast({
@@ -89,11 +97,8 @@ export default function Collection() {
   };
 
   const handleAllStatusChange = async (newStatus) => {
-    for (const id of selectedRows) {
-      const item = currentItems.find((item) => item.item_id === id);
-      if (item) {
-        await handleStatusChange(item, newStatus, false);
-      }
+    for (const item_status_id of selectedRows) {
+      await handleStatusChange(item_status_id, newStatus, false);
     }
     setIsAllSelected(false);
     setSelectedRows([]);
@@ -106,6 +111,7 @@ export default function Collection() {
     });
   };
 
+  // To repair
   const handleDelete = async () => {
     try {
       await deleteGunplalistItems(
@@ -113,10 +119,10 @@ export default function Collection() {
         userToken,
         myGunplaList.mygunplalist_id
       );
-      const newItems = currentItems.filter(
-        (item) => !selectedRows.includes(item.item_id)
+      const newItems = currentItemsStatus.filter(
+        (item_status) => !selectedRows.includes(item_status.item_status_id)
       );
-      setMyGunplaList({ ...myGunplaList, Items: newItems });
+      setMyGunplaList({ ...myGunplaList, Item_status: newItems });
       setIsAllSelected(false);
       setSelectedRows([]);
       onClose();
@@ -146,10 +152,10 @@ export default function Collection() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const filteredItems = myGunplaList?.Items;
+  const filteredItemsStatus = myGunplaList?.Item_status;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = filteredItems?.slice(startIndex, endIndex);
+  const currentItemsStatus = filteredItemsStatus?.slice(startIndex, endIndex);
 
   const [selectValue, setSelectValue] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
@@ -180,20 +186,26 @@ export default function Collection() {
   };
 
   useEffect(() => {
-    setTotalKits(myGunplaList?.Items?.length);
+    setTotalKits(myGunplaList?.Item_status?.length);
     setGarageKits(
-      myGunplaList?.Items?.filter(
-        (item) => item?.Item_status[0]?.status === "Garage"
-      ).length
+      myGunplaList?.Item_status?.filter((item) => item?.status === "Garage")
+        .length
     );
     setDeployedKits(
-      myGunplaList?.Items?.filter(
-        (item) => item?.Item_status[0]?.status === "Deployed"
-      ).length
+      myGunplaList?.Item_status?.filter((item) => item?.status === "Deployed")
+        .length
     );
-  }, [myGunplaList?.Items]);
+  }, [myGunplaList?.Item_status]);
 
-  if (!userData || !myGunplaList || myGunplaList.length === 0) {
+  if (isLoading || userData === null) {
+    return <Loading />;
+  }
+
+  if (!userData) {
+    navigate("/login");
+  }
+
+  if (!myGunplaList || myGunplaList.length === 0) {
     return <Loading />;
   }
 
@@ -310,7 +322,7 @@ export default function Collection() {
             </VStack>
           </HStack>
         </Box>
-        {currentItems.length > 0 ? (
+        {currentItemsStatus?.length > 0 ? (
           <>
             <Stack w="100%">
               <TableContainer m="2%">
@@ -343,12 +355,10 @@ export default function Collection() {
                         size={{ base: "xs", md: "sm" }}
                         onChange={(event) => {
                           if (selectedRows.length === 1) {
-                            const item = currentItems.find(
-                              (item) => item.item_id === selectedRows[0]
+                            handleStatusChange(
+                              selectedRows[0],
+                              event.target.value
                             );
-                            if (item) {
-                              handleStatusChange(item, event.target.value);
-                            }
                           } else {
                             handleAllStatusChange(event.target.value);
                           }
@@ -413,7 +423,9 @@ export default function Collection() {
                             setIsAllSelected(e.target.checked);
                             if (e.target.checked) {
                               setSelectedRows(
-                                filteredItems.map((item) => item.item_id)
+                                currentItemsStatus.map(
+                                  (item_status) => item_status.item_status_id
+                                )
                               );
                             } else {
                               setSelectedRows([]);
@@ -438,9 +450,9 @@ export default function Collection() {
                     </Tr>
                   </Thead>
                   <Tbody fontSize="sm">
-                    {currentItems.map((item) => {
+                    {currentItemsStatus.map((item_status) => {
                       return (
-                        <Tr key={item.item_id} p={2}>
+                        <Tr key={item_status.Items.item_id} p={2}>
                           <Td px={1}>
                             <Box
                               display="flex"
@@ -450,16 +462,21 @@ export default function Collection() {
                               <Checkbox
                                 size={{ base: "sm", md: "md" }}
                                 colorScheme="brand"
-                                isChecked={selectedRows.includes(item.item_id)}
+                                isChecked={selectedRows.includes(
+                                  item_status.item_status_id
+                                )}
                                 onChange={(e) => {
                                   if (e.target.checked) {
                                     setSelectedRows((prev) => [
                                       ...prev,
-                                      item.item_id,
+                                      item_status.item_status_id,
                                     ]);
                                   } else {
                                     setSelectedRows((prev) =>
-                                      prev.filter((id) => id !== item.item_id)
+                                      prev.filter(
+                                        (id) =>
+                                          id !== item_status.item_status_id
+                                      )
                                     );
                                   }
                                 }}
@@ -468,10 +485,13 @@ export default function Collection() {
                           </Td>
                           <Td px={1} py={2}>
                             <Box display="flex" justifyContent="center">
-                              {item.Items_images && item.Items_images[0] ? (
+                              {item_status.Items.Items_images &&
+                              item_status.Items.Items_images[0] ? (
                                 <Image
-                                  src={item.Items_images[0].image_path}
-                                  alt={item.name}
+                                  src={
+                                    item_status.Items.Items_images[0].image_path
+                                  }
+                                  alt={item_status.Items.name}
                                   boxSize={{ base: "60px", md: "120px" }}
                                   objectFit="cover"
                                   borderRadius="sm"
@@ -484,7 +504,7 @@ export default function Collection() {
                           <Td px={1} py={2}>
                             <ChakraLink
                               as={ReactRouterLink}
-                              to={`/kits/${item.item_id}`}
+                              to={`/kits/${item_status.Items.item_id}`}
                               _hover={{ textDecoration: "none" }}
                             >
                               <Text
@@ -496,7 +516,7 @@ export default function Collection() {
                                 textOverflow="ellipsis"
                                 whiteSpace="nowrap"
                               >
-                                {item.name}
+                                {item_status.Items.name}
                               </Text>
                             </ChakraLink>
                           </Td>
@@ -507,7 +527,7 @@ export default function Collection() {
                               alignItems="center"
                               justifyContent="center"
                             >
-                              {item.Item_status[0]?.status === "Garage" && (
+                              {item_status.status === "Garage" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -515,7 +535,7 @@ export default function Collection() {
                                   bg="#005778"
                                 />
                               )}
-                              {item.Item_status[0]?.status === "Assembling" && (
+                              {item_status.status === "Assembling" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -523,7 +543,7 @@ export default function Collection() {
                                   bg="#FF9300"
                                 />
                               )}
-                              {item.Item_status[0]?.status === "Deployed" && (
+                              {item_status.status === "Deployed" && (
                                 <Box
                                   w="4"
                                   h="4"
@@ -542,11 +562,11 @@ export default function Collection() {
             </Stack>
             <Stack alignItems="center">
               <Pagination
-                totalItems={filteredItems.length}
+                totalItems={filteredItemsStatus.length}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                filteredItems={filteredItems}
+                filteredItems={filteredItemsStatus}
               />
             </Stack>
           </>
