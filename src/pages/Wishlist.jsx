@@ -5,15 +5,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Button,
-  Image,
-  Link as ChakraLink,
   Box,
+  Button,
   Center,
-  Heading,
-  HStack,
-  Stack,
+  Link as ChakraLink,
   Checkbox,
+  HStack,
+  Heading,
+  Image,
+  Stack,
   Table,
   TableCaption,
   TableContainer,
@@ -27,11 +27,11 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
+import { deleteWishlistItems } from "../api/item";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import BuyButton from "../components/buttons/BuyButton";
 import { UserContext } from "../context/User";
-import { deleteWishlistItems } from "../api/item";
 
 export default function Wishlist() {
   const { userData, userToken, myWishlist, setMyWishlist } =
@@ -40,10 +40,10 @@ export default function Wishlist() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const filteredItems = myWishlist?.Items;
+  const filteredItems = myWishlist?.items;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = filteredItems?.slice(startIndex, endIndex);
+  const currentItems = myWishlist?.items.slice(startIndex, endIndex);
 
   const [selectedRows, setSelectedRows] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -65,7 +65,7 @@ export default function Wishlist() {
       const newItems = currentItems.filter(
         (item) => !selectedRows.includes(item.item_id)
       );
-      setMyWishlist({ ...myWishlist, Items: newItems });
+      setMyWishlist({ ...myWishlist, items: newItems });
       setIsAllSelected(false);
       setSelectedRows([]);
       onClose();
@@ -97,7 +97,7 @@ export default function Wishlist() {
           <Heading my="1.5em" textTransform="uppercase" size="md">
             La wishlist de {userData.username}
           </Heading>
-          {currentItems.length > 0 ? (
+          {currentItems?.length > 0 ? (
             <>
               <Stack w="100%">
                 <TableContainer m="2%">
@@ -255,8 +255,8 @@ export default function Wishlist() {
                                 alignItems="center"
                                 justifyContent="center"
                               >
-                                {item.ROG_Url ? (
-                                  <BuyButton url={item.ROG_Url} />
+                                {item.ROG_url ? (
+                                  <BuyButton url={item.ROG_url} />
                                 ) : null}
                               </Box>
                             </Td>

@@ -131,10 +131,10 @@ export default function Profile() {
           scrollbarWidth: "none",
         }}
       >
-        {myGunplaList?.Items?.map((item) => (
+        {myGunplaList?.Item_status?.map((item) => (
           <KitCard
-            key={item.item_id}
-            item={item}
+            key={item.Items.item_id}
+            item={item.Items}
             minW="190px"
             maxW="200px"
             maxH="350px"
@@ -180,7 +180,7 @@ export default function Profile() {
           scrollbarWidth: "none",
         }}
       >
-        {myWishlist?.Items?.map((item) => (
+        {myWishlist?.items?.map((item) => (
           <KitCard
             key={item.item_id}
             item={item}

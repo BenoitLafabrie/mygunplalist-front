@@ -14,9 +14,10 @@ const AddToCollectionButton = ({ token, id, item_id, ...props }) => {
 
   const handleClick = async () => {
     try {
-      const existingItem = myGunplaList?.Items.find(
-        (item) => item.item_id === item_id
+      const existingItem = myGunplaList?.Item_status.find(
+        (statusItem) => statusItem.Items.item_id === item_id
       );
+
       if (existingItem) {
         toast({
           title: "Déjà chez vous ;)",

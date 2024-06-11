@@ -135,7 +135,7 @@ const deleteGunplalistItems = async (ids, token, mygunplalist_id) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ item_ids: ids }),
+      body: JSON.stringify({ item_status_ids: ids }),
     }
   );
   const response = await request.json();

@@ -6,6 +6,7 @@ import {
   Grid,
   Heading,
   Image,
+  Text,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -33,7 +34,7 @@ export const KitCard = ({
     >
       <ChakraLink
         as={ReactRouterLink}
-        to={toLink || `/kits/${item.item_id}`}
+        to={toLink || `/kits/${item?.item_id}`}
         _hover={{ textDecoration: "none", color: "inherit" }}
       >
         <CardBody p="0">
@@ -53,7 +54,7 @@ export const KitCard = ({
                 left="0"
                 right="0"
                 bgColor="white"
-                bgImage={bgImage || item.Items_images[0]?.image_path}
+                bgImage={bgImage || item?.Items_images[0]?.image_path}
                 bgSize="contain"
                 bgRepeat="no-repeat"
                 bgPosition="center center"
@@ -64,8 +65,8 @@ export const KitCard = ({
               />
               {item?.Items_images && item?.Items_images.length > 0 ? (
                 <Image
-                  src={imageSrc || item.Items_images[0]?.image_path}
-                  alt={imageAlt || item.name}
+                  src={imageSrc || item?.Items_images[0]?.image_path}
+                  alt={imageAlt || item?.name}
                   borderRadius="lg"
                   position="absolute"
                   w="100%"
@@ -77,7 +78,17 @@ export const KitCard = ({
                   filter="brightness(1.15)"
                 />
               ) : (
-                <p>Aucune image pour ce gunpla</p>
+                <Box
+                  position="absolute"
+                  top="50%"
+                  right="5%"
+                  w="90%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Text textAlign="center">Aucune image pour ce gunpla</Text>
+                </Box>
               )}
             </Box>
             <Box bgColor="brand.100" p={0}>
@@ -103,7 +114,7 @@ export const KitCard = ({
                   color: "currentColor",
                 }}
               >
-                {item?.Items_props?.grade}
+                {item?.Items_props ? item.Items_props.grade : "grade inconnu"}
               </Box>
             </Box>
           </Grid>
