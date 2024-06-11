@@ -14,12 +14,12 @@ import {
   AlertDialogOverlay,
   Box,
   Button,
+  Link as ChakraLink,
   Checkbox,
   Flex,
   FormControl,
   FormLabel,
   HStack,
-  Link as ChakraLink,
   IconButton,
   Image,
   Input,
@@ -39,27 +39,27 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
+  Textarea,
   Th,
   Thead,
   Tr,
-  Text,
   useToast,
-  Textarea,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/User";
 import {
   addItem,
   addItemImages,
   addItemProps,
+  deleteItems,
   getAllItems,
   getItemById,
-  deleteItems,
   updateItems,
 } from "../api/item";
 import Pagination from "../components/Pagination";
+import { UserContext } from "../context/User";
 
 export default function BackOffice() {
   // Context, toast and navigation
@@ -76,7 +76,7 @@ export default function BackOffice() {
   const [scale, setScale] = useState("");
   const [grade, setGrade] = useState("");
   const [series, setSeries] = useState("");
-  const [ROG_Url, setROG_Url] = useState("");
+  const [ROG_url, setROG_url] = useState("");
   const [image_path, setImage_path] = useState([]);
   const [imageTextareaValue, setImageTextareaValue] = useState("");
 
@@ -102,7 +102,7 @@ export default function BackOffice() {
       setScale(item ? item.Items_props.scale : "");
       setGrade(item ? item.Items_props.grade : "");
       setSeries(item ? item.Items_props.series : "");
-      setROG_Url(item ? item.ROG_Url : "");
+      setROG_url(item ? item.ROG_url : "");
       setImage_path(item ? item.Items_images : []);
     };
 
@@ -112,7 +112,7 @@ export default function BackOffice() {
   }, [selectedRows, userToken]);
 
   // Variables to represent the data to be added to the database on 3 different tables
-  const itemData = { name, release_date, barcode, description, ROG_Url };
+  const itemData = { name, release_date, barcode, description, ROG_url };
   const itemPropsData = { scale, grade, series };
   const itemImagesData = { image_path };
 
@@ -579,7 +579,7 @@ export default function BackOffice() {
                             />
                           </FormControl>
                           <FormControl
-                            id="ROG_Url"
+                            id="ROG_url"
                             position="relative"
                             borderRadius="lg"
                             bgColor="white"
@@ -587,7 +587,7 @@ export default function BackOffice() {
                             <FormLabel
                               position="absolute"
                               left="1em"
-                              top={ROG_Url ? "-35%" : "15%"}
+                              top={ROG_url ? "-35%" : "15%"}
                               transition="all .1s linear"
                               boxSizing="border-box"
                               padding="0.1em"
@@ -602,8 +602,8 @@ export default function BackOffice() {
                             <Input
                               border="none"
                               type="text"
-                              value={ROG_Url}
-                              onChange={(e) => setROG_Url(e.target.value)}
+                              value={ROG_url}
+                              onChange={(e) => setROG_url(e.target.value)}
                             />
                           </FormControl>
                           <FormControl
@@ -888,7 +888,7 @@ export default function BackOffice() {
                             />
                           </FormControl>
                           <FormControl
-                            id="ROG_Url"
+                            id="ROG_url"
                             position="relative"
                             borderRadius="lg"
                             bgColor="white"
@@ -896,7 +896,7 @@ export default function BackOffice() {
                             <FormLabel
                               position="absolute"
                               left="1em"
-                              top={ROG_Url ? "-35%" : "15%"}
+                              top={ROG_url ? "-35%" : "15%"}
                               transition="all .1s linear"
                               boxSizing="border-box"
                               padding="0.1em"
@@ -911,8 +911,8 @@ export default function BackOffice() {
                             <Input
                               border="none"
                               type="text"
-                              value={ROG_Url}
-                              onChange={(e) => setROG_Url(e.target.value)}
+                              value={ROG_url}
+                              onChange={(e) => setROG_url(e.target.value)}
                             />
                           </FormControl>
                           <FormControl
@@ -1179,10 +1179,10 @@ export default function BackOffice() {
                     <Td textAlign="center">
                       <ChakraLink
                         as={ReactRouterLink}
-                        to={`${item.ROG_Url}`}
+                        to={`${item.ROG_url}`}
                         isExternal
                       >
-                        {item.ROG_Url ? "Lien" : "Pas de lien"}
+                        {item.ROG_url ? "Lien" : "Pas de lien"}
                       </ChakraLink>
                     </Td>
                   </Tr>

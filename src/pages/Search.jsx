@@ -22,10 +22,11 @@ import AddToCollectionButton from "../components/buttons/AddToCollectionButton";
 import AddToWishlistButton from "../components/buttons/AddToWishlistButton";
 import { UserContext } from "../context/User";
 import { KitCard } from "../components/KitCard";
-import { BiBarcodeReader } from "react-icons/bi";
+import { BiBarcodeReader, BiSolidCheckCircle } from "react-icons/bi";
 
 export default function Search() {
-  const { userData, userToken, isLoading } = useContext(UserContext);
+  const { userData, myGunplaList, myWishlist, userToken, isLoading } =
+    useContext(UserContext);
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [search, setSearch] = useState("");
@@ -180,22 +181,56 @@ export default function Search() {
         mx="2em"
       >
         {currentItems.map((item) => (
-          <KitCard key={item?.item_id} item={item}>
-            <CardFooter justifyContent="center">
-              <ButtonGroup spacing={4}>
-                <AddToCollectionButton
-                  token={userToken}
-                  id={userData?.user_id}
-                  item_id={item?.item_id}
-                />
-                <AddToWishlistButton
-                  token={userToken}
-                  id={userData?.user_id}
-                  item_id={item?.item_id}
-                />
-              </ButtonGroup>
-            </CardFooter>
-          </KitCard>
+          <div key={item?.item_id} style={{ position: "relative" }}>
+            {myGunplaList?.Item_status &&
+              myGunplaList.Item_status.some(
+                (statusItem) => statusItem.Items.item_id === item?.item_id
+              ) && (
+                <div
+                  style={{
+                    position: "absolute",
+                    zIndex: 1,
+                    top: "-4%",
+                    right: "-5%",
+                  }}
+                >
+                  <BiSolidCheckCircle
+                    fill="rgba(0, 0, 0, 0.2)"
+                    size={36}
+                    style={{
+                      filter: "blur(3px)",
+                      position: "absolute",
+                      zIndex: 1,
+                    }}
+                  />
+                  <BiSolidCheckCircle fill="green" size={36} />
+                </div>
+              )}
+            <KitCard item={item}>
+              <CardFooter justifyContent="center">
+                {!myGunplaList?.Item_status?.some(
+                  (statusItem) => statusItem.Items.item_id === item?.item_id
+                ) && (
+                  <ButtonGroup spacing={4}>
+                    <AddToCollectionButton
+                      token={userToken}
+                      id={userData?.user_id}
+                      item_id={item?.item_id}
+                    />
+                    {!myWishlist?.items.some(
+                      (wishlistItem) => wishlistItem.item_id === item?.item_id
+                    ) && (
+                      <AddToWishlistButton
+                        token={userToken}
+                        id={userData?.user_id}
+                        item_id={item?.item_id}
+                      />
+                    )}
+                  </ButtonGroup>
+                )}
+              </CardFooter>
+            </KitCard>
+          </div>
         ))}
       </SimpleGrid>
       <Stack alignItems="center" mt="1.5em">

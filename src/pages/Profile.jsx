@@ -19,22 +19,24 @@ export default function Profile() {
   const { userData, myGunplaList, myWishlist, isLoading } =
     useContext(UserContext);
 
-  if (!userData) {
-    navigate("/login");
-  }
-
   const createdAt = new Date(userData?.createdAt);
   const now = new Date();
   const diffInTime = now.getTime() - createdAt.getTime();
   const diffInDays = Math.floor(diffInTime / (1000 * 60 * 60 * 24));
 
+  if (isLoading || userData === null) {
+    return <Loading />;
+  }
+
+  if (!userData) {
+    navigate("/login");
+  }
+
   if (
-    !userData ||
     !myGunplaList ||
     myGunplaList.length === 0 ||
     !myWishlist ||
-    myWishlist.length === 0 ||
-    isLoading
+    myWishlist.length === 0
   ) {
     return <Loading />;
   }
@@ -129,10 +131,10 @@ export default function Profile() {
           scrollbarWidth: "none",
         }}
       >
-        {myGunplaList?.Items?.map((item) => (
+        {myGunplaList?.Item_status?.map((item) => (
           <KitCard
-            key={item.item_id}
-            item={item}
+            key={item.Items.item_id}
+            item={item.Items}
             minW="190px"
             maxW="200px"
             maxH="350px"
@@ -178,7 +180,7 @@ export default function Profile() {
           scrollbarWidth: "none",
         }}
       >
-        {myWishlist?.Items?.map((item) => (
+        {myWishlist?.items?.map((item) => (
           <KitCard
             key={item.item_id}
             item={item}

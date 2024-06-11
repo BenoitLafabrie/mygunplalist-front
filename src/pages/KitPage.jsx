@@ -7,12 +7,12 @@ import {
   Box,
   Button,
   Card,
+  Link as ChakraLink,
   Flex,
   Heading,
   Icon,
   IconButton,
   Image,
-  Link as ChakraLink,
   Modal,
   ModalBody,
   ModalContent,
@@ -24,14 +24,11 @@ import {
 } from "@chakra-ui/react";
 import {
   useContext,
-  useLayoutEffect,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
-import { useParams, Link as ReactRouterLink } from "react-router-dom";
-import { getItemById } from "../api/item";
-import Loading from "../components/Loading";
 import {
   BiCollection,
   BiHeart,
@@ -39,14 +36,17 @@ import {
   BiPlus,
   BiShareAlt,
 } from "react-icons/bi";
+import { Link as ReactRouterLink, useParams } from "react-router-dom";
+import { getItemById } from "../api/item";
+import ROGLogo from "../assets/icons/ROG_Cover_transparent.png";
+import BlackButtonIconLogo from "../assets/icons/blackButtonIconLogo.svg";
+import WhiteButtonIconLogo from "../assets/icons/whiteButtonIconLogo.svg";
+import Loading from "../components/Loading";
 import AddKitToCollectionButton from "../components/buttons/AddKitToCollectionButton";
 import AddKitToWishlistButton from "../components/buttons/AddKitToWishlistButton";
 import NoticeButton from "../components/buttons/NoticeButton.jsx";
 import SlideArrowIcon from "../components/icons/SlideArrowIcon";
 import { UserContext } from "../context/User";
-import BlackButtonIconLogo from "../assets/icons/blackButtonIconLogo.svg";
-import WhiteButtonIconLogo from "../assets/icons/whiteButtonIconLogo.svg";
-import ROGLogo from "../assets/icons/ROG_Cover_transparent.png";
 
 export default function KitPage() {
   const [item, setItem] = useState(null);
@@ -586,10 +586,10 @@ export default function KitPage() {
               : item.name}{" "}
             {/* - {item.price ? item.price : "pas de prix indiqué"} */}
           </Text>
-          {item.ROG_Url ? (
+          {item.ROG_url ? (
             <ChakraLink
               as={ReactRouterLink}
-              to={`${item.ROG_Url}`}
+              to={`${item.ROG_url}`}
               _hover={{ textDecoration: "none" }}
               isExternal
             >
