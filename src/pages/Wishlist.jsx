@@ -88,7 +88,7 @@ export default function Wishlist() {
     }
   };
 
-  if (!userData || !myWishlist || myWishlist.length === 0) {
+  if (!userData || !myWishlist) {
     return <Loading />;
   } else {
     return (

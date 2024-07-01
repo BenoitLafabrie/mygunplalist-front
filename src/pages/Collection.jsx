@@ -205,7 +205,7 @@ export default function Collection() {
     navigate("/login");
   }
 
-  if (!myGunplaList || myGunplaList.length === 0) {
+  if (!myGunplaList) {
     return <Loading />;
   }
 

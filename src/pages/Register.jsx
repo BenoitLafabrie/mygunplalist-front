@@ -16,12 +16,11 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import { createCollection } from "../api/myGunplaList";
-import { UserContext } from "../context/User.jsx";
 import WhiteButtonIconLogo from "../assets/icons/whiteButtonIconLogo.svg";
+import { UserContext } from "../context/User.jsx";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -84,6 +83,7 @@ export default function Register() {
       if (response.ok) {
         const data = await response.json();
         setUserToken(data.token);
+        localStorage.setItem("userToken", data.token);
 
         toast({
           title: "Compte créé",
@@ -92,30 +92,9 @@ export default function Register() {
           duration: 3000,
           isClosable: true,
         });
-        await createCollection(data.token);
-
-        if (response.ok) {
-          navigate("/login");
-        } else {
-          console.error("Error creating collection");
-        }
+        navigate("/users/me");
       } else {
-        console.error("Error creating user. Server response:", response);
-
-        try {
-          const errorDetails = await response.json();
-          console.error("Server error details:", errorDetails);
-        } catch (jsonError) {
-          console.error("Error parsing JSON:", jsonError);
-
-          try {
-            const errorText = await response.text();
-            console.error("Server error body (text):", errorText);
-          } catch (textError) {
-            console.error("Error reading response body as text:", textError);
-          }
-        }
-
+        // console.error("Error creating user. Server response:", response);
         toast({
           title: "Inscription échouée",
           description: "Réessayez plus tard",

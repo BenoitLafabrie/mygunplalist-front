@@ -23,29 +23,24 @@ const UserContextProvider = (props) => {
     setIsLoading(false);
   };
 
-  const fetchMyGunplaList = async (token, id) => {
-    const myGunplaListFetched = await getMygunplalistById(token, id);
+  const fetchMyGunplaList = async (id) => {
+    const myGunplaListFetched = await getMygunplalistById(userToken, id);
     if (myGunplaListFetched) {
       setMyGunplaList(myGunplaListFetched);
     }
   };
 
-  const fetchWishlist = async (token, id) => {
-    const myWishlistFetched = await getWishlistById(token, id);
+  const fetchWishlist = async (id) => {
+    const myWishlistFetched = await getWishlistById(userToken, id);
     if (myWishlistFetched) {
       setMyWishlist(myWishlistFetched);
     }
   };
 
   useEffect(() => {
-    if (
-      localStorage.getItem("userToken") &&
-      localStorage.getItem("userToken").length > 0
-    ) {
+    if (localStorage.getItem("userToken")?.length > 0) {
       const token = localStorage.getItem("userToken");
       setUserToken(token);
-    } else {
-      localStorage.setItem("userToken", "");
     }
   }, []);
 
@@ -59,12 +54,13 @@ const UserContextProvider = (props) => {
   }, [userToken]);
 
   useEffect(() => {
-    if (userData && userToken) {
-      fetchMyGunplaList(userToken, userData.user_id);
-      fetchWishlist(userToken, userData.user_id);
+    if (userData) {
+      fetchMyGunplaList(userData.user_id);
+      fetchWishlist(userData.user_id);
       setStatusUpdated(false);
     }
-  }, [userToken, userData, statusUpdated]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData, statusUpdated]);
 
   const value = {
     userData,
