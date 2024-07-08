@@ -3,17 +3,39 @@ import {
   ButtonGroup,
   Link as ChakraLink,
   HStack,
+  useToast,
 } from "@chakra-ui/react";
 import {
   BiSearch,
   BiCollection,
   BiHeart,
   BiBarcodeReader,
+  BiPowerOff,
   BiUser,
 } from "react-icons/bi";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/User";
 
 export default function HomeNavBar() {
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { setUserData, setUserToken } = useContext(UserContext);
+
+  const handleLogout = () => {
+    setUserToken("");
+    setUserData(null);
+    localStorage.removeItem("userToken");
+    navigate("/");
+    toast({
+      title: "Déconnexion réussie",
+      description: "Vous avez été déconnecté :(",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   return (
     <HStack
       w="80%"
@@ -72,6 +94,13 @@ export default function HomeNavBar() {
             PROFIL
           </Button>
         </ChakraLink>
+        <Button
+          color="brand.500"
+          leftIcon={<BiPowerOff size={20} />}
+          fontWeight="400"
+          _hover={{ bg: "transparent", border: "none" }}
+          onClick={handleLogout}
+        />
       </ButtonGroup>
     </HStack>
   );
